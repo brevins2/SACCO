@@ -40,6 +40,7 @@ public class welcome_page extends javax.swing.JFrame {
         add_customer = new javax.swing.JMenuItem();
         add_admin = new javax.swing.JMenuItem();
         add_role = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         table_of_contents = new javax.swing.JMenu();
         show_table = new javax.swing.JMenuItem();
         refresh_table = new javax.swing.JMenuItem();
@@ -145,6 +146,15 @@ public class welcome_page extends javax.swing.JFrame {
         });
         Add.add(add_role);
 
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/add.png"))); // NOI18N
+        jMenuItem2.setText("Add Loan");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        Add.add(jMenuItem2);
+
         main_menu.add(Add);
 
         table_of_contents.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/job.png"))); // NOI18N
@@ -159,6 +169,11 @@ public class welcome_page extends javax.swing.JFrame {
         table_of_contents.add(show_table);
 
         refresh_table.setText("Refresh Table");
+        refresh_table.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refresh_tableActionPerformed(evt);
+            }
+        });
         table_of_contents.add(refresh_table);
 
         main_menu.add(table_of_contents);
@@ -269,6 +284,18 @@ public class welcome_page extends javax.swing.JFrame {
         
     }//GEN-LAST:event_edit_roleActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        
+        new add_loan().setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void refresh_tableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refresh_tableActionPerformed
+        
+        
+        
+    }//GEN-LAST:event_refresh_tableActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -322,6 +349,7 @@ public class welcome_page extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuBar main_menu;
     private javax.swing.JMenu math;
     private javax.swing.JMenuItem minus;
