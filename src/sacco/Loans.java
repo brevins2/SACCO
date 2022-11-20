@@ -14,12 +14,12 @@ import java.io.*;
 public class Loans implements Serializable {
     
     private String customerName;
-    private int amount;
+    private String amount;
     private String mortage;
     private String date;
     private String duration;
     
-    public Loans(String customerName, int amount, String mortage, String date, String duration) {
+    public Loans(String customerName, String amount, String mortage, String date, String duration) {
         this.customerName = customerName;
         this.amount = amount;
         this.mortage = mortage;
@@ -35,11 +35,11 @@ public class Loans implements Serializable {
         this.customerName = customerName;
     }
 
-    public int getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 

@@ -36,6 +36,7 @@ public class welcome_page extends javax.swing.JFrame {
         edit_admin = new javax.swing.JMenuItem();
         edit_customers = new javax.swing.JMenuItem();
         edit_role = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         Add = new javax.swing.JMenu();
         add_customer = new javax.swing.JMenuItem();
         add_admin = new javax.swing.JMenuItem();
@@ -56,7 +57,6 @@ public class welcome_page extends javax.swing.JFrame {
         descend = new javax.swing.JMenuItem();
         graph = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("welcome to Cash Money SACCO");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setSize(new java.awt.Dimension(1, 1));
@@ -113,6 +113,15 @@ public class welcome_page extends javax.swing.JFrame {
             }
         });
         Edit.add(edit_role);
+
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/edit.png"))); // NOI18N
+        jMenuItem3.setText("Clear Loan");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        Edit.add(jMenuItem3);
 
         main_menu.add(Edit);
 
@@ -296,6 +305,12 @@ public class welcome_page extends javax.swing.JFrame {
         
     }//GEN-LAST:event_refresh_tableActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+
+        new clear_loan().setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -350,6 +365,7 @@ public class welcome_page extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuBar main_menu;
     private javax.swing.JMenu math;
     private javax.swing.JMenuItem minus;

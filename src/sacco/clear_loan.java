@@ -8,23 +8,39 @@ package sacco;
 import javax.swing.*;
 import java.util.*;
 import java.io.*;
+import java.text.*;
 
 /**
  *
  * @author brevin
  */
-public class add_loan extends javax.swing.JFrame {
+public class clear_loan extends javax.swing.JFrame {
 
     ArrayList<Loans> loan;
+    ArrayList<Customer> customer;
     
     /**
-     * Creates new form add_loan
+     * Creates new form clear_loan
      */
-    public add_loan() {
+    public clear_loan() {
         initComponents();
         
         loan = new ArrayList<Loans>();
+        customer = new ArrayList<Customer>();
+        
         populateArrayList();
+        
+        
+        String[] LoanArray = new String [loan.size()];
+        
+        for (int i = 0; i < loan.size(); i++)
+        {
+            LoanArray[i] = loan.get(i).getCustomerName();
+        }
+        
+        loanee.setModel(new javax.swing.DefaultComboBoxModel<>(LoanArray));
+        
+        loanee.setSelectedIndex(0);
     }
     
     public void populateArrayList(){
@@ -59,7 +75,7 @@ public class add_loan extends javax.swing.JFrame {
         }
     }
     
-    public void saveLoansToFiles()
+    public void saveLoanToFiles()
     {
         try
         {
@@ -70,9 +86,29 @@ public class add_loan extends javax.swing.JFrame {
             {
                 outputFile.writeObject(loan.get(i));
             }
-            
             outputFile.close();
             JOptionPane.showMessageDialog(null, "successfully saved");
+            this.dispose();
+        }
+        catch(IOException e)
+        {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+    
+    public void deleteLoanFile()
+    {
+        try
+        {
+            FileOutputStream file = new FileOutputStream("Loans.dat");
+            ObjectOutputStream outputFile = new ObjectOutputStream(file);
+            
+            for(int i=0; i<loan.size(); i++)
+            {
+                outputFile.writeObject(loan.get(i));
+            }
+            outputFile.close();
+            JOptionPane.showMessageDialog(null, "admin successfully deleted");
             this.dispose();
         }
         catch(IOException e)
@@ -90,36 +126,21 @@ public class add_loan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        name = new javax.swing.JLabel();
+        delete = new javax.swing.JButton();
+        location = new javax.swing.JLabel();
         input_amount = new javax.swing.JTextField();
+        input_mortage = new javax.swing.JTextField();
         duration = new javax.swing.JLabel();
+        amount_due = new javax.swing.JLabel();
         input_duration = new javax.swing.JTextField();
-        save2 = new javax.swing.JButton();
+        save3 = new javax.swing.JButton();
         date_of_entry = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
         input_date = new javax.swing.JTextField();
-        name = new javax.swing.JLabel();
-        delete = new javax.swing.JButton();
-        input_name = new javax.swing.JTextField();
-        location = new javax.swing.JLabel();
-        input_mortage = new javax.swing.JTextField();
-        amount_due = new javax.swing.JLabel();
+        loanee = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        duration.setText("Duration:");
-
-        save2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/save.png"))); // NOI18N
-        save2.setText("Save");
-        save2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                save2ActionPerformed(evt);
-            }
-        });
-
-        date_of_entry.setText("Date:");
-
-        title.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        title.setText("Get Loan");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         name.setText("Name:");
 
@@ -134,37 +155,29 @@ public class add_loan extends javax.swing.JFrame {
 
         location.setText("Mortage:");
 
+        duration.setText("Duration:");
+
         amount_due.setText("Amount:");
+
+        save3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/save.png"))); // NOI18N
+        save3.setText("Save");
+        save3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                save3ActionPerformed(evt);
+            }
+        });
+
+        date_of_entry.setText("Date:");
+
+        title.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        title.setText("Get Loan");
+
+        loanee.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(duration, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(input_duration, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(input_name, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(date_of_entry, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(input_date, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(location, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(input_mortage, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(amount_due, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(input_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(17, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,20 +185,49 @@ public class add_loan extends javax.swing.JFrame {
                         .addComponent(title)
                         .addGap(193, 193, 193))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(save2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(save3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(94, 94, 94))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(loanee, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(duration, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(input_duration, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(270, 270, 270))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(date_of_entry, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(input_date, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(location, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(input_mortage, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(amount_due, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(input_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(title)
-                .addGap(51, 51, 51)
+                .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(input_name, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(loanee, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(input_mortage, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -204,18 +246,27 @@ public class add_loan extends javax.swing.JFrame {
                     .addComponent(date_of_entry))
                 .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(save2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(save3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void save2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_save2ActionPerformed
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
 
-        if (input_name.getText().isEmpty()
-            || input_mortage.getText().isEmpty()
+        int selectedIndex = loanee.getSelectedIndex();
+        
+        loan.remove(selectedIndex);
+        
+        deleteLoanFile();
+        
+    }//GEN-LAST:event_deleteActionPerformed
+
+    private void save3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_save3ActionPerformed
+
+        if (input_mortage.getText().isEmpty()
             || input_amount.getText().isEmpty()
             || input_duration.getText().isEmpty()
             || input_date.getText().isEmpty())
@@ -224,24 +275,18 @@ public class add_loan extends javax.swing.JFrame {
         }
         else
         {
-            String duration = input_duration.getText();
-            String name = input_name.getText();
-            String mortage = input_mortage.getText();
-            String amount = input_amount.getText();
-            String date = input_date.getText();
+            int selectedIndex = loanee.getSelectedIndex();
+            
+            loan.get(selectedIndex).setAmount(input_amount.getText().trim());
+            loan.get(selectedIndex).setDate(input_date.getText().trim());
+            loan.get(selectedIndex).setDuration(input_duration.getText().trim());
+            loan.get(selectedIndex).setMortage(input_mortage.getText().trim());
+            loan.get(loanee.getSelectedIndex());
+//            customer.get(selectedIndex).setAmount(loans);
 
-            Loans loans = new Loans(name, amount, mortage, date, duration);
-
-            loan.add(loans);
-            saveLoansToFiles();
+            saveLoanToFiles();
         }
-    }//GEN-LAST:event_save2ActionPerformed
-
-    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-
-        
-        
-    }//GEN-LAST:event_deleteActionPerformed
+    }//GEN-LAST:event_save3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -260,20 +305,20 @@ public class add_loan extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(add_loan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(clear_loan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(add_loan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(clear_loan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(add_loan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(clear_loan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(add_loan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(clear_loan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new add_loan().setVisible(true);
+                new clear_loan().setVisible(true);
             }
         });
     }
@@ -287,12 +332,13 @@ public class add_loan extends javax.swing.JFrame {
     private javax.swing.JTextField input_date;
     private javax.swing.JTextField input_duration;
     private javax.swing.JTextField input_mortage;
-    private javax.swing.JTextField input_name;
+    private javax.swing.JComboBox<String> loanee;
     private javax.swing.JLabel location;
     private javax.swing.JLabel name;
     private javax.swing.JButton save;
     private javax.swing.JButton save1;
     private javax.swing.JButton save2;
+    private javax.swing.JButton save3;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }
