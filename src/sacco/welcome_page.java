@@ -5,6 +5,8 @@
  */
 package sacco;
 
+import sacco.security.login;
+
 /**
  *
  * @author brevin
@@ -57,6 +59,7 @@ public class welcome_page extends javax.swing.JFrame {
         descend = new javax.swing.JMenuItem();
         graph = new javax.swing.JMenuItem();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("welcome to Cash Money SACCO");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setSize(new java.awt.Dimension(1, 1));
@@ -265,6 +268,7 @@ public class welcome_page extends javax.swing.JFrame {
 
     private void add_customerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_customerActionPerformed
 
+//        new login().setVisible(true);
         new add_Customer().setVisible(true);
 
     }//GEN-LAST:event_add_customerActionPerformed
@@ -295,7 +299,7 @@ public class welcome_page extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         
-        new add_loan().setVisible(true);
+        new Add_Loan().setVisible(true);
         
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
@@ -307,7 +311,7 @@ public class welcome_page extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
 
-        new clear_loan().setVisible(true);
+        new Clear_Loan().setVisible(true);
         
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 

@@ -6,18 +6,13 @@
 package sacco;
 
 import java.io.*;
-import javax.swing.JTextField;
 
 /**
  *
  * @author brevin
  */
 public class Roles implements Serializable {
-//
-//    static Object parseRoles(JTextField role) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//    
+    
     private String Role;
     private String Salary;
 

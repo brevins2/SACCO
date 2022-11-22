@@ -5,16 +5,9 @@
  */
 package sacco;
 
-import java.io.EOFException;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.time.Instant;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import java.util.*;
-import javax.swing.JComboBox;
+import java.io.*;
 
 /**
  *
@@ -110,7 +103,7 @@ public class add_Customer extends javax.swing.JFrame {
         save = new javax.swing.JButton();
         date_of_entry = new javax.swing.JLabel();
         input_date_of_entrance = new javax.swing.JTextField();
-        Cancel = new javax.swing.JButton();
+        delete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add new customer");
@@ -136,9 +129,7 @@ public class add_Customer extends javax.swing.JFrame {
 
         date_of_entry.setText("Date of entrance:");
 
-        Cancel.setBackground(new java.awt.Color(255, 51, 0));
-        Cancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/exit.png"))); // NOI18N
-        Cancel.setText("Cancel");
+        delete.setText("Delete");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,9 +168,9 @@ public class add_Customer extends javax.swing.JFrame {
                         .addGap(193, 193, 193))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(94, 94, 94))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(105, 105, 105))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,9 +198,9 @@ public class add_Customer extends javax.swing.JFrame {
                     .addComponent(input_date_of_entrance, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(date_of_entry))
                 .addGap(54, 54, 54)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(73, Short.MAX_VALUE))
         );
 
@@ -240,11 +231,12 @@ public class add_Customer extends javax.swing.JFrame {
         }
     }                                    
 
-    private void CancelActionPerformed(java.awt.event.ActionEvent evt) {                                       
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {                                       
         
         System.exit(0);
         
     }//GEN-LAST:event_saveActionPerformed
+                                   
 
     /**
      * @param args the command line arguments
@@ -282,9 +274,9 @@ public class add_Customer extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Cancel;
     private javax.swing.JLabel amount_due;
     private javax.swing.JLabel date_of_entry;
+    private javax.swing.JButton delete;
     private javax.swing.JLabel duration;
     private javax.swing.JTextField input_amount_due;
     private javax.swing.JTextField input_date_of_entrance;

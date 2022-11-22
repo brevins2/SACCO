@@ -11,28 +11,28 @@ import java.io.*;
  *
  * @author brevin
  */
-public class Loans implements Serializable {
+public class Loan implements Serializable {
     
-    private String customerName;
+    private String name;
     private String amount;
     private String mortage;
-    private String date;
     private String duration;
-    
-    public Loans(String customerName, String amount, String mortage, String date, String duration) {
-        this.customerName = customerName;
+    private String DEO;
+
+    public Loan(String name, String amount, String mortage, String duration, String DEO) {
+        this.name = name;
         this.amount = amount;
         this.mortage = mortage;
-        this.date = date;
         this.duration = duration;
-    }    
-
-    public String getCustomerName() {
-        return customerName;
+        this.DEO = DEO;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAmount() {
@@ -51,19 +51,19 @@ public class Loans implements Serializable {
         this.mortage = mortage;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public String getDuration() {
         return duration;
     }
 
     public void setDuration(String duration) {
         this.duration = duration;
+    }
+
+    public String getDEO() {
+        return DEO;
+    }
+
+    public void setDEO(String DEO) {
+        this.DEO = DEO;
     }
 }

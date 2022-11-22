@@ -11,10 +11,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-//import java.time.Instant;
 import javax.swing.JOptionPane;
 import java.util.*;
-//import javax.swing.JComboBox;
 import java.text.*;
 
 
@@ -196,11 +194,11 @@ public class Role extends javax.swing.JFrame {
             role.add(roled);
             saveRoleToFiles();
         }
-        }
+    }
 
-        private void CancelActionPerformed(java.awt.event.ActionEvent evt) {
+    private void CancelActionPerformed(java.awt.event.ActionEvent evt) {
 
-            System.exit(0);
+        System.exit(0);
 
     }//GEN-LAST:event_save2ActionPerformed
 

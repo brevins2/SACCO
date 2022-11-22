@@ -20,7 +20,6 @@ public class edit_admin extends javax.swing.JFrame {
     ArrayList<Roles> role;
     DecimalFormat formatter;
     
-    
     /**
      * Creates new form edit_admin
      */
@@ -52,7 +51,7 @@ public class edit_admin extends javax.swing.JFrame {
         
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(AdminArray));
         
-        jComboBox1.setSelectedIndex(0);
+//        jComboBox1.setSelectedIndex(0);
     }
     
     public void populateArrayList(){
@@ -185,6 +184,7 @@ public class edit_admin extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Edit administration");
 
         delete.setBackground(new java.awt.Color(255, 51, 0));
         delete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -212,7 +212,7 @@ public class edit_admin extends javax.swing.JFrame {
         date_of_entrance.setText("Date of entrance:");
 
         title.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        title.setText("Add new Administrator");
+        title.setText("Edit Administrator");
 
         select_admin.setText("Select Admin:");
 

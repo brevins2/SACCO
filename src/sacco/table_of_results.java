@@ -68,6 +68,14 @@ public class table_of_results extends javax.swing.JFrame {
             }
         ));
         ScrollPaneAdmin.setViewportView(Table_of_reults);
+        if (Table_of_reults.getColumnModel().getColumnCount() > 0) {
+            Table_of_reults.getColumnModel().getColumn(0).setHeaderValue("No.");
+            Table_of_reults.getColumnModel().getColumn(1).setHeaderValue("Name");
+            Table_of_reults.getColumnModel().getColumn(2).setHeaderValue("Role");
+            Table_of_reults.getColumnModel().getColumn(3).setHeaderValue("Duration");
+            Table_of_reults.getColumnModel().getColumn(4).setHeaderValue("Location");
+            Table_of_reults.getColumnModel().getColumn(5).setHeaderValue("Date of Entry");
+        }
 
         Tab_customer.addTab("Admin", ScrollPaneAdmin);
 
@@ -99,7 +107,7 @@ public class table_of_results extends javax.swing.JFrame {
         ));
         ScrollPaneDebts.setViewportView(jTable2);
 
-        Tab_customer.addTab("Debts", ScrollPaneDebts);
+        Tab_customer.addTab("Loans", ScrollPaneDebts);
 
         print.setBackground(new java.awt.Color(0, 0, 204));
         print.setText("Print");
