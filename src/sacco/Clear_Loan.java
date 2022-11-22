@@ -35,6 +35,7 @@ public class Clear_Loan extends javax.swing.JFrame {
         }
         
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(RoleArray));
+        jComboBox1.setSelectedIndex(0);
     }
     
     public void populateArrayList()
@@ -293,11 +294,11 @@ public class Clear_Loan extends javax.swing.JFrame {
         
         int selectedIndex = jComboBox1.getSelectedIndex();
         
-        loan.get(selectedIndex).setDEO(input_date.getText().trim());
-        loan.get(selectedIndex).setName(input_name.getText().trim());
-        loan.get(selectedIndex).setMortage(input_mortage.getText().trim());
-        loan.get(selectedIndex).setDuration(input_duration.getText().trim());
-        loan.get(selectedIndex).setAmount(input_amount.getText().trim());
+        input_name.setText(loan.get(selectedIndex).getName());
+        input_date.setText(loan.get(selectedIndex).getDEO());
+        input_mortage.setText(loan.get(selectedIndex).getMortage());
+        input_duration.setText(loan.get(selectedIndex).getDuration());
+        input_date.setText(loan.get(selectedIndex).getDEO());
         
         int index = 0;
         

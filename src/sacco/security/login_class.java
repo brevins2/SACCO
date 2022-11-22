@@ -5,11 +5,13 @@
  */
 package sacco.security;
 
+import java.io.*;
+
 /**
  *
  * @author brevin
  */
-public class login_class {
+public class login_class implements Serializable {
     
     private String name;
     private String password;
