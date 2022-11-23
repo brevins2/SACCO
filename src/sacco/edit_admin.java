@@ -42,6 +42,8 @@ public class edit_admin extends javax.swing.JFrame {
         
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(RoleArray));
         
+        jComboBox2.setSelectedIndex(0);
+        
         String[] AdminArray = new String [admin.size()];
         
         for (int i = 0; i < admin.size(); i++)
@@ -51,7 +53,7 @@ public class edit_admin extends javax.swing.JFrame {
         
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(AdminArray));
         
-//        jComboBox1.setSelectedIndex(0);
+        jComboBox1.setSelectedIndex(0);
     }
     
     public void populateArrayList(){

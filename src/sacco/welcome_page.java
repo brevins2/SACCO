@@ -293,7 +293,7 @@ public class welcome_page extends javax.swing.JFrame {
 
     private void edit_roleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_roleActionPerformed
         
-        new Role().setVisible(true);
+        new edit_role().setVisible(true);
         
     }//GEN-LAST:event_edit_roleActionPerformed
 

@@ -5,13 +5,8 @@
  */
 package sacco;
 
-import java.io.EOFException;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import javax.swing.JOptionPane;
+import java.io.*;
+import javax.swing.*;
 import java.util.*;
 import java.text.*;
 
@@ -69,7 +64,7 @@ public class Role extends javax.swing.JFrame {
         }
     }
     
-     public void saveRoleToFiles()
+    public void saveRoleToFiles()
     {
         try
         {

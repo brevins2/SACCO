@@ -295,7 +295,7 @@ public class Clear_Loan extends javax.swing.JFrame {
         int selectedIndex = jComboBox1.getSelectedIndex();
         
         input_name.setText(loan.get(selectedIndex).getName());
-        input_date.setText(loan.get(selectedIndex).getDEO());
+        input_amount.setText(loan.get(selectedIndex).getAmount());
         input_mortage.setText(loan.get(selectedIndex).getMortage());
         input_duration.setText(loan.get(selectedIndex).getDuration());
         input_date.setText(loan.get(selectedIndex).getDEO());
