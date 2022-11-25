@@ -256,7 +256,7 @@ public class welcome_page extends javax.swing.JFrame {
 
     private void show_tableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_show_tableActionPerformed
         
-        new table_of_results().setVisible(true);
+        new tables().setVisible(true);
         
     }//GEN-LAST:event_show_tableActionPerformed
 

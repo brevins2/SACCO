@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sacco;
+package sacco.mysqlConnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 /**
  *
  * @author brevin
  */
-public class SACCO {
-
+public class connectionSQL {
+    
     public static Connection connectsql(){
         try{
             String user = "root";
@@ -30,18 +30,6 @@ public class SACCO {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return null;
-    }
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        
-        System.out.print("connection established\n");
-        
-        System.out.print("welcome to cash money sacco");
-        
-        new welcome_page().setVisible(true);
     }
     
 }
