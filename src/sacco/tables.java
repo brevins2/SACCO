@@ -33,10 +33,11 @@ public class tables extends javax.swing.JFrame {
         
         try{
             String user = "root";
-            String pass = "";
+            String pass = "1234";
             String url = "jdbc:mysql://localhost:3306/sacco";
             
             Class.forName("com.mysql.jdbc.Driver");
+            
             Connection conn = DriverManager.getConnection(url, pass, user);
             
             String query1 = "select * from roles";
