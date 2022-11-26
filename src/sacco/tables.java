@@ -33,7 +33,7 @@ public class tables extends javax.swing.JFrame {
         
         try{
             String user = "root";
-            String pass = "1234";
+            String pass = "";
             String url = "jdbc:mysql://localhost:3306/sacco";
             
             Class.forName("com.mysql.jdbc.Driver");
@@ -46,7 +46,7 @@ public class tables extends javax.swing.JFrame {
             
             Roles role;
             while(rset.next()){
-                role = new Roles(rset.getInt("ROLENo"), rset.getString("Role"), rset.getString("Salary"));
+                role = new Roles(rset.getString("ROLENo"), rset.getString("Role"), rset.getString("Salary"));
                 roleList.add(role);
             }
             

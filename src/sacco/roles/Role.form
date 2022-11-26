@@ -42,11 +42,16 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="name" max="32767" attributes="0"/>
                           <Component id="location" pref="100" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel4" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="input_salary" min="-2" pref="260" max="-2" attributes="0"/>
-                          <Component id="input_role" min="-2" pref="260" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="input_salary" pref="260" max="32767" attributes="0"/>
+                          <Component id="input_role" pref="260" max="32767" attributes="0"/>
+                          <Component id="input_roleno" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -59,22 +64,27 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
               <Component id="title" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="input_role" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                  <Component id="name" alignment="3" max="32767" attributes="0"/>
+                  <Component id="input_roleno" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                  <Component id="jLabel4" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="name" alignment="3" max="32767" attributes="0"/>
+                  <Component id="input_role" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="input_salary" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                   <Component id="location" alignment="3" pref="33" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="save2" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
                   <Component id="Cancel" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="78" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -123,6 +133,13 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Salary:"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="RoleNo."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="input_roleno">
     </Component>
   </SubComponents>
 </Form>

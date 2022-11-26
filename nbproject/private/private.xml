@@ -3,9 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/G:/java-projects/SACCO/src/sacco/Role.java</file>
+            <file>file:/G:/java-projects/SACCO/src/sacco/SACCO.java</file>
             <file>file:/G:/java-projects/SACCO/src/sacco/edit_role.java</file>
-            <file>file:/G:/java-projects/SACCO/src/sacco/mysqlConnection/connectionSQL.java</file>
-            <file>file:/G:/java-projects/SACCO/src/sacco/table_of_results.java</file>
+            <file>file:/G:/java-projects/SACCO/src/sacco/edit_admin.java</file>
+            <file>file:/G:/java-projects/SACCO/src/sacco/welcome_page.java</file>
+            <file>file:/G:/java-projects/SACCO/src/sacco/Roles.java</file>
+            <file>file:/G:/java-projects/SACCO/src/sacco/tables.java</file>
         </group>
     </open-files>
 </project-private>

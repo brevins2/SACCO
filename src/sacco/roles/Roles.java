@@ -13,27 +13,22 @@ import java.io.*;
  */
 public class Roles implements Serializable {
     
-    private int ROLENo;
-
-    public int getROLENo() {
-        return ROLENo;
-    }
-
-    public void setROLENo(int ROLENo) {
-        this.ROLENo = ROLENo;
-    }
-
-    public Roles(int ROLENo, String Role, String Salary) {
-        this.ROLENo = ROLENo;
-        this.Role = Role;
-        this.Salary = Salary;
-    }
+    private String ROLENo;
     private String Role;
     private String Salary;
 
-    public Roles(String Role, String Salary) {
+    public Roles(String ROLENo, String Role, String Salary) {
+        this.ROLENo = ROLENo;
         this.Role = Role;
         this.Salary = Salary;
+    }
+    
+    public String getROLENo() {
+        return ROLENo;
+    }
+
+    public void setROLENo(String ROLENo) {
+        this.ROLENo = ROLENo;
     }
 
     public String getRole() {

@@ -106,6 +106,7 @@ public class Add_Loan extends javax.swing.JFrame {
         delete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Add Loan");
 
         title.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
