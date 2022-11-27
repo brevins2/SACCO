@@ -5,8 +5,6 @@
  */
 package sacco;
 
-import sacco.security.login;
-
 /**
  *
  * @author brevin
@@ -29,7 +27,12 @@ public class welcome_page extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        Desktop = new javax.swing.JDesktopPane();
+        jPanel1 = new javax.swing.JPanel();
+        admin_table = new javax.swing.JButton();
+        loan_table = new javax.swing.JButton();
+        client_table = new javax.swing.JButton();
+        role_table = new javax.swing.JButton();
         main_menu = new javax.swing.JMenuBar();
         File = new javax.swing.JMenu();
         exit = new javax.swing.JMenuItem();
@@ -46,18 +49,9 @@ public class welcome_page extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         table_of_contents = new javax.swing.JMenu();
         show_table = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         refresh_table = new javax.swing.JMenuItem();
-        math = new javax.swing.JMenu();
-        jMenu1 = new javax.swing.JMenu();
-        addition = new javax.swing.JMenuItem();
-        multiplication = new javax.swing.JMenuItem();
-        modulus = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        minus = new javax.swing.JMenuItem();
-        sort = new javax.swing.JMenu();
-        ascending = new javax.swing.JMenuItem();
-        descend = new javax.swing.JMenuItem();
-        graph = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("welcome to Cash Money SACCO");
@@ -65,9 +59,71 @@ public class welcome_page extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1, 1));
         setState(1);
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/men.png"))); // NOI18N
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Desktop.setBackground(new java.awt.Color(204, 204, 255));
+
+        javax.swing.GroupLayout DesktopLayout = new javax.swing.GroupLayout(Desktop);
+        Desktop.setLayout(DesktopLayout);
+        DesktopLayout.setHorizontalGroup(
+            DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 619, Short.MAX_VALUE)
+        );
+        DesktopLayout.setVerticalGroup(
+            DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 483, Short.MAX_VALUE)
+        );
+
+        admin_table.setText("Admin");
+        admin_table.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                admin_tableActionPerformed(evt);
+            }
+        });
+
+        loan_table.setText("Loans");
+        loan_table.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loan_tableActionPerformed(evt);
+            }
+        });
+
+        client_table.setText("Clients");
+        client_table.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                client_tableActionPerformed(evt);
+            }
+        });
+
+        role_table.setText("Roles");
+        role_table.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                role_tableActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(client_table, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                    .addComponent(loan_table, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(admin_table, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(role_table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(admin_table, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(loan_table, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(client_table, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(role_table, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
         File.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/folder.png"))); // NOI18N
         File.setText("File");
@@ -172,7 +228,7 @@ public class welcome_page extends javax.swing.JFrame {
         table_of_contents.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/job.png"))); // NOI18N
         table_of_contents.setText("Table of Contents");
 
-        show_table.setText("Show Table");
+        show_table.setText("Role Table");
         show_table.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 show_tableActionPerformed(evt);
@@ -180,7 +236,23 @@ public class welcome_page extends javax.swing.JFrame {
         });
         table_of_contents.add(show_table);
 
-        refresh_table.setText("Refresh Table");
+        jMenuItem4.setText("Loan Table");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        table_of_contents.add(jMenuItem4);
+
+        jMenuItem5.setText("Client Table");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        table_of_contents.add(jMenuItem5);
+
+        refresh_table.setText("Admin Table");
         refresh_table.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 refresh_tableActionPerformed(evt);
@@ -190,42 +262,6 @@ public class welcome_page extends javax.swing.JFrame {
 
         main_menu.add(table_of_contents);
 
-        math.setText("Tools");
-
-        jMenu1.setText("Mathematical equations");
-
-        addition.setText("Add (+)");
-        jMenu1.add(addition);
-
-        multiplication.setText("Divid (/)");
-        jMenu1.add(multiplication);
-
-        modulus.setText("Modulus");
-        jMenu1.add(modulus);
-
-        jMenuItem1.setText("Multiply (x)");
-        jMenu1.add(jMenuItem1);
-
-        minus.setText("Subtract (-)");
-        jMenu1.add(minus);
-
-        math.add(jMenu1);
-
-        sort.setText("Sort");
-
-        ascending.setText("Ascending");
-        sort.add(ascending);
-
-        descend.setText("Descending");
-        sort.add(descend);
-
-        math.add(sort);
-
-        graph.setText("Graph");
-        math.add(graph);
-
-        main_menu.add(math);
-
         setJMenuBar(main_menu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -233,87 +269,130 @@ public class welcome_page extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(76, 76, 76)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(105, 105, 105))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Desktop))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(88, 88, 88)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(118, 118, 118))
+            .addComponent(Desktop)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        getAccessibleContext().setAccessibleParent(settings);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void edit_adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_adminActionPerformed
-        
-        new edit_admin().setVisible(true);
-        
-    }//GEN-LAST:event_edit_adminActionPerformed
+    private void refresh_tableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refresh_tableActionPerformed
+
+        new admin_table().setVisible(true);
+
+    }//GEN-LAST:event_refresh_tableActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+
+        new client_table().setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+
+        new loan_table().setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void show_tableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_show_tableActionPerformed
-        
-        new tables().setVisible(true);
-        
+
+        new role_table().setVisible(true);
+
     }//GEN-LAST:event_show_tableActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+
+        new Add_Loan().setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void add_roleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_roleActionPerformed
+
+        new Role().setVisible(true);
+
+    }//GEN-LAST:event_add_roleActionPerformed
+
     private void add_adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_adminActionPerformed
-        
+
         new Add_admin().setVisible(true);
-        
+
     }//GEN-LAST:event_add_adminActionPerformed
 
     private void add_customerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_customerActionPerformed
 
-//        new login().setVisible(true);
+        //        new login().setVisible(true);
         new add_Customer().setVisible(true);
-
     }//GEN-LAST:event_add_customerActionPerformed
-
-    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
-        
-        System.exit(0);
-        
-    }//GEN-LAST:event_exitActionPerformed
-
-    private void edit_customersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_customersActionPerformed
-        
-        new edit_customer().setVisible(true);
-        
-    }//GEN-LAST:event_edit_customersActionPerformed
-
-    private void add_roleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_roleActionPerformed
-        
-        new Role().setVisible(true);
-        
-    }//GEN-LAST:event_add_roleActionPerformed
-
-    private void edit_roleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_roleActionPerformed
-        
-        new edit_role().setVisible(true);
-        
-    }//GEN-LAST:event_edit_roleActionPerformed
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        
-        new Add_Loan().setVisible(true);
-        
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void refresh_tableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refresh_tableActionPerformed
-        
-        
-        
-    }//GEN-LAST:event_refresh_tableActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
 
         new Clear_Loan().setVisible(true);
-        
+
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void edit_roleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_roleActionPerformed
+
+        new edit_role().setVisible(true);
+
+    }//GEN-LAST:event_edit_roleActionPerformed
+
+    private void edit_customersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_customersActionPerformed
+
+        new edit_customer().setVisible(true);
+
+    }//GEN-LAST:event_edit_customersActionPerformed
+
+    private void edit_adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_adminActionPerformed
+
+        new edit_admin().setVisible(true);
+
+    }//GEN-LAST:event_edit_adminActionPerformed
+
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+
+        System.exit(0);
+
+    }//GEN-LAST:event_exitActionPerformed
+
+    private void admin_tableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_admin_tableActionPerformed
+        
+        Desktop.removeAll();
+        admin_table_internal table = new admin_table_internal();
+        Desktop.add(table).setVisible(true);
+        
+    }//GEN-LAST:event_admin_tableActionPerformed
+
+    private void loan_tableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loan_tableActionPerformed
+        
+        Desktop.removeAll();
+        loan_table_internal table = new loan_table_internal();
+        Desktop.add(table).setVisible(true);
+        
+    }//GEN-LAST:event_loan_tableActionPerformed
+
+    private void client_tableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_client_tableActionPerformed
+        
+        Desktop.removeAll();
+        client_table_internal table = new client_table_internal();
+        Desktop.add(table).setVisible(true);
+        
+    }//GEN-LAST:event_client_tableActionPerformed
+
+    private void role_tableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_role_tableActionPerformed
+
+        Desktop.removeAll();
+        role_table_internal table = new role_table_internal();
+        Desktop.add(table).setVisible(true);
+        
+    }//GEN-LAST:event_role_tableActionPerformed
 
     /**
      * @param args the command line arguments
@@ -352,33 +431,29 @@ public class welcome_page extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Add;
+    private javax.swing.JDesktopPane Desktop;
     private javax.swing.JMenu Edit;
     private javax.swing.JMenu File;
     private javax.swing.JMenuItem add_admin;
     private javax.swing.JMenuItem add_customer;
     private javax.swing.JMenuItem add_role;
-    private javax.swing.JMenuItem addition;
-    private javax.swing.JMenuItem ascending;
-    private javax.swing.JMenuItem descend;
+    private javax.swing.JButton admin_table;
+    private javax.swing.JButton client_table;
     private javax.swing.JMenuItem edit_admin;
     private javax.swing.JMenuItem edit_customers;
     private javax.swing.JMenuItem edit_role;
     private javax.swing.JMenuItem exit;
-    private javax.swing.JMenuItem graph;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton loan_table;
     private javax.swing.JMenuBar main_menu;
-    private javax.swing.JMenu math;
-    private javax.swing.JMenuItem minus;
-    private javax.swing.JMenuItem modulus;
-    private javax.swing.JMenuItem multiplication;
     private javax.swing.JMenuItem refresh_table;
+    private javax.swing.JButton role_table;
     private javax.swing.JMenuItem settings;
     private javax.swing.JMenuItem show_table;
-    private javax.swing.JMenu sort;
     private javax.swing.JMenu table_of_contents;
     // End of variables declaration//GEN-END:variables
 }

@@ -41,7 +41,8 @@ public class SACCO {
         
         System.out.print("welcome to cash money sacco");
         
-        new welcome_page().setVisible(true);
+        new first_page().setVisible(true);
+
     }
     
 }
