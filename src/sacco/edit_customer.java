@@ -6,6 +6,9 @@
 package sacco;
 
 import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import javax.swing.*;
 import java.util.*;
 
@@ -24,94 +27,94 @@ public class edit_customer extends javax.swing.JFrame {
         initComponents();
         
         customer = new ArrayList<Customer>();
-        populateArrayList();
+//        populateArrayList();
         
-         String[] RoleArray = new String [customer.size()];
-        
-        for (int i = 0; i < customer.size(); i++)
-        {
-            RoleArray[i] = customer.get(i).getName();
-        }
-        
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(RoleArray));
-        jComboBox1.setSelectedIndex(0);
+//         String[] RoleArray = new String [customer.size()];
+//        
+//        for (int i = 0; i < customer.size(); i++)
+//        {
+//            RoleArray[i] = customer.get(i).getName();
+//        }
+//        
+//        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(RoleArray));
+//        jComboBox1.setSelectedIndex(0);
     }
     
-    public void populateArrayList(){
-        try
-        {
-            FileInputStream file = new FileInputStream("customers.dat");
-            
-            ObjectInputStream inputFile = new ObjectInputStream(file);
-            
-            boolean endOfFile = false;
-            
-            while(!endOfFile)
-            {
-                try
-                {
-                    customer.add((Customer) inputFile.readObject());
-                }
-                catch(EOFException f)
-                {
-                    endOfFile = true;
-                }
-                catch(Exception e)
-                {
-                    JOptionPane.showMessageDialog(null, e.getMessage());
-                }
-            }
-            
-            inputFile.close();
-        }
-        catch(IOException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
-    
-    public void saveCustomerToFiles()
-    {
-        try
-        {
-            FileOutputStream file = new FileOutputStream("customers.dat");
-            ObjectOutputStream outputFile = new ObjectOutputStream(file);
-            
-            for(int i=0; i<customer.size(); i++)
-            {
-                outputFile.writeObject(customer.get(i));
-            }
-            
-            outputFile.close();
-            JOptionPane.showMessageDialog(null, "successfully saved");
-            this.dispose();
-        }
-        catch(IOException e)
-        {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
-
-
-    public void deleteCustomerFile()
-    {
-        try
-        {
-            FileOutputStream file = new FileOutputStream("customers.dat");
-            ObjectOutputStream outputFile = new ObjectOutputStream(file);
-            
-            for(int i=0; i<customer.size(); i++)
-            {
-                outputFile.writeObject(customer.get(i));
-            }
-            outputFile.close();
-            JOptionPane.showMessageDialog(null, "admin successfully deleted");
-            this.dispose();
-        }
-        catch(IOException e)
-        {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }    
+//    public void populateArrayList(){
+//        try
+//        {
+//            FileInputStream file = new FileInputStream("customers.dat");
+//            
+//            ObjectInputStream inputFile = new ObjectInputStream(file);
+//            
+//            boolean endOfFile = false;
+//            
+//            while(!endOfFile)
+//            {
+//                try
+//                {
+//                    customer.add((Customer) inputFile.readObject());
+//                }
+//                catch(EOFException f)
+//                {
+//                    endOfFile = true;
+//                }
+//                catch(Exception e)
+//                {
+//                    JOptionPane.showMessageDialog(null, e.getMessage());
+//                }
+//            }
+//            
+//            inputFile.close();
+//        }
+//        catch(IOException e){
+//            JOptionPane.showMessageDialog(null, e.getMessage());
+//        }
+//    }
+//    
+//    public void saveCustomerToFiles()
+//    {
+//        try
+//        {
+//            FileOutputStream file = new FileOutputStream("customers.dat");
+//            ObjectOutputStream outputFile = new ObjectOutputStream(file);
+//            
+//            for(int i=0; i<customer.size(); i++)
+//            {
+//                outputFile.writeObject(customer.get(i));
+//            }
+//            
+//            outputFile.close();
+//            JOptionPane.showMessageDialog(null, "successfully saved");
+//            this.dispose();
+//        }
+//        catch(IOException e)
+//        {
+//            JOptionPane.showMessageDialog(null, e.getMessage());
+//        }
+//    }
+//
+//
+//    public void deleteCustomerFile()
+//    {
+//        try
+//        {
+//            FileOutputStream file = new FileOutputStream("customers.dat");
+//            ObjectOutputStream outputFile = new ObjectOutputStream(file);
+//            
+//            for(int i=0; i<customer.size(); i++)
+//            {
+//                outputFile.writeObject(customer.get(i));
+//            }
+//            outputFile.close();
+//            JOptionPane.showMessageDialog(null, "admin successfully deleted");
+//            this.dispose();
+//        }
+//        catch(IOException e)
+//        {
+//            JOptionPane.showMessageDialog(null, e.getMessage());
+//        }
+//    }    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -124,7 +127,7 @@ public class edit_customer extends javax.swing.JFrame {
 
         input_location = new javax.swing.JTextField();
         amount_due = new javax.swing.JLabel();
-        input_amount_due = new javax.swing.JTextField();
+        input_amount = new javax.swing.JTextField();
         duration = new javax.swing.JLabel();
         input_duration = new javax.swing.JTextField();
         save = new javax.swing.JButton();
@@ -212,7 +215,7 @@ public class edit_customer extends javax.swing.JFrame {
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(title)
                                 .addComponent(input_name, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(input_amount_due, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(input_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(date_of_entry, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -242,7 +245,7 @@ public class edit_customer extends javax.swing.JFrame {
                     .addComponent(location, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(input_amount_due, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(input_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(amount_due))
                 .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -268,36 +271,47 @@ public class edit_customer extends javax.swing.JFrame {
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
 
-        if (input_name.getText().isEmpty()
-            || input_location.getText().isEmpty()
-            || input_amount_due.getText().isEmpty()
-            || input_duration.getText().isEmpty()
-            || input_date_of_entrance.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "please enter all fields");
-        }
-        else
-        {
-            String durations = input_duration.getText();
-            String named = input_name.getText();
-            String locate = input_location.getText();
-            String no = input_no.getText();
-            String amount_upon_due = input_amount_due.getText();
-            String DOE = input_date_of_entrance.getText();
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            
+            String query1 = "UPDATE customer SET CUSTNo="+input_no.getText()+", Name="+input_name.getText()+
+                    ", Location="+input_location.getText()+", Amount="+input_amount.getText()+
+                    ", Duration="+input_duration.getText()+", Date_of_entrance="+input_date_of_entrance.getText()+
+                    "WHERE CUSTNo="+ input_no.getText();
+            PreparedStatement pst = conn.prepareStatement(query1);
+                        
+            pst.execute();
+            
+                JOptionPane.showMessageDialog(null, "data inserted successfully");
 
-            Customer customers = new Customer(no, named, locate, amount_upon_due, durations, DOE);
-
-            customer.add(customers);
-            saveCustomerToFiles();
+                input_no.setText("");
+                input_name.setText("");
+                input_location.setText("");
+                input_amount.setText("");
+                input_duration.setText("");
+                input_date_of_entrance.setText("");
+            
         }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        dispose();
+        
+    }
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {
         
-        int selectedIndex = jComboBox1.getSelectedIndex();
-        
-        customer.remove(selectedIndex);
-        
-        deleteCustomerFile();
+//        int selectedIndex = jComboBox1.getSelectedIndex();
+//        
+//        customer.remove(selectedIndex);
+//        
+//        deleteCustomerFile();
 
     }//GEN-LAST:event_saveActionPerformed
 
@@ -307,7 +321,7 @@ public class edit_customer extends javax.swing.JFrame {
         
         input_name.setText(customer.get(selectedIndex).getName());
         input_location.setText(customer.get(selectedIndex).getLocation());
-        input_amount_due.setText(customer.get(selectedIndex).getAmount_due());
+        input_amount.setText(customer.get(selectedIndex).getAmount_due());
         input_duration.setText(customer.get(selectedIndex).getDuration());
         input_date_of_entrance.setText(customer.get(selectedIndex).getDate_of_entrance());
         
@@ -367,7 +381,7 @@ public class edit_customer extends javax.swing.JFrame {
     private javax.swing.JLabel date_of_entry;
     private javax.swing.JLabel date_of_entry1;
     private javax.swing.JLabel duration;
-    private javax.swing.JTextField input_amount_due;
+    private javax.swing.JTextField input_amount;
     private javax.swing.JTextField input_date_of_entrance;
     private javax.swing.JTextField input_duration;
     private javax.swing.JTextField input_location;

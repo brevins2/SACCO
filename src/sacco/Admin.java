@@ -17,11 +17,11 @@ public class Admin implements Serializable {
     private String AdminNo;
     private String name;
     private String Location;
-    private Roles Role;
+    private String Role;
     private String password;
     private String DEO;
 
-    public Admin(String AdminNo, String name, String Location, Roles Role, String password, String DEO) {
+    public Admin(String AdminNo, String name, String Location, String Role, String password, String DEO) {
         this.AdminNo = AdminNo;
         this.name = name;
         this.Location = Location;
@@ -58,11 +58,11 @@ public class Admin implements Serializable {
         this.Location = Location;
     }
 
-    public Roles getRole() {
+    public String getRole() {
         return Role;
     }
 
-    public void setRole(Roles Role) {
+    public void setRole(String Role) {
         this.Role = Role;
     }
 

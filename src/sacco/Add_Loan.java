@@ -6,6 +6,10 @@
 package sacco;
 
 import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.*;
 import javax.swing.*;
 
@@ -25,62 +29,62 @@ public class Add_Loan extends javax.swing.JFrame {
         
         loan = new ArrayList<Loan>();
         
-        populateArrayList();
+//        populateArrayList();
     }  
-        public void populateArrayList()
-        {
-            try
-            {
-                FileInputStream file = new FileInputStream("Loans.dat");
-
-                ObjectInputStream inputFile = new ObjectInputStream(file);
-
-                boolean endOfFile = false;
-
-                while(!endOfFile)
-                {
-                    try
-                    {
-                        loan.add((Loan) inputFile.readObject());
-                    }
-                    catch(EOFException f)
-                    {
-                        endOfFile = true;
-                    }
-                    catch(Exception e)
-                    {
-                        JOptionPane.showMessageDialog(null, e.getMessage());
-                    }
-                }
-
-                inputFile.close();
-            }
-            catch(IOException e){
-                JOptionPane.showMessageDialog(null, e.getMessage());
-            }
-        }
-        
-        public void saveCustomerToFiles()
-        {
-            try
-            {
-                FileOutputStream file = new FileOutputStream("Loans.dat");
-                ObjectOutputStream outputFile = new ObjectOutputStream(file);
-
-                for(int i=0; i<loan.size(); i++)
-                {
-                    outputFile.writeObject(loan.get(i));
-                }
-
-                outputFile.close();
-                JOptionPane.showMessageDialog(null, "successfully saved");
-                this.dispose();
-            }
-            catch(IOException e)
-            {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-            }
-        }
+//        public void populateArrayList()
+//        {
+//            try
+//            {
+//                FileInputStream file = new FileInputStream("Loans.dat");
+//
+//                ObjectInputStream inputFile = new ObjectInputStream(file);
+//
+//                boolean endOfFile = false;
+//
+//                while(!endOfFile)
+//                {
+//                    try
+//                    {
+//                        loan.add((Loan) inputFile.readObject());
+//                    }
+//                    catch(EOFException f)
+//                    {
+//                        endOfFile = true;
+//                    }
+//                    catch(Exception e)
+//                    {
+//                        JOptionPane.showMessageDialog(null, e.getMessage());
+//                    }
+//                }
+//
+//                inputFile.close();
+//            }
+//            catch(IOException e){
+//                JOptionPane.showMessageDialog(null, e.getMessage());
+//            }
+//        }
+//        
+//        public void saveCustomerToFiles()
+//        {
+//            try
+//            {
+//                FileOutputStream file = new FileOutputStream("Loans.dat");
+//                ObjectOutputStream outputFile = new ObjectOutputStream(file);
+//
+//                for(int i=0; i<loan.size(); i++)
+//                {
+//                    outputFile.writeObject(loan.get(i));
+//                }
+//
+//                outputFile.close();
+//                JOptionPane.showMessageDialog(null, "successfully saved");
+//                this.dispose();
+//            }
+//            catch(IOException e)
+//            {
+//                JOptionPane.showMessageDialog(null, e.getMessage());
+//            }
+//        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -103,8 +107,8 @@ public class Add_Loan extends javax.swing.JFrame {
         input_duration = new javax.swing.JTextField();
         input_date = new javax.swing.JTextField();
         save = new javax.swing.JButton();
-        delete = new javax.swing.JButton();
-        input_no = new javax.swing.JTextField();
+        reset = new javax.swing.JButton();
+        input_custno = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -133,16 +137,16 @@ public class Add_Loan extends javax.swing.JFrame {
             }
         });
 
-        delete.setBackground(new java.awt.Color(255, 0, 0));
-        delete.setForeground(new java.awt.Color(255, 255, 255));
-        delete.setText("Delete");
-        delete.addActionListener(new java.awt.event.ActionListener() {
+        reset.setBackground(new java.awt.Color(255, 0, 0));
+        reset.setForeground(new java.awt.Color(255, 255, 255));
+        reset.setText("Delete");
+        reset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteActionPerformed(evt);
+                resetActionPerformed(evt);
             }
         });
 
-        jLabel6.setText("Customer name:");
+        jLabel6.setText("CUSTNo:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -165,14 +169,14 @@ public class Add_Loan extends javax.swing.JFrame {
                                 .addGap(24, 24, 24)
                                 .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(41, 41, 41)
-                                .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(input_date, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
                                 .addComponent(input_duration)
                                 .addComponent(input_mortage)
                                 .addComponent(input_amount)
                                 .addComponent(input_name)
-                                .addComponent(input_no, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                .addComponent(input_custno, javax.swing.GroupLayout.Alignment.TRAILING))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(206, 206, 206)
                         .addComponent(title)))
@@ -186,7 +190,7 @@ public class Add_Loan extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(input_no, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(input_custno, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -210,7 +214,7 @@ public class Add_Loan extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -219,32 +223,76 @@ public class Add_Loan extends javax.swing.JFrame {
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         
-        if (input_name.getText().isEmpty()
-                || input_date.getText().isEmpty()
-                || input_amount.getText().isEmpty()
-                || input_duration.getText().isEmpty()
-                || input_mortage.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "please enter all fields");
-        }
-        else
-        {
-            String duration = input_duration.getText();
-            String name = input_name.getText();
-            String amount = input_amount.getText();
-            String mortage = input_mortage.getText();
-            String date = input_date.getText();
-            String no = input_no.getText();
+//        if (input_name.getText().isEmpty()
+//                || input_date.getText().isEmpty()
+//                || input_amount.getText().isEmpty()
+//                || input_duration.getText().isEmpty()
+//                || input_mortage.getText().isEmpty()){
+//            JOptionPane.showMessageDialog(null, "please enter all fields");
+//        }
+//        else
+//        {
+//            String duration = input_duration.getText();
+//            String name = input_name.getText();
+//            String amount = input_amount.getText();
+//            String mortage = input_mortage.getText();
+//            String date = input_date.getText();
+//            String no = input_no.getText();
+//
+//            Loan loans = new Loan(no, name, amount, mortage, duration, date);
+//            
+//            loan.add(loans);
+//            saveCustomerToFiles();  
+//        }
 
-            Loan loans = new Loan(no, name, amount, mortage, duration, date);
+           try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
             
-            loan.add(loans);
-            saveCustomerToFiles();  
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            
+            String query1 = "INSERT INTO loans(LoanNo, Name, Amount, Mortage, Duration, DEO)"
+                    + "VALUES (?,?,?,?,?,?)";
+            PreparedStatement pst = conn.prepareStatement(query1);
+            
+            pst.setString(1, input_custno.getText());
+            pst.setString(2, input_name.getText());
+            pst.setString(3, input_amount.getText());
+            pst.setString(4, input_mortage.getText());
+            pst.setString(5, input_duration.getText());
+            pst.setString(6, input_date.getText());
+            
+            pst.executeQuery();
+            
+            JOptionPane.showMessageDialog(null, "data inserted successfully");
+            
+            input_custno.setText("");
+            input_name.setText("");
+            input_amount.setText("");
+            input_mortage.setText("");
+            input_duration.setText("");
+            input_date.setText("");
+            
         }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+           
     }//GEN-LAST:event_saveActionPerformed
 
-    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_deleteActionPerformed
+    private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
+
+        input_custno.setText("");
+        input_name.setText("");
+        input_amount.setText("");
+        input_mortage.setText("");
+        input_duration.setText("");
+        input_date.setText("");               
+        
+    }//GEN-LAST:event_resetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -282,19 +330,19 @@ public class Add_Loan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton delete;
     private javax.swing.JTextField input_amount;
+    private javax.swing.JTextField input_custno;
     private javax.swing.JTextField input_date;
     private javax.swing.JTextField input_duration;
     private javax.swing.JTextField input_mortage;
     private javax.swing.JTextField input_name;
-    private javax.swing.JTextField input_no;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JButton reset;
     private javax.swing.JButton save;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables

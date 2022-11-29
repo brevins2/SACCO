@@ -8,6 +8,7 @@ package sacco;
 import javax.swing.*;
 import java.util.*;
 import java.io.*;
+import java.sql.*;
 import java.text.*;
 
 /**
@@ -30,100 +31,6 @@ public class Add_admin extends javax.swing.JFrame {
         
         admin = new ArrayList<Admin>();
         role = new ArrayList<Roles>();
-        
-        populateArrayList();
-        
-        String[] RoleArray = new String [role.size()];
-        
-        for (int i = 0; i < role.size(); i++)
-        {
-//            formatter.format()
-            RoleArray[i] = role.get(i).getRole()+ ", shs."+ role.get(i).getSalary();
-        }
-        
-        select_role.setModel(new javax.swing.DefaultComboBoxModel<>(RoleArray));
-    }
-    
-    public void populateArrayList(){
-        try
-        {
-            FileInputStream file = new FileInputStream("roles.dat");
-            
-            ObjectInputStream inputFile = new ObjectInputStream(file);
-            
-            boolean endOfFile = false;
-            
-            while(!endOfFile)
-            {
-                try
-                {
-                    role.add((Roles) inputFile.readObject());
-                }
-                catch(EOFException f)
-                {
-                    endOfFile = true;
-                }
-                catch(Exception e)
-                {
-                    JOptionPane.showMessageDialog(null, e.getMessage());
-                }
-            }
-            
-            inputFile.close();
-        }
-        catch(IOException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-        
-        try
-        {
-            FileInputStream file2 = new FileInputStream("admins.dat");
-            
-            ObjectInputStream inputFile2 = new ObjectInputStream(file2);
-            
-            boolean endOfTheFile2 = false;
-            
-            while(!endOfTheFile2)
-            {
-                try
-                {
-                    admin.add((Admin) inputFile2.readObject());
-                }
-                catch(EOFException f)
-                {
-                    endOfTheFile2 = true;
-                }
-                catch(Exception e)
-                {
-                    JOptionPane.showMessageDialog(null, e.getMessage());
-                }
-            }        
-            inputFile2.close();
-        }
-        catch(IOException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
-    
-     public void saveAdminToFiles()
-    {
-        try
-        {
-            FileOutputStream file = new FileOutputStream("admins.dat");
-            ObjectOutputStream outputFile = new ObjectOutputStream(file);
-            
-            for(int i=0; i<admin.size(); i++)
-            {
-                outputFile.writeObject(admin.get(i));
-            }
-            outputFile.close();
-            JOptionPane.showMessageDialog(null, "successfully saved");
-            this.dispose();
-        }
-        catch(IOException e)
-        {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
     }
 
     /**
@@ -145,11 +52,11 @@ public class Add_admin extends javax.swing.JFrame {
         date_of_entrance = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
         input_date_of_entrance = new javax.swing.JTextField();
-        Cancel = new javax.swing.JButton();
-        select_role = new javax.swing.JComboBox<>();
-        password = new javax.swing.JTextField();
+        reset = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         input_no = new javax.swing.JTextField();
+        password = new javax.swing.JTextField();
+        input_role = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add new Administrator");
@@ -175,20 +82,12 @@ public class Add_admin extends javax.swing.JFrame {
         title.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         title.setText("Add new Administrator");
 
-        Cancel.setBackground(new java.awt.Color(255, 51, 0));
-        Cancel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        Cancel.setText("Cancel");
-        Cancel.addActionListener(new java.awt.event.ActionListener() {
+        reset.setBackground(new java.awt.Color(255, 51, 0));
+        reset.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        reset.setText("Reset");
+        reset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CancelActionPerformed(evt);
-            }
-        });
-
-        select_role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<<select role>>", "Chairman", "Secretary", "Vice chairman", "Supervisor" }));
-
-        password.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordActionPerformed(evt);
+                resetActionPerformed(evt);
             }
         });
 
@@ -208,69 +107,67 @@ public class Add_admin extends javax.swing.JFrame {
                         .addGap(114, 114, 114)
                         .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(input_no, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(date_of_entrance, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(input_date_of_entrance, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(duration, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
-                                .addComponent(select_role, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(amount_due, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(86, 86, 86)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(location, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(duration, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(amount_due, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(date_of_entrance, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(input_name, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(input_location, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(33, Short.MAX_VALUE))
+                                    .addComponent(input_role, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(password)
+                                    .addComponent(input_date_of_entrance)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(location, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(input_location, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(input_name)
+                                    .addComponent(input_no))))))
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(title)
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(input_no, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(input_name, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addComponent(input_name, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(location, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                     .addComponent(input_location, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                     .addComponent(amount_due))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(duration)
-                    .addComponent(select_role, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(input_role, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(duration))
+                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(input_date_of_entrance, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(date_of_entrance))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                    .addComponent(date_of_entrance)
+                    .addComponent(input_date_of_entrance, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(save, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
-                    .addComponent(Cancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(reset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(36, 36, 36))
         );
 
@@ -279,41 +176,53 @@ public class Add_admin extends javax.swing.JFrame {
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
 
-        if (input_date_of_entrance.getText().isEmpty()
-                || password.getText().isEmpty()
-                || input_location.getText().isEmpty()
-                || input_name.getText().isEmpty()
-                || input_no.getText().isEmpty()
-                ){
-            JOptionPane.showMessageDialog(null, "please enter all fields");
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            
+            String query1 = "INSERT INTO admin(AdminNo, Name, Location, Role, Password, DEO)"
+                    + "VALUES (?,?,?,?,?,?)";
+            PreparedStatement pst = conn.prepareStatement(query1);
+            
+            pst.setString(1, input_no.getText());
+            pst.setString(2, input_name.getText());
+            pst.setString(3, input_location.getText());
+            pst.setString(4, input_role.getText());
+            pst.setString(5, password.getText());
+            pst.setString(6, input_date_of_entrance.getText());
+            
+            pst.executeUpdate();
+            
+                JOptionPane.showMessageDialog(null, "data inserted successfully");
+                input_no.setText("");
+                input_name.setText("");
+                password.setText("");
+                input_location.setText("");
+                input_role.setText("");
+                input_date_of_entrance.setText("");
+            
         }
-        else
-        {
-            String DOE = input_date_of_entrance.getText();
-            String no = input_no.getText();
-            String pass = password.getText();
-            String locate = input_location.getText();
-            String named = input_name.getText();
-            int roleIndex = select_role.getSelectedIndex();
-            Roles roles = role.get(roleIndex);
-            
-            Admin admins = new Admin(no, named, locate, roles, pass, DOE);
-            
-            admin.add(admins);
-            saveAdminToFiles();  
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         
     }//GEN-LAST:event_saveActionPerformed
 
-    private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
+    private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         
-        System.exit(0);
+        input_no.setText("");
+        input_name.setText("");
+        password.setText("");
+        input_location.setText("");
+        input_role.setText("");
+        input_date_of_entrance.setText("");
         
-    }//GEN-LAST:event_CancelActionPerformed
-
-    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passwordActionPerformed
+    }//GEN-LAST:event_resetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -351,7 +260,6 @@ public class Add_admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Cancel;
     private javax.swing.JLabel amount_due;
     private javax.swing.JLabel date_of_entrance;
     private javax.swing.JLabel duration;
@@ -359,12 +267,13 @@ public class Add_admin extends javax.swing.JFrame {
     private javax.swing.JTextField input_location;
     private javax.swing.JTextField input_name;
     private javax.swing.JTextField input_no;
+    private javax.swing.JTextField input_role;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel location;
     private javax.swing.JLabel name;
     private javax.swing.JTextField password;
+    private javax.swing.JButton reset;
     private javax.swing.JButton save;
-    private javax.swing.JComboBox<String> select_role;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }

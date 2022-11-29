@@ -9,6 +9,7 @@ import java.io.*;
 import javax.swing.*;
 import java.util.*;
 import java.text.*;
+import java.sql.*;
 
 /**
  *
@@ -28,61 +29,61 @@ public class Role extends javax.swing.JFrame {
         formatter = new DecimalFormat("#,###.00");
         role = new ArrayList<Roles>();
         
-        populateArrayList();
+//        populateArrayList();
     }
     
-    public void populateArrayList(){
-        try
-        {
-            FileInputStream file = new FileInputStream("roles.dat");
-            
-            ObjectInputStream inputFile = new ObjectInputStream(file);
-            
-            boolean endOfFile = false;
-            
-            while(!endOfFile)
-            {
-                try
-                {
-                    role.add((Roles) inputFile.readObject());
-                }
-                catch(EOFException f)
-                {
-                    endOfFile = true;
-                }
-                catch(Exception e)
-                {
-                    JOptionPane.showMessageDialog(null, e.getMessage());
-                }
-            }
-            
-            inputFile.close();
-        }
-        catch(IOException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
-    
-    public void saveRoleToFiles()
-    {
-        try
-        {
-            FileOutputStream file = new FileOutputStream("roles.dat");
-            ObjectOutputStream outputFile = new ObjectOutputStream(file);
-            
-            for(int i=0; i<role.size(); i++)
-            {
-                outputFile.writeObject(role.get(i));
-            }
-            outputFile.close();
-            JOptionPane.showMessageDialog(null, "successfully saved");
-            this.dispose();
-        }
-        catch(IOException e)
-        {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
+//    public void populateArrayList(){
+//        try
+//        {
+//            FileInputStream file = new FileInputStream("roles.dat");
+//            
+//            ObjectInputStream inputFile = new ObjectInputStream(file);
+//            
+//            boolean endOfFile = false;
+//            
+//            while(!endOfFile)
+//            {
+//                try
+//                {
+//                    role.add((Roles) inputFile.readObject());
+//                }
+//                catch(EOFException f)
+//                {
+//                    endOfFile = true;
+//                }
+//                catch(Exception e)
+//                {
+//                    JOptionPane.showMessageDialog(null, e.getMessage());
+//                }
+//            }
+//            
+//            inputFile.close();
+//        }
+//        catch(IOException e){
+//            JOptionPane.showMessageDialog(null, e.getMessage());
+//        }
+//    }
+//    
+//    public void saveRoleToFiles()
+//    {
+//        try
+//        {
+//            FileOutputStream file = new FileOutputStream("roles.dat");
+//            ObjectOutputStream outputFile = new ObjectOutputStream(file);
+//            
+//            for(int i=0; i<role.size(); i++)
+//            {
+//                outputFile.writeObject(role.get(i));
+//            }
+//            outputFile.close();
+//            JOptionPane.showMessageDialog(null, "successfully saved");
+//            this.dispose();
+//        }
+//        catch(IOException e)
+//        {
+//            JOptionPane.showMessageDialog(null, e.getMessage());
+//        }
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -97,11 +98,11 @@ public class Role extends javax.swing.JFrame {
         save2 = new javax.swing.JButton();
         title = new javax.swing.JLabel();
         name = new javax.swing.JLabel();
-        Cancel = new javax.swing.JButton();
         input_role = new javax.swing.JTextField();
         location = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         input_roleno = new javax.swing.JTextField();
+        reset = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add new Customer");
@@ -119,13 +120,18 @@ public class Role extends javax.swing.JFrame {
 
         name.setText("Role:");
 
-        Cancel.setBackground(new java.awt.Color(255, 51, 0));
-        Cancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/exit.png"))); // NOI18N
-        Cancel.setText("Cancel");
-
         location.setText("Salary:");
 
         jLabel4.setText("RoleNo.");
+
+        reset.setBackground(new java.awt.Color(255, 51, 0));
+        reset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/exit.png"))); // NOI18N
+        reset.setText("Save");
+        reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,8 +141,8 @@ public class Role extends javax.swing.JFrame {
                 .addContainerGap(99, Short.MAX_VALUE)
                 .addComponent(save2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(104, 104, 104))
+                .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(93, 93, 93))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -177,7 +183,7 @@ public class Role extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(save2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35))
         );
 
@@ -186,21 +192,35 @@ public class Role extends javax.swing.JFrame {
 
     private void save2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_save2ActionPerformed
 
-        if (input_role.getText().isEmpty()
-            || input_roleno.getText().isEmpty()
-            || input_salary.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "please enter all fields");
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            
+            String query1 = "INSERT INTO role(ROLENo, Role, Salary) "
+                    + "VALUES (?,?,?)";
+            PreparedStatement pst = conn.prepareStatement(query1);
+            
+            pst.setString(1, input_roleno.getText());
+            pst.setString(2, input_role.getText());
+            pst.setString(3, input_salary.getText());
+            
+            pst.executeQuery();
+            
+
+            JOptionPane.showMessageDialog(null, "data inserted successfully");
+            
+            input_roleno.setText("");
+            input_role.setText("");
+            input_salary.setText("");
+            
         }
-        else
-        {
-            String roles = input_role.getText();
-            String salaries = input_salary.getText();
-            String no = input_roleno.getText();
-
-            Roles roled = new Roles(no, roles, salaries);
-
-            role.add(roled);
-            saveRoleToFiles();
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 
@@ -209,6 +229,14 @@ public class Role extends javax.swing.JFrame {
         System.exit(0);
 
     }//GEN-LAST:event_save2ActionPerformed
+
+    private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
+        
+        input_roleno.setText("");
+        input_role.setText("");
+        input_salary.setText("");
+        
+    }//GEN-LAST:event_resetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,13 +274,13 @@ public class Role extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Cancel;
     private javax.swing.JTextField input_role;
     private javax.swing.JTextField input_roleno;
     private javax.swing.JTextField input_salary;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel location;
     private javax.swing.JLabel name;
+    private javax.swing.JButton reset;
     private javax.swing.JButton save2;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables

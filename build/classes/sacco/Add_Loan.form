@@ -42,7 +42,7 @@
                               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                               <Component id="save" min="-2" pref="76" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                              <Component id="delete" min="-2" pref="76" max="-2" attributes="0"/>
+                              <Component id="reset" min="-2" pref="76" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="input_date" alignment="0" pref="266" max="32767" attributes="0"/>
@@ -50,7 +50,7 @@
                               <Component id="input_mortage" alignment="0" max="32767" attributes="0"/>
                               <Component id="input_amount" alignment="0" max="32767" attributes="0"/>
                               <Component id="input_name" alignment="0" max="32767" attributes="0"/>
-                              <Component id="input_no" alignment="1" max="32767" attributes="0"/>
+                              <Component id="input_custno" alignment="1" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -71,7 +71,7 @@
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="input_no" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="input_custno" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -101,7 +101,7 @@
               <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="save" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
-                  <Component id="delete" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                  <Component id="reset" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="26" max="32767" attributes="0"/>
           </Group>
@@ -167,7 +167,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="delete">
+    <Component class="javax.swing.JButton" name="reset">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="ff" type="rgb"/>
@@ -178,14 +178,14 @@
         <Property name="text" type="java.lang.String" value="Delete"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="input_no">
+    <Component class="javax.swing.JTextField" name="input_custno">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Customer name:"/>
+        <Property name="text" type="java.lang.String" value="CUSTNo:"/>
       </Properties>
     </Component>
   </SubComponents>

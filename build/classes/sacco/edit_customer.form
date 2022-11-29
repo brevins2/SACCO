@@ -58,7 +58,7 @@
                               <Component id="title" min="-2" max="-2" attributes="0"/>
                               <Component id="input_name" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="input_amount_due" alignment="1" min="-2" pref="260" max="-2" attributes="0"/>
+                          <Component id="input_amount" alignment="1" min="-2" pref="260" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="date_of_entry" min="-2" pref="119" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -98,7 +98,7 @@
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="input_amount_due" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                  <Component id="input_amount" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="amount_due" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
@@ -134,7 +134,7 @@
         <Property name="text" type="java.lang.String" value="Amount due:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="input_amount_due">
+    <Component class="javax.swing.JTextField" name="input_amount">
     </Component>
     <Component class="javax.swing.JLabel" name="duration">
       <Properties>

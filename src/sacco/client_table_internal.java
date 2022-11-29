@@ -5,11 +5,11 @@
  */
 package sacco;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.awt.HeadlessException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -74,6 +74,57 @@ public class client_table_internal extends javax.swing.JInternalFrame {
             
             model.addRow(row);
         }
+    }
+    
+    public ArrayList<Customer> clienSearchtList(){
+        ArrayList<Customer> clienSearchtList = new ArrayList<>();
+        
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            
+            String query1 = "select * from customer where Name = "+ input_search.getText();
+            Statement st = conn.createStatement();
+            ResultSet rset = st.executeQuery(query1);
+            
+            Customer clients;
+            
+            if(input_search.getText().equals(query1)){
+                while(rset.next()){
+                    clients = new Customer(rset.getString("CUSTNo"), rset.getString("Name"), rset.getString("Location"), 
+                            rset.getString("Amount"), rset.getString("Duration"), rset.getString("Date_of_entrance"));
+                    clienSearchtList.add(clients);
+                }
+            }
+            
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return clienSearchtList;
+    }
+    
+    public void show_searched_client(){
+        ArrayList<Customer> list = clienSearchtList();
+        
+        DefaultTableModel model = (DefaultTableModel) jTable_customer.getModel();
+        
+        Object[] row = new Object[6];
+        for(int i=0; i<list.size(); i++){
+            row[0] = list.get(i).getCustNo();
+            row[1] = list.get(i).getName();
+            row[2] = list.get(i).getLocation();
+            row[3] = list.get(i).getAmount_due();
+            row[4] = list.get(i).getDuration();
+            row[5] = list.get(i).getDate_of_entrance();
+            
+            model.addRow(row);
+        }
     }    
 
     /**
@@ -96,15 +147,17 @@ public class client_table_internal extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         save = new javax.swing.JButton();
         delete = new javax.swing.JButton();
-        cancel = new javax.swing.JButton();
-        location = new javax.swing.JTextField();
-        name = new javax.swing.JTextField();
-        CUSTNo = new javax.swing.JTextField();
-        amount = new javax.swing.JTextField();
-        duration = new javax.swing.JTextField();
-        deo = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        input_location = new javax.swing.JTextField();
+        input_name = new javax.swing.JTextField();
+        input_no = new javax.swing.JTextField();
+        input_amount = new javax.swing.JTextField();
+        input_duration = new javax.swing.JTextField();
+        input_date_of_entrance = new javax.swing.JTextField();
+        clear = new javax.swing.JButton();
+        view = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        input_search = new javax.swing.JTextField();
+        search = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -142,7 +195,7 @@ public class client_table_internal extends javax.swing.JInternalFrame {
 
         jLabel6.setText("DEO");
 
-        save.setText("Save");
+        save.setText("Update");
         save.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,9 +205,11 @@ public class client_table_internal extends javax.swing.JInternalFrame {
 
         delete.setText("Delete");
         delete.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        cancel.setText("Cancel");
-        cancel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -163,20 +218,18 @@ public class client_table_internal extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(64, Short.MAX_VALUE)
+                        .addContainerGap(102, Short.MAX_VALUE)
                         .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10))
+                        .addGap(53, 53, 53))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(31, 31, 31)
-                                .addComponent(name))
+                                .addComponent(input_name))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
@@ -184,17 +237,17 @@ public class client_table_internal extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel4))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(CUSTNo, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(location)
-                                    .addComponent(amount, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                    .addComponent(input_no, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(input_location)
+                                    .addComponent(input_amount, javax.swing.GroupLayout.Alignment.TRAILING)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel5))
                                 .addGap(17, 17, 17)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(duration)
-                                    .addComponent(deo))))))
+                                    .addComponent(input_duration)
+                                    .addComponent(input_date_of_entrance))))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -205,43 +258,56 @@ public class client_table_internal extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(49, 49, 49)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(input_name, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addGap(11, 11, 11)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(location, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(input_location, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(CUSTNo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(input_no, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(input_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(duration, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(input_duration, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(deo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(input_date_of_entrance, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        jButton2.setText("clear");
-        jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jButton1.setText("view");
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        clear.setText("clear");
+        clear.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        clear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                clearActionPerformed(evt);
+            }
+        });
+
+        view.setText("view");
+        view.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        view.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Search");
+
+        search.setText("Search");
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
             }
         });
 
@@ -250,29 +316,40 @@ public class client_table_internal extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(414, Short.MAX_VALUE)
+                .addContainerGap(571, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(198, 198, 198))
+                            .addComponent(input_search, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(84, 84, 84))))
+                        .addComponent(search)))
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
                     .addGap(337, 337, 337)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(75, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(input_search, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,57 +359,153 @@ public class client_table_internal extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
 
-        JOptionPane.showMessageDialog(null, "Details of "+ CUSTNo.getText()+ "\n\n\n"+
-            "CUSTNo:     "+ CUSTNo.getText() + "\n\n"+
-            "Name:       "+ name.getText()+ "\n\n"+
-            "Location:   "+ location.getText()+ "\n\n"+
-            "Amount:     "+ amount.getText() + "\n\n"+
-            "Duration:   "+ duration.getText() + "\n\n" +
-            "DEO:        "+ deo.getText());
-    }//GEN-LAST:event_jButton1ActionPerformed
+        JOptionPane.showMessageDialog(null, "Details of "+ input_no.getText()+ "\n\n\n"+
+            "CUSTNo:     "+ input_no.getText() + "\n\n"+
+            "Name:       "+ input_name.getText()+ "\n\n"+
+            "Location:   "+ input_location.getText()+ "\n\n"+
+            "Amount:     "+ input_amount.getText() + "\n\n"+
+            "Duration:   "+ input_duration.getText() + "\n\n" +
+            "DEO:        "+ input_date_of_entrance.getText());
+    }//GEN-LAST:event_viewActionPerformed
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_saveActionPerformed
+        
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            
+            int row = jTable_customer.getSelectedRow();
+            String value = (jTable_customer.getModel().getValueAt(row, 0).toString());
+            String query1 = "UPDATE customer SET CUSTNo='"+input_no.getText()+
+                    "', Name='"+input_name.getText()+"', Location='"+input_location.getText()+
+                    "', Amount='"+input_amount.getText()+"', Duration='"+input_duration.getText()+
+                    "', Date_of_entrance='"+input_date_of_entrance.getText()+"' where CUSTNo = '"+
+                    value+"'";
+            PreparedStatement pst = conn.prepareStatement(query1);
+            pst.execute();
+            
+            DefaultTableModel model = (DefaultTableModel) jTable_customer.getModel();
+            model.setRowCount(0);
+            show_client();
+            
+                JOptionPane.showMessageDialog(null, "data updated successfully");
 
+                input_no.setText("");
+                input_name.setText("");
+                input_location.setText("");
+                input_amount.setText("");
+                input_duration.setText("");
+                input_date_of_entrance.setText("");
+            
+        }
+        catch(HeadlessException | SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(client_table_internal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//        dispose();        
+    }//GEN-LAST:event_saveActionPerformed
+    
     private void jTable_customerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_customerMouseClicked
         
         int row = jTable_customer.getSelectedRow(); // get selected row
         DefaultTableModel model = (DefaultTableModel) jTable_customer.getModel();
         // getValueAt(row index, column index)
         
-        CUSTNo.setText(model.getValueAt(row, 0).toString());
-        name.setText(model.getValueAt(row, 1).toString());
-        location.setText(model.getValueAt(row, 2).toString());
-        amount.setText(model.getValueAt(row, 3).toString());
-        duration.setText(model.getValueAt(row, 4).toString());
-        deo.setText(model.getValueAt(row, 5).toString());
+        input_no.setText(model.getValueAt(row, 0).toString());
+        input_name.setText(model.getValueAt(row, 1).toString());
+        input_location.setText(model.getValueAt(row, 2).toString());
+        input_amount.setText(model.getValueAt(row, 3).toString());
+        input_duration.setText(model.getValueAt(row, 4).toString());
+        input_date_of_entrance.setText(model.getValueAt(row, 5).toString());
         
     }//GEN-LAST:event_jTable_customerMouseClicked
 
+    private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
+        
+        input_no.setText("");
+        input_name.setText("");
+        input_location.setText("");
+        input_amount.setText("");
+        input_duration.setText("");
+        input_date_of_entrance.setText("");
+        
+    }//GEN-LAST:event_clearActionPerformed
+
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+        show_searched_client();
+        
+    }//GEN-LAST:event_searchActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            
+            int row = jTable_customer.getSelectedRow();
+            String value = (jTable_customer.getModel().getValueAt(row, 0).toString());
+            String query1 = "DELETE FROM customer WHERE CUSTNo ="+value;
+            PreparedStatement pst = conn.prepareStatement(query1);
+            pst.executeUpdate();
+            
+            DefaultTableModel model = (DefaultTableModel) jTable_customer.getModel();
+            model.setRowCount(0);
+            show_client();
+            
+            JOptionPane.showMessageDialog(null, "data deleted successfully");
+
+                input_no.setText("");
+                input_name.setText("");
+                input_location.setText("");
+                input_amount.setText("");
+                input_duration.setText("");
+                input_date_of_entrance.setText("");
+            
+        }
+        catch(HeadlessException | SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(client_table_internal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_deleteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField CUSTNo;
-    private javax.swing.JTextField amount;
-    private javax.swing.JButton cancel;
+    private javax.swing.JButton clear;
     private javax.swing.JButton delete;
-    private javax.swing.JTextField deo;
-    private javax.swing.JTextField duration;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JTextField input_amount;
+    private javax.swing.JTextField input_date_of_entrance;
+    private javax.swing.JTextField input_duration;
+    private javax.swing.JTextField input_location;
+    private javax.swing.JTextField input_name;
+    private javax.swing.JTextField input_no;
+    private javax.swing.JTextField input_search;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable_customer;
-    private javax.swing.JTextField location;
-    private javax.swing.JTextField name;
     private javax.swing.JButton save;
+    private javax.swing.JButton search;
+    private javax.swing.JButton view;
     // End of variables declaration//GEN-END:variables
 }

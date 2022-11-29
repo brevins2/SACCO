@@ -5,6 +5,8 @@
  */
 package sacco;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
@@ -18,6 +20,10 @@ public class first_page extends javax.swing.JFrame {
      */
     public first_page() {
         initComponents();
+        
+        Toolkit toolkit = getToolkit();
+        Dimension size = toolkit.getScreenSize();
+        setLocation(size.width/2 - getWidth()/2, size.height/2-getHeight()/2);
     }
 
     /**
@@ -33,6 +39,7 @@ public class first_page extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SACCO");
         setUndecorated(true);
 
@@ -93,8 +100,11 @@ public class first_page extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        new welcome_page().setVisible(true);
-        setState(JFrame.ICONIFIED);
+        welcome_page welcome = new welcome_page();
+//        new welcome_page().setVisible(true);
+        welcome.show();
+        dispose();
+//        setState(JFrame.ICONIFIED);
 //        System.exit(0);
         
     }//GEN-LAST:event_jButton1ActionPerformed

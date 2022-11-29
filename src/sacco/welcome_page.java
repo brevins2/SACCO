@@ -5,6 +5,9 @@
  */
 package sacco;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 /**
  *
  * @author brevin
@@ -16,6 +19,10 @@ public class welcome_page extends javax.swing.JFrame {
      */
     public welcome_page() {
         initComponents();
+        
+        Toolkit toolkit = getToolkit();
+        Dimension size = toolkit.getScreenSize();
+        setLocation(size.width/2 - getWidth()/2, size.height/2-getHeight()/2);
     }
 
     /**
@@ -55,6 +62,7 @@ public class welcome_page extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("welcome to Cash Money SACCO");
+        setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setSize(new java.awt.Dimension(1, 1));
         setState(1);
@@ -65,14 +73,15 @@ public class welcome_page extends javax.swing.JFrame {
         Desktop.setLayout(DesktopLayout);
         DesktopLayout.setHorizontalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 619, Short.MAX_VALUE)
+            .addGap(0, 839, Short.MAX_VALUE)
         );
         DesktopLayout.setVerticalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 483, Short.MAX_VALUE)
+            .addGap(0, 490, Short.MAX_VALUE)
         );
 
         admin_table.setText("Admin");
+        admin_table.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         admin_table.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 admin_tableActionPerformed(evt);
@@ -80,6 +89,7 @@ public class welcome_page extends javax.swing.JFrame {
         });
 
         loan_table.setText("Loans");
+        loan_table.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         loan_table.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loan_tableActionPerformed(evt);
@@ -87,6 +97,7 @@ public class welcome_page extends javax.swing.JFrame {
         });
 
         client_table.setText("Clients");
+        client_table.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         client_table.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 client_tableActionPerformed(evt);
@@ -94,6 +105,7 @@ public class welcome_page extends javax.swing.JFrame {
         });
 
         role_table.setText("Roles");
+        role_table.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         role_table.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 role_tableActionPerformed(evt);
@@ -269,7 +281,7 @@ public class welcome_page extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Desktop))
         );

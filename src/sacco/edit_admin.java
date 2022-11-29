@@ -33,16 +33,16 @@ public class edit_admin extends javax.swing.JFrame {
         
         populateArrayList();
         
-        String[] RoleArray = new String [role.size()];
-        
-        for (int i = 0; i < role.size(); i++)
-        {
-            RoleArray[i] = role.get(i).getRole()+ ", shs."+ role.get(i).getSalary();
-        }
-        
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(RoleArray));
-        
-        jComboBox2.setSelectedIndex(0);
+//        String[] RoleArray = new String [role.size()];
+//        
+//        for (int i = 0; i < role.size(); i++)
+//        {
+//            RoleArray[i] = role.get(i).getRole()+ ", shs."+ role.get(i).getSalary();
+//        }
+//        
+//        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(RoleArray));
+//        
+//        jComboBox2.setSelectedIndex(0);
         
         String[] AdminArray = new String [admin.size()];
         
@@ -183,9 +183,9 @@ public class edit_admin extends javax.swing.JFrame {
         select_admin = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
         name1 = new javax.swing.JLabel();
         input_No = new javax.swing.JTextField();
+        input_role = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Edit administration");
@@ -220,19 +220,12 @@ public class edit_admin extends javax.swing.JFrame {
 
         select_admin.setText("Select Admin:");
 
-        jLabel1.setText("Select Role");
+        jLabel1.setText("Role:");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
-            }
-        });
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
             }
         });
 
@@ -284,7 +277,7 @@ public class edit_admin extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(password)
-                                        .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                                        .addComponent(input_role)))))))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -308,10 +301,13 @@ public class edit_admin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(amount_due))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(input_role, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(input_date_of_entrance, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -324,7 +320,7 @@ public class edit_admin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(save, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                     .addComponent(delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();
@@ -355,8 +351,7 @@ public class edit_admin extends javax.swing.JFrame {
             admin.get(selectedIndex).setPassword(password.getText().trim());
             admin.get(selectedIndex).setLocation(input_location.getText().trim());
             admin.get(selectedIndex).setName(input_name.getText().trim());
-            Roles roles = role.get(jComboBox2.getSelectedIndex());
-            admin.get(selectedIndex).setRole(roles);
+            admin.get(selectedIndex).setRole(input_role.getText().trim());
             
             saveAdminToFiles();
         }
@@ -372,25 +367,21 @@ public class edit_admin extends javax.swing.JFrame {
         password.setText(admin.get(selectedIndex).getPassword());
         input_No.setText(admin.get(selectedIndex).getAdminNo());
         input_date_of_entrance.setText(admin.get(selectedIndex).getDEO());
-        Roles roles = admin.get(selectedIndex).getRole();
+        input_role.setText(admin.get(selectedIndex).getRole());
         
-        int index = 0;
+//        int index = 0;
+//        
+//        for(int i = 0; i < role.size(); i++)
+//        {
+//            if(role.get(i).equals(roles))
+//            {
+//                index = i;
+//                break;
+//            }
+//        }
         
-        for(int i = 0; i < role.size(); i++)
-        {
-            if(role.get(i).equals(roles))
-            {
-                index = i;
-                break;
-            }
-        }
-        
-        jComboBox2.setSelectedIndex(index);
+//        jComboBox2.setSelectedIndex(index);
     }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -435,8 +426,8 @@ public class edit_admin extends javax.swing.JFrame {
     private javax.swing.JTextField input_date_of_entrance;
     private javax.swing.JTextField input_location;
     private javax.swing.JTextField input_name;
+    private javax.swing.JTextField input_role;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel location;
     private javax.swing.JLabel name;
