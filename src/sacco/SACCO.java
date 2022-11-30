@@ -5,32 +5,11 @@
  */
 package sacco;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author brevin
  */
 public class SACCO {
-
-    public static Connection connectsql(){
-        try{
-            String user = "root";
-            String pass = "";
-            String connection = "jdbc:mysql://localhost:3306/sacco";
-            
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(connection, pass, user);
-            
-            return conn;
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-        return null;
-    }
     
     /**
      * @param args the command line arguments

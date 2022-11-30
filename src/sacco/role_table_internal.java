@@ -119,7 +119,54 @@ public class role_table_internal extends javax.swing.JInternalFrame {
             
             model.addRow(row);
         }
-    }   
+    }
+    
+    public ArrayList<Roles> roleSearchtList(){
+        ArrayList<Roles> roleSearchtList = new ArrayList<>();
+        
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            
+            String query1 = "select * from admin where Name = "+ input_search.getText();
+            Statement st = conn.createStatement();
+            ResultSet rset = st.executeQuery(query1);
+            
+            Roles roles;
+            
+            if(input_search.getText().equals(query1)){
+                while(rset.next()){
+                    roles = new Roles(rset.getString("ROLENo"), rset.getString("Role"), rset.getString("Salary"));
+                    roleSearchtList.add(roles);
+                }
+            }
+            
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return roleSearchtList;
+    }
+    
+    public void show_searched_role(){
+        ArrayList<Roles> list = roleSearchtList();
+        
+        DefaultTableModel model = (DefaultTableModel) jTable_Role.getModel();
+        
+        Object[] row = new Object[6];
+        for(int i=0; i<list.size(); i++){
+            row[0] = list.get(i).getROLENo();
+            row[1] = list.get(i).getRole();
+            row[2] = list.get(i).getSalary();
+            
+            model.addRow(row);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -143,6 +190,9 @@ public class role_table_internal extends javax.swing.JInternalFrame {
         delete = new javax.swing.JButton();
         view = new javax.swing.JButton();
         clear = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        input_search = new javax.swing.JTextField();
+        search = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -173,6 +223,7 @@ public class role_table_internal extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Salary:");
 
+        save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/edit.png"))); // NOI18N
         save.setText("Update");
         save.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         save.addActionListener(new java.awt.event.ActionListener() {
@@ -181,8 +232,14 @@ public class role_table_internal extends javax.swing.JInternalFrame {
             }
         });
 
+        delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/exit.png"))); // NOI18N
         delete.setText("delete");
         delete.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -202,10 +259,10 @@ public class role_table_internal extends javax.swing.JInternalFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
+                .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,7 +283,7 @@ public class role_table_internal extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         view.setText("view");
@@ -245,32 +302,55 @@ public class role_table_internal extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel7.setText("Search");
+
+        search.setText("Search");
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
+                        .addGap(85, 85, 85)
                         .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(198, 198, 198))
+                            .addComponent(input_search, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(search)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(69, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(input_search, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
@@ -318,12 +398,17 @@ public class role_table_internal extends javax.swing.JInternalFrame {
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
+            int row = jTable_Role.getSelectedRow();
+            String value = (jTable_Role.getModel().getValueAt(row, 0).toString());
             String query1 = "UPDATE role SET ROLENo='"+roleno.getText()+
                     "', Role='"+role.getText()+"', Salary='"+salary.getText()+
-                    "'WHERE CUSTNo='"+ roleno.getText()+"'";
+                    "'WHERE ROLENo='"+ value+"'";
             PreparedStatement pst = conn.prepareStatement(query1);
-                        
             pst.execute();
+            
+            DefaultTableModel model = (DefaultTableModel) jTable_Role.getModel();
+            model.setRowCount(0);
+            show_roles();
             
                 JOptionPane.showMessageDialog(null, "data updated successfully");
 
@@ -337,17 +422,60 @@ public class role_table_internal extends javax.swing.JInternalFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(client_table_internal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        dispose();
+//        dispose();
         
     }//GEN-LAST:event_saveActionPerformed
+
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+        show_searched_role();
+    }//GEN-LAST:event_searchActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            
+            int row = jTable_Role.getSelectedRow();
+            String value = (jTable_Role.getModel().getValueAt(row, 0).toString());
+            String query1 = "DELETE FROM role WHERE ROLENo = '"+value+"'";
+            PreparedStatement pst = conn.prepareStatement(query1);
+            pst.execute();
+            
+            DefaultTableModel model = (DefaultTableModel) jTable_Role.getModel();
+            model.setRowCount(0);
+            show_roles();
+            
+                JOptionPane.showMessageDialog(null, "data updated successfully");
+
+                roleno.setText("");
+                role.setText("");
+                salary.setText("");
+                
+        }
+        catch(HeadlessException | SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(client_table_internal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//        dispose();
+        
+    }//GEN-LAST:event_deleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clear;
     private javax.swing.JButton delete;
+    private javax.swing.JTextField input_search;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable_Role;
@@ -355,6 +483,7 @@ public class role_table_internal extends javax.swing.JInternalFrame {
     private javax.swing.JTextField roleno;
     private javax.swing.JTextField salary;
     private javax.swing.JButton save;
+    private javax.swing.JButton search;
     private javax.swing.JButton view;
     // End of variables declaration//GEN-END:variables
 }
