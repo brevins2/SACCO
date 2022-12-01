@@ -62,11 +62,10 @@ public class welcome_page extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("welcome to Cash Money SACCO");
-        setAlwaysOnTop(true);
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setExtendedState(0);
         setSize(new java.awt.Dimension(1, 1));
-        setState(1);
 
         Desktop.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -292,7 +291,7 @@ public class welcome_page extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        getAccessibleContext().setAccessibleParent(settings);
+        getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -341,8 +340,8 @@ public class welcome_page extends javax.swing.JFrame {
 
     private void add_customerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_customerActionPerformed
 
-        //        new login().setVisible(true);
-        new add_Customer().setVisible(true);
+        new login().setVisible(true);
+//      new add_Customer().setVisible(true);
     }//GEN-LAST:event_add_customerActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed

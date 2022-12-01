@@ -93,18 +93,16 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
-            String query1 = "select * from loans where Name = "+ input_search.getText();
+            String query1 = "select * from loans where Name = '"+ input_search.getText()+"'";
             Statement st = conn.createStatement();
             ResultSet rset = st.executeQuery(query1);
             
             Loan loans;
             
-            if(input_search.getText().equals(query1)){
-                while(rset.next()){
-                    loans = new Loan(rset.getString("LoanNo"), rset.getString("Name"), rset.getString("Amount"), 
-                            rset.getString("Mortage"), rset.getString("Duration"), rset.getString("DEO"));
-                    loanSearchtList.add(loans);
-                }
+            while(rset.next()){
+                loans = new Loan(rset.getString("LoanNo"), rset.getString("Name"), rset.getString("Amount"), 
+                        rset.getString("Mortage"), rset.getString("Duration"), rset.getString("DEO"));
+                loanSearchtList.add(loans);
             }
             
         }
@@ -117,18 +115,35 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
     public void show_searched_loan(){
         ArrayList<Loan> list = loanSearchtList();
         
-        DefaultTableModel model = (DefaultTableModel) jTable_loan.getModel();
+        String searches = input_search.getText();
         
+        DefaultTableModel model = (DefaultTableModel) jTable_loan.getModel();
+
         Object[] row = new Object[6];
+        
         for(int i=0; i<list.size(); i++){
-            row[0] = list.get(i).getLoanNo();
-            row[1] = list.get(i).getName();
-            row[2] = list.get(i).getAmount();
-            row[3] = list.get(i).getMortage();
-            row[4] = list.get(i).getDuration();
-            row[5] = list.get(i).getDEO();
+            if(searches.equals(list.get(i).getName())){
+                loanno.setText(list.get(i).getLoanNo());
+                name.setText(list.get(i).getName());
+                amount.setText(list.get(i).getAmount());
+                mortage.setText(list.get(i).getMortage());
+                duration.setText(list.get(i).getDuration());
+                deo.setText(list.get(i).getDEO());
+                
+                
+                row[0] = list.get(i).getLoanNo();
+                row[1] = list.get(i).getName();
+                row[2] = list.get(i).getAmount();
+                row[3] = list.get(i).getMortage();
+                row[4] = list.get(i).getDuration();
+                row[5] = list.get(i).getDEO();    
             
-            model.addRow(row);
+                model.addRow(row);
+                
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "loan doesnot exist.");
+            }
         }
     }
 
@@ -335,8 +350,8 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
                         .addContainerGap())))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
-                    .addGap(324, 324, 324)))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+                    .addGap(334, 334, 334)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
