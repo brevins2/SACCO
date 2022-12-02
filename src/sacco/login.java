@@ -238,22 +238,41 @@ public class login extends javax.swing.JFrame {
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
+            boolean checkUser = false;
             String query1 = "select * from admin where Name= '"+username.getText()+
                     "' and Password= '"+password.getText()+"'";
             PreparedStatement pst = conn.prepareStatement(query1);
             
             ResultSet rset = pst.executeQuery(query1);
             
-            if(username.getText().equals("select * from admin where Name= '"+username.getText()+"'") &&
-                    password.getText().equals("select * from admin where Password= '"+password.getText()+"'")){
-                rset.next();
-                JOptionPane.showMessageDialog(null, "Username and Password matched");
+            try {
+                pst = MyConnection.getConnection().prepareStatement(query);
+                pst.setString(1, username);
+
+                rset = pst.executeQuery();
+
+                if(rset.next())
+                {
+                    checkUser = true;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
             }
-            else{
-                JOptionPane.showMessageDialog(null, "Username and Password entered are incorrect");
-                username.setText("");
-                password.setText("");
-            }
+            return checkUser;
+    }
+
+
+            
+//            if(username.getText().equals("select * from admin where Name= '"+username.getText()+"'") &&
+//                    password.getText().equals("select * from admin where Password= '"+password.getText()+"'")){
+//                rset.next();
+//                JOptionPane.showMessageDialog(null, "Username and Password matched");
+//            }
+//            else{
+//                JOptionPane.showMessageDialog(null, "Username and Password entered are incorrect");
+//                username.setText("");
+//                password.setText("");
+//            }
             
         }
         catch(Exception e){
