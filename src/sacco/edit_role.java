@@ -5,11 +5,12 @@
  */
 package sacco;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.io.*;
+import java.sql.*;
 import javax.swing.*;
 import java.util.*;
+import java.util.logging.*;
 
 /**
  *
@@ -30,90 +31,36 @@ public class edit_role extends javax.swing.JFrame {
         setLocation(size.width/2 - getWidth()/2, size.height/2-getHeight()/2);
         
         role = new ArrayList<Roles>();
-        populateArrayList();
-        
-        String[] RoleArray = new String [role.size()];
-        
-        for (int i = 0; i < role.size(); i++)
-        {
-            RoleArray[i] = role.get(i).getRole();
-        }
-        
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(RoleArray));
-        jComboBox1.setSelectedIndex(0);        
+        RoleUserName();
     }
-    
-    public void populateArrayList(){
-        try
-        {
-            FileInputStream file = new FileInputStream("roles.dat");
+        
+    public final void RoleUserName(){    
+        
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
             
-            ObjectInputStream inputFile = new ObjectInputStream(file);
+            Class.forName("com.mysql.jdbc.Driver");
             
-            boolean endOfFile = false;
-            
-            while(!endOfFile)
-            {
-                try
-                {
-                    role.add((Roles) inputFile.readObject());
-                }
-                catch(EOFException f)
-                {
-                    endOfFile = true;
-                }
-                catch(Exception e)
-                {
-                    JOptionPane.showMessageDialog(null, e.getMessage());
-                }
-            }
-            
-            inputFile.close();
-        }
-        catch(IOException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
-    
-    public void saveRoleToFiles()
-    {
-        try
-        {
-            FileOutputStream file = new FileOutputStream("roles.dat");
-            ObjectOutputStream outputFile = new ObjectOutputStream(file);
-            
-            for(int i=0; i<role.size(); i++)
-            {
-                outputFile.writeObject(role.get(i));
-            }
-            outputFile.close();
-            JOptionPane.showMessageDialog(null, "successfully saved");
-            this.dispose();
-        }
-        catch(IOException e)
-        {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
+            Connection conn = DriverManager.getConnection(url, user, pass);
 
-    public void deleteRoleFile()
-    {
-        try
-        {
-            FileOutputStream file = new FileOutputStream("roles.dat");
-            ObjectOutputStream outputFile = new ObjectOutputStream(file);
-            
-            for(int i=0; i<role.size(); i++)
-            {
-                outputFile.writeObject(role.get(i));
+            String sql="SELECT * FROM role";
+            Statement pst=conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery(sql);
+            jComboBox1.removeAllItems();
+            while(rs.next()){
+                String roles = rs.getString("Role");
+                
+                String result = roles;
+                
+                jComboBox1.addItem(result);
             }
-            outputFile.close();
-            JOptionPane.showMessageDialog(null, "admin successfully deleted");
-            this.dispose();
-        }
-        catch(IOException e)
-        {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            
+        }catch(SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(edit_role.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -135,7 +82,7 @@ public class edit_role extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         input_role = new javax.swing.JTextField();
         input_salary = new javax.swing.JTextField();
-        save = new javax.swing.JButton();
+        update = new javax.swing.JButton();
         delete = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
@@ -166,13 +113,13 @@ public class edit_role extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Salary:");
 
-        save.setBackground(new java.awt.Color(0, 0, 204));
-        save.setForeground(new java.awt.Color(255, 255, 255));
-        save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/save.png"))); // NOI18N
-        save.setText("Save");
-        save.addActionListener(new java.awt.event.ActionListener() {
+        update.setBackground(new java.awt.Color(0, 51, 255));
+        update.setForeground(new java.awt.Color(255, 255, 255));
+        update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/save.png"))); // NOI18N
+        update.setText("Update");
+        update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveActionPerformed(evt);
+                updateActionPerformed(evt);
             }
         });
 
@@ -197,6 +144,7 @@ public class edit_role extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("-");
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel5MouseClicked(evt);
@@ -206,6 +154,7 @@ public class edit_role extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("X");
+        jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel6MouseClicked(evt);
@@ -262,9 +211,9 @@ public class edit_role extends javax.swing.JFrame {
                             .addComponent(input_roleno, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(70, 70, 70)
-                        .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(update)
+                        .addGap(36, 36, 36)
+                        .addComponent(delete)))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -275,7 +224,7 @@ public class edit_role extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(input_roleno, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -289,8 +238,8 @@ public class edit_role extends javax.swing.JFrame {
                     .addComponent(input_salary, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(save)
-                    .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(52, 52, 52))
         );
 
@@ -302,63 +251,110 @@ public class edit_role extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        
-        int selectedIndex = jComboBox1.getSelectedIndex();
-        
-        input_role.setText(role.get(selectedIndex).getRole());
-        input_salary.setText(role.get(selectedIndex).getSalary());
-        
-        int index = 0;
-        
-        for(int i = 0; i < role.size(); i++)
-        {
-            if(role.get(i).equals(role))
-            {
-                index = i;
-                break;
-            }
-        }
-        
-        jComboBox1.setSelectedIndex(index);        
-        
+                
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String selectedItem = (String) jComboBox1.getSelectedItem();
+            
+            String query = "select * from role where Role = '"+ selectedItem+ "'";
+            
+            Statement pst=conn.prepareStatement(query);
+            ResultSet rs = pst.executeQuery(query);
+            
+            while(rs.next()){
+                String roleno = rs.getString("ROLENo");
+                String rolees = rs.getString("Role");
+                String salary = rs.getString("Salary"); 
+                
+                input_roleno.setText(roleno);
+                input_role.setText(rolees);
+                input_salary.setText(salary);
+            }            
+        }catch(SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(edit_role.class.getName()).log(Level.SEVERE, null, ex);
+        }    
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
       
-        if (input_role.getText().isEmpty()
-            || input_salary.getText().isEmpty()
-            || input_roleno.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "please enter all fields");
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            
+            String value = input_roleno.getText();            
+            if(!input_roleno.getText().isEmpty()||!input_role.getText().isEmpty()||!input_salary.getText().isEmpty()){
+                String query1 = "UPDATE role SET ROLENo='"+input_roleno.getText()+
+                        "', Role='"+input_role.getText()+"', Salary='"+input_salary.getText()+
+                        "'WHERE ROLENo='"+ value+"'";
+                PreparedStatement pst = conn.prepareStatement(query1);
+                pst.execute();
+
+                JOptionPane.showMessageDialog(null, "data updated successfully");
+
+                input_roleno.setText("");
+                input_role.setText("");
+                input_salary.setText("");
+                dispose();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "fields empty");
+            }
+            
         }
-        else
-        {
-            String roles = input_role.getText();
-            String salaries = input_salary.getText();
-            String no = input_roleno.getText();
-
-            Roles roled = new Roles(no, roles, salaries);
-
-            role.add(roled);
-            saveRoleToFiles();
-        }        
-    }//GEN-LAST:event_saveActionPerformed
+        catch(HeadlessException | SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(client_table_internal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_updateActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         
-        int selectedIndex = jComboBox1.getSelectedIndex();
-        
-        role.remove(selectedIndex);
-        
-        deleteRoleFile();        
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String value = input_roleno.getText();
+            String query1 = "DELETE FROM role WHERE ROLENo = '"+value+"'";
+            PreparedStatement pst = conn.prepareStatement(query1);
+            pst.execute();
+            
+            JOptionPane.showMessageDialog(null, "data updated successfully");
+
+            input_roleno.setText("");
+            input_role.setText("");
+            input_salary.setText("");
+                
+        }
+        catch(HeadlessException | SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(client_table_internal.class.getName()).log(Level.SEVERE, null, ex);
+        }       
         
     }//GEN-LAST:event_deleteActionPerformed
 
@@ -423,7 +419,7 @@ public class edit_role extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JButton save;
     private javax.swing.JLabel title;
+    private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 }

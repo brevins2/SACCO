@@ -238,46 +238,42 @@ public class login extends javax.swing.JFrame {
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
-            boolean checkUser = false;
             String query1 = "select * from admin where Name= '"+username.getText()+
                     "' and Password= '"+password.getText()+"'";
             PreparedStatement pst = conn.prepareStatement(query1);
             
             ResultSet rset = pst.executeQuery(query1);
             
-            try {
-                pst = MyConnection.getConnection().prepareStatement(query);
-                pst.setString(1, username);
-
-                rset = pst.executeQuery();
-
-                if(rset.next())
-                {
-                    checkUser = true;
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
+            if(username.getText().equals("select * from admin where Name= '"+username.getText()+"'") &&
+                    password.getText().equals("select * from admin where Password= '"+password.getText()+"'")){
+                rset.next();
+                JOptionPane.showMessageDialog(null, "Username and Password matched");
             }
-            return checkUser;
-    }
-
-
-            
-//            if(username.getText().equals("select * from admin where Name= '"+username.getText()+"'") &&
-//                    password.getText().equals("select * from admin where Password= '"+password.getText()+"'")){
-//                rset.next();
-//                JOptionPane.showMessageDialog(null, "Username and Password matched");
-//            }
-//            else{
-//                JOptionPane.showMessageDialog(null, "Username and Password entered are incorrect");
-//                username.setText("");
-//                password.setText("");
-//            }
+            else{
+                JOptionPane.showMessageDialog(null, "Username and Password entered are incorrect");
+                username.setText("");
+                password.setText("");
+            }
             
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        
+//        try {
+//                pst = MyConnection.getConnection().prepareStatement(query);
+//                pst.setString(1, username);
+//
+//                rset = pst.executeQuery();
+//
+//                if(rset.next())
+//                {
+//                    checkUser = true;
+//                }
+//            } catch (SQLException ex) {
+//                Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            return checkUser;
         
     }//GEN-LAST:event_login_buttonActionPerformed
 

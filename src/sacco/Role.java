@@ -120,6 +120,7 @@ public class Role extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 102));
 
+        save2.setBackground(new java.awt.Color(0, 0, 204));
         save2.setForeground(new java.awt.Color(255, 255, 255));
         save2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/save.png"))); // NOI18N
         save2.setText("Save");
@@ -274,27 +275,33 @@ public class Role extends javax.swing.JFrame {
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
-            String query1 = "INSERT INTO role(ROLENo, Role, Salary) "
-                    + "VALUES (?,?,?)";
-            PreparedStatement pst = conn.prepareStatement(query1);
-            
-            pst.setString(1, input_roleno.getText());
-            pst.setString(2, input_role.getText());
-            pst.setString(3, input_salary.getText());
-            
-            pst.executeQuery();
-            
+            if(!input_roleno.getText().isEmpty()|| !input_role.getText().isEmpty() || !input_salary.getText().isEmpty()){
+                String query1 = "INSERT INTO role(ROLENo, Role, Salary) "
+                        + "VALUES (?,?,?)";
+                PreparedStatement pst = conn.prepareStatement(query1);
 
-            JOptionPane.showMessageDialog(null, "data inserted successfully");
-            
-            input_roleno.setText("");
-            input_role.setText("");
-            input_salary.setText("");
+                pst.setString(1, input_roleno.getText());
+                pst.setString(2, input_role.getText());
+                pst.setString(3, input_salary.getText());
+
+                pst.execute();
+
+
+                JOptionPane.showMessageDialog(null, "data inserted successfully");
+
+                input_roleno.setText("");
+                input_role.setText("");
+                input_salary.setText("");
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Empty fields");
+            }
             
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        dispose();
     }
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {

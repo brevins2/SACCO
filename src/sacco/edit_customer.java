@@ -5,14 +5,13 @@
  */
 package sacco;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.*;
 import javax.swing.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -33,95 +32,40 @@ public class edit_customer extends javax.swing.JFrame {
         setLocation(size.width/2 - getWidth()/2, size.height/2-getHeight()/2);
         
         customer = new ArrayList<Customer>();
-//        populateArrayList();
         
-//         String[] RoleArray = new String [customer.size()];
-//        
-//        for (int i = 0; i < customer.size(); i++)
-//        {
-//            RoleArray[i] = customer.get(i).getName();
-//        }
-//        
-//        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(RoleArray));
-//        jComboBox1.setSelectedIndex(0);
+        CustomerSelect();
+    }
+
+    public final void CustomerSelect(){    
+        
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+
+            String sql="SELECT * FROM customer";
+            Statement pst=conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery(sql);
+            jComboBox1.removeAllItems();
+            while(rs.next()){
+                String custno = rs.getString("CUSTNo");
+                String customers = rs.getString("Name");
+                
+                String result = customers;
+                
+                jComboBox1.addItem(result);
+            }
+        }catch(SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(edit_role.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-//    public void populateArrayList(){
-//        try
-//        {
-//            FileInputStream file = new FileInputStream("customers.dat");
-//            
-//            ObjectInputStream inputFile = new ObjectInputStream(file);
-//            
-//            boolean endOfFile = false;
-//            
-//            while(!endOfFile)
-//            {
-//                try
-//                {
-//                    customer.add((Customer) inputFile.readObject());
-//                }
-//                catch(EOFException f)
-//                {
-//                    endOfFile = true;
-//                }
-//                catch(Exception e)
-//                {
-//                    JOptionPane.showMessageDialog(null, e.getMessage());
-//                }
-//            }
-//            
-//            inputFile.close();
-//        }
-//        catch(IOException e){
-//            JOptionPane.showMessageDialog(null, e.getMessage());
-//        }
-//    }
-//    
-//    public void saveCustomerToFiles()
-//    {
-//        try
-//        {
-//            FileOutputStream file = new FileOutputStream("customers.dat");
-//            ObjectOutputStream outputFile = new ObjectOutputStream(file);
-//            
-//            for(int i=0; i<customer.size(); i++)
-//            {
-//                outputFile.writeObject(customer.get(i));
-//            }
-//            
-//            outputFile.close();
-//            JOptionPane.showMessageDialog(null, "successfully saved");
-//            this.dispose();
-//        }
-//        catch(IOException e)
-//        {
-//            JOptionPane.showMessageDialog(null, e.getMessage());
-//        }
-//    }
-//
-//
-//    public void deleteCustomerFile()
-//    {
-//        try
-//        {
-//            FileOutputStream file = new FileOutputStream("customers.dat");
-//            ObjectOutputStream outputFile = new ObjectOutputStream(file);
-//            
-//            for(int i=0; i<customer.size(); i++)
-//            {
-//                outputFile.writeObject(customer.get(i));
-//            }
-//            outputFile.close();
-//            JOptionPane.showMessageDialog(null, "admin successfully deleted");
-//            this.dispose();
-//        }
-//        catch(IOException e)
-//        {
-//            JOptionPane.showMessageDialog(null, e.getMessage());
-//        }
-//    }    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -147,7 +91,7 @@ public class edit_customer extends javax.swing.JFrame {
         input_date_of_entrance = new javax.swing.JTextField();
         input_no = new javax.swing.JTextField();
         Delete = new javax.swing.JButton();
-        save = new javax.swing.JButton();
+        update = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -192,12 +136,13 @@ public class edit_customer extends javax.swing.JFrame {
         Delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/exit.png"))); // NOI18N
         Delete.setText("Delete");
 
-        save.setForeground(new java.awt.Color(255, 255, 255));
-        save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/save.png"))); // NOI18N
-        save.setText("Save");
-        save.addActionListener(new java.awt.event.ActionListener() {
+        update.setBackground(new java.awt.Color(0, 51, 255));
+        update.setForeground(new java.awt.Color(255, 255, 255));
+        update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/edit.png"))); // NOI18N
+        update.setText("Update");
+        update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveActionPerformed(evt);
+                updateActionPerformed(evt);
             }
         });
 
@@ -207,6 +152,7 @@ public class edit_customer extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("-");
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel5MouseClicked(evt);
@@ -216,6 +162,7 @@ public class edit_customer extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("X");
+        jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel6MouseClicked(evt);
@@ -233,7 +180,7 @@ public class edit_customer extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(title)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 314, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
@@ -246,7 +193,7 @@ public class edit_customer extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(title))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
@@ -258,44 +205,42 @@ public class edit_customer extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(amount_due, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(input_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(date_of_entry1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(date_of_entry, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(duration, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(input_date_of_entrance)
-                            .addComponent(input_no)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(input_duration, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(189, 189, 189)
+                                .addComponent(update)
+                                .addGap(18, 18, 18)
+                                .addComponent(Delete))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(date_of_entry, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                                    .addComponent(date_of_entry1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(28, 28, 28)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(input_no, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(input_date_of_entrance, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(amount_due, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                            .addComponent(name, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(location, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(duration, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(location, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(41, 41, 41))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(input_location, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jComboBox1, 0, 323, Short.MAX_VALUE)
-                                .addComponent(input_name)))))
-                .addContainerGap(57, Short.MAX_VALUE))
+                                    .addComponent(input_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(input_location, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(input_name, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(input_duration, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(39, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,12 +250,12 @@ public class edit_customer extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                         .addComponent(location, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(input_name, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -334,7 +279,7 @@ public class edit_customer extends javax.swing.JFrame {
                     .addComponent(date_of_entry1))
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27))
         );
@@ -353,7 +298,7 @@ public class edit_customer extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
 
         try{
             String user = "root";
@@ -364,63 +309,115 @@ public class edit_customer extends javax.swing.JFrame {
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
-            String query1 = "UPDATE customer SET CUSTNo="+input_no.getText()+", Name="+input_name.getText()+
-                    ", Location="+input_location.getText()+", Amount="+input_amount.getText()+
-                    ", Duration="+input_duration.getText()+", Date_of_entrance="+input_date_of_entrance.getText()+
-                    "WHERE CUSTNo="+ input_no.getText();
-            PreparedStatement pst = conn.prepareStatement(query1);
-                        
-            pst.execute();
-            
-                JOptionPane.showMessageDialog(null, "data inserted successfully");
+            if(!input_no.getText().isEmpty()||
+                    !input_name.getText().isEmpty()||
+                    !input_location.getText().isEmpty()||
+                    !input_amount.getText().isEmpty()||
+                    !input_duration.getText().isEmpty()||
+                    !input_date_of_entrance.getText().isEmpty()){
+                String query1 = "UPDATE customer SET CUSTNo="+input_no.getText()+", Name="+input_name.getText()+
+                        ", Location="+input_location.getText()+", Amount="+input_amount.getText()+
+                        ", Duration="+input_duration.getText()+", Date_of_entrance="+input_date_of_entrance.getText()+
+                        "WHERE CUSTNo="+ input_no.getText();
+                PreparedStatement pst = conn.prepareStatement(query1);
 
-                input_no.setText("");
-                input_name.setText("");
-                input_location.setText("");
-                input_amount.setText("");
-                input_duration.setText("");
-                input_date_of_entrance.setText("");
-            
+                pst.execute();
+
+                    JOptionPane.showMessageDialog(null, "data inserted successfully");
+
+                    input_no.setText("");
+                    input_name.setText("");
+                    input_location.setText("");
+                    input_amount.setText("");
+                    input_duration.setText("");
+                    input_date_of_entrance.setText("");
+            }else{
+                JOptionPane.showMessageDialog(null, "Empty fields");
+            }
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        dispose();
-        
+        dispose();        
     }
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {
         
-//        int selectedIndex = jComboBox1.getSelectedIndex();
-//        
-//        customer.remove(selectedIndex);
-//        
-//        deleteCustomerFile();
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            
+            if(!input_no.getText().isEmpty()||!input_name.getText().isEmpty()||!input_location.getText().isEmpty()||
+                    !input_amount.getText().isEmpty()||!input_duration.getText().isEmpty()||!input_date_of_entrance.getText().isEmpty())
+            {
+                String value = (String) jComboBox1.getSelectedItem();
+                String query1 = "DELETE FROM customer WHERE CUSTNo = '"+value+"'";
+                PreparedStatement pst = conn.prepareStatement(query1);
+                pst.executeUpdate();
 
-    }//GEN-LAST:event_saveActionPerformed
+                JOptionPane.showMessageDialog(null, "data deleted successfully");
+
+                    input_no.setText("");
+                    input_name.setText("");
+                    input_location.setText("");
+                    input_amount.setText("");
+                    input_duration.setText("");
+                    input_date_of_entrance.setText("");
+                    dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Empty field");
+            }
+        }
+        catch(HeadlessException | SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(client_table_internal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_updateActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
                
-        int selectedIndex = jComboBox1.getSelectedIndex();
-        
-        input_name.setText(customer.get(selectedIndex).getName());
-        input_location.setText(customer.get(selectedIndex).getLocation());
-        input_amount.setText(customer.get(selectedIndex).getAmount_due());
-        input_duration.setText(customer.get(selectedIndex).getDuration());
-        input_date_of_entrance.setText(customer.get(selectedIndex).getDate_of_entrance());
-        
-        int index = 0;
-        
-        for(int i = 0; i < customer.size(); i++)
-        {
-            if(customer.get(i).equals(customer))
-            {
-                index = i;
-                break;
-            }
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String selectedItem = (String) jComboBox1.getSelectedItem();
+            
+            String query = "select * from customer where Name = '"+ selectedItem+ "'";
+            
+            Statement pst=conn.prepareStatement(query);
+            ResultSet rs = pst.executeQuery(query);
+            
+            while(rs.next()){
+                String custno = rs.getString("CUSTNo");
+                String names = rs.getString("Name");
+                String locate = rs.getString("Location");
+                String amount = rs.getString("Amount");
+                String time = rs.getString("Duration");
+                String deo = rs.getString("Date_of_entrance");
+                
+                input_no.setText(custno);
+                input_name.setText(names);
+                input_location.setText(locate);
+                input_amount.setText(amount);
+                input_duration.setText(time);
+                input_date_of_entrance.setText(deo);
+            }            
+        }catch(SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(edit_role.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        jComboBox1.setSelectedIndex(index);        
         
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
@@ -491,7 +488,7 @@ public class edit_customer extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel location;
     private javax.swing.JLabel name;
-    private javax.swing.JButton save;
     private javax.swing.JLabel title;
+    private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 }

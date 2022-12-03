@@ -198,7 +198,7 @@ public class role_table_internal extends javax.swing.JInternalFrame {
         roleno = new javax.swing.JTextField();
         role = new javax.swing.JTextField();
         salary = new javax.swing.JTextField();
-        save = new javax.swing.JButton();
+        update = new javax.swing.JButton();
         delete = new javax.swing.JButton();
         view = new javax.swing.JButton();
         clear = new javax.swing.JButton();
@@ -235,12 +235,12 @@ public class role_table_internal extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Salary:");
 
-        save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/edit.png"))); // NOI18N
-        save.setText("Update");
-        save.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        save.addActionListener(new java.awt.event.ActionListener() {
+        update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/edit.png"))); // NOI18N
+        update.setText("Update");
+        update.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveActionPerformed(evt);
+                updateActionPerformed(evt);
             }
         });
 
@@ -271,7 +271,7 @@ public class role_table_internal extends javax.swing.JInternalFrame {
                 .addContainerGap(11, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
@@ -293,7 +293,7 @@ public class role_table_internal extends javax.swing.JInternalFrame {
                     .addComponent(salary, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
@@ -400,7 +400,7 @@ public class role_table_internal extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_clearActionPerformed
 
-    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
         
         try{
             String user = "root";
@@ -411,23 +411,28 @@ public class role_table_internal extends javax.swing.JInternalFrame {
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
-            int row = jTable_Role.getSelectedRow();
-            String value = (jTable_Role.getModel().getValueAt(row, 0).toString());
-            String query1 = "UPDATE role SET ROLENo='"+roleno.getText()+
-                    "', Role='"+role.getText()+"', Salary='"+salary.getText()+
-                    "'WHERE ROLENo='"+ value+"'";
-            PreparedStatement pst = conn.prepareStatement(query1);
-            pst.execute();
-            
-            DefaultTableModel model = (DefaultTableModel) jTable_Role.getModel();
-            model.setRowCount(0);
-            show_roles();
-            
-                JOptionPane.showMessageDialog(null, "data updated successfully");
+            if(!roleno.getText().isEmpty()||!role.getText().isEmpty()||!salary.getText().isEmpty()){
+                int row = jTable_Role.getSelectedRow();
+                String value = (jTable_Role.getModel().getValueAt(row, 0).toString());
+                String query1 = "UPDATE role SET ROLENo='"+roleno.getText()+
+                        "', Role='"+role.getText()+"', Salary='"+salary.getText()+
+                        "'WHERE ROLENo='"+ value+"'";
+                PreparedStatement pst = conn.prepareStatement(query1);
+                pst.execute();
 
-                roleno.setText("");
-                role.setText("");
-                salary.setText("");
+                DefaultTableModel model = (DefaultTableModel) jTable_Role.getModel();
+                model.setRowCount(0);
+                show_roles();
+
+                    JOptionPane.showMessageDialog(null, "data updated successfully");
+
+                    roleno.setText("");
+                    role.setText("");
+                    salary.setText("");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "fields empty");
+            }
             
         }
         catch(HeadlessException | SQLException e){
@@ -435,9 +440,8 @@ public class role_table_internal extends javax.swing.JInternalFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(client_table_internal.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        dispose();
         
-    }//GEN-LAST:event_saveActionPerformed
+    }//GEN-LAST:event_updateActionPerformed
 
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
         show_searched_role();
@@ -495,8 +499,8 @@ public class role_table_internal extends javax.swing.JInternalFrame {
     private javax.swing.JTextField role;
     private javax.swing.JTextField roleno;
     private javax.swing.JTextField salary;
-    private javax.swing.JButton save;
     private javax.swing.JButton search;
+    private javax.swing.JButton update;
     private javax.swing.JButton view;
     // End of variables declaration//GEN-END:variables
 }

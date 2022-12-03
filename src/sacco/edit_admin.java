@@ -5,12 +5,14 @@
  */
 package sacco;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 import java.io.*;
+import java.sql.*;
 import java.text.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -37,134 +39,38 @@ public class edit_admin extends javax.swing.JFrame {
         admin = new ArrayList<Admin>();
         role = new ArrayList<Roles>();
         
-        populateArrayList();
-        
-//        String[] RoleArray = new String [role.size()];
-//        
-//        for (int i = 0; i < role.size(); i++)
-//        {
-//            RoleArray[i] = role.get(i).getRole()+ ", shs."+ role.get(i).getSalary();
-//        }
-//        
-//        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(RoleArray));
-//        
-//        jComboBox2.setSelectedIndex(0);
-        
-        String[] AdminArray = new String [admin.size()];
-        
-        for (int i = 0; i < admin.size(); i++)
-        {
-            AdminArray[i] = admin.get(i).getName();
-        }
-        
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(AdminArray));
-        
-        jComboBox1.setSelectedIndex(0);
+        AdminSelect();
     }
     
-    public void populateArrayList(){
-        try
-        {
-            FileInputStream file = new FileInputStream("roles.dat");
-            
-            ObjectInputStream inputFile = new ObjectInputStream(file);
-            
-            boolean endOfFile = false;
-            
-            while(!endOfFile)
-            {
-                try
-                {
-                    role.add((Roles) inputFile.readObject());
-                }
-                catch(EOFException f)
-                {
-                    endOfFile = true;
-                }
-                catch(Exception e)
-                {
-                    JOptionPane.showMessageDialog(null, e.getMessage());
-                }
-            }
-            
-            inputFile.close();
-        }
-        catch(IOException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
+    public final void AdminSelect(){    
         
-        try
-        {
-            FileInputStream file2 = new FileInputStream("admins.dat");
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
             
-            ObjectInputStream inputFile2 = new ObjectInputStream(file2);
+            Class.forName("com.mysql.jdbc.Driver");
             
-            boolean endOfTheFile2 = false;
-            
-            while(!endOfTheFile2)
-            {
-                try
-                {
-                    admin.add((Admin) inputFile2.readObject());
-                }
-                catch(EOFException f)
-                {
-                    endOfTheFile2 = true;
-                }
-                catch(Exception e)
-                {
-                    JOptionPane.showMessageDialog(null, e.getMessage());
-                }
-            }        
-            inputFile2.close();
-        }
-        catch(IOException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
-    
-    public void saveAdminToFiles()
-    {
-        try
-        {
-            FileOutputStream file = new FileOutputStream("admins.dat");
-            ObjectOutputStream outputFile = new ObjectOutputStream(file);
-            
-            for(int i=0; i<admin.size(); i++)
-            {
-                outputFile.writeObject(admin.get(i));
-            }
-            outputFile.close();
-            JOptionPane.showMessageDialog(null, "successfully saved");
-            this.dispose();
-        }
-        catch(IOException e)
-        {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
-    
-    public void deleteAdminFile()
-    {
-        try
-        {
-            FileOutputStream file = new FileOutputStream("admins.dat");
-            ObjectOutputStream outputFile = new ObjectOutputStream(file);
-            
-            for(int i=0; i<admin.size(); i++)
-            {
-                outputFile.writeObject(admin.get(i));
-            }
-            outputFile.close();
-            JOptionPane.showMessageDialog(null, "admin successfully deleted");
-            this.dispose();
-        }
-        catch(IOException e)
-        {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
+            Connection conn = DriverManager.getConnection(url, user, pass);
 
+            String sql="SELECT * FROM admin";
+            Statement pst=conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery(sql);
+            jComboBox1.removeAllItems();
+            while(rs.next()){
+                String adminno = rs.getString("AdminNo");
+                String admins = rs.getString("Name");
+                
+                String result = admins;
+                
+                jComboBox1.addItem(result);
+            }
+        }catch(SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(edit_role.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -188,7 +94,7 @@ public class edit_admin extends javax.swing.JFrame {
         password = new javax.swing.JTextField();
         date_of_entrance = new javax.swing.JLabel();
         name1 = new javax.swing.JLabel();
-        save = new javax.swing.JButton();
+        update = new javax.swing.JButton();
         delete = new javax.swing.JButton();
         input_No = new javax.swing.JTextField();
         input_date_of_entrance = new javax.swing.JTextField();
@@ -231,18 +137,21 @@ public class edit_admin extends javax.swing.JFrame {
         name1.setForeground(new java.awt.Color(255, 255, 255));
         name1.setText("AdminNo:");
 
-        save.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        save.setForeground(new java.awt.Color(255, 255, 255));
-        save.setText("Save");
-        save.addActionListener(new java.awt.event.ActionListener() {
+        update.setBackground(new java.awt.Color(0, 51, 255));
+        update.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        update.setForeground(new java.awt.Color(255, 255, 255));
+        update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/edit.png"))); // NOI18N
+        update.setText("Update");
+        update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveActionPerformed(evt);
+                updateActionPerformed(evt);
             }
         });
 
         delete.setBackground(new java.awt.Color(255, 51, 0));
         delete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         delete.setForeground(new java.awt.Color(255, 255, 255));
+        delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/exit.png"))); // NOI18N
         delete.setText("Delete");
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -256,6 +165,7 @@ public class edit_admin extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("-");
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel5MouseClicked(evt);
@@ -265,6 +175,7 @@ public class edit_admin extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("X");
+        jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel6MouseClicked(evt);
@@ -306,43 +217,40 @@ public class edit_admin extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(217, Short.MAX_VALUE)
-                        .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(name1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(date_of_entrance, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel1))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(input_No)
-                                    .addComponent(input_date_of_entrance)
-                                    .addComponent(input_role)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(select_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(amount_due, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(password)
-                                    .addComponent(input_name)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(location, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(input_location)))
-                        .addGap(49, 49, 49)))
-                .addContainerGap())
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(name1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(date_of_entrance, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(input_No)
+                            .addComponent(input_date_of_entrance)
+                            .addComponent(input_role)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(select_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(amount_due, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(password)
+                            .addComponent(input_name)
+                            .addComponent(jComboBox1, 0, 319, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(location, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(input_location)))
+                .addGap(49, 49, 49))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(update)
+                .addGap(18, 18, 18)
+                .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,7 +286,7 @@ public class edit_admin extends javax.swing.JFrame {
                     .addComponent(input_No, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(62, 62, 62))
         );
@@ -399,59 +307,118 @@ public class edit_admin extends javax.swing.JFrame {
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
 
-        int selectedIndex = jComboBox1.getSelectedIndex();
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String value = (String) jComboBox1.getSelectedItem();
+            String query1 = "DELETE FROM admin WHERE AdminNo = '"+value+"'";
+            PreparedStatement pst = conn.prepareStatement(query1);
+            pst.execute();
+            
+            JOptionPane.showMessageDialog(null, "data updated successfully");
+
+            input_No.setText("");
+            input_name.setText("");
+            input_location.setText("");
+            password.setText("");
+            input_role.setText("");
+            input_date_of_entrance.setText("");
+            dispose();
+            
+        }
+        catch(HeadlessException | SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(client_table_internal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        admin.remove(selectedIndex);
-        
-        deleteAdminFile();
     }//GEN-LAST:event_deleteActionPerformed
 
-    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
 
-        if (input_date_of_entrance.getText().isEmpty()
-            || password.getText().isEmpty()
-            || input_location.getText().isEmpty()
-            || input_name.getText().isEmpty()
-        ){
-            JOptionPane.showMessageDialog(null, "please enter all fields");
-        }
-        else
-        {
-            int selectedIndex = jComboBox1.getSelectedIndex();
-            admin.get(selectedIndex).setDate_of_entrance(input_date_of_entrance.getText().trim());
-            admin.get(selectedIndex).setPassword(password.getText().trim());
-            admin.get(selectedIndex).setLocation(input_location.getText().trim());
-            admin.get(selectedIndex).setName(input_name.getText().trim());
-            admin.get(selectedIndex).setRole(input_role.getText().trim());
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
             
-            saveAdminToFiles();
-        }
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            
+            if(!input_No.getText().isEmpty()||!input_name.getText().isEmpty()||!input_location.getText().isEmpty()||
+                    !password.getText().isEmpty()||!input_role.getText().isEmpty()||!input_date_of_entrance.getText().isEmpty())
+            {
+                String query1 = "UPDATE admin SET AdminNo='"+input_No.getText()+"', Name= '"+input_name.getText()+
+                        "', Location= '"+input_location.getText()+"', Role= '"+input_role.getText()+
+                        "', Password= '"+password.getText()+"', Date_of_entrance='"+input_date_of_entrance.getText()+
+                        "'WHERE AdminNo='"+ input_No.getText()+"'";
+                PreparedStatement pst = conn.prepareStatement(query1);
 
-    }//GEN-LAST:event_saveActionPerformed
+                pst.execute();
+
+                    JOptionPane.showMessageDialog(null, "data inserted successfully");
+
+                    input_No.setText("");
+                    input_name.setText("");
+                    input_location.setText("");
+                    password.setText("");
+                    input_role.setText("");
+                    input_date_of_entrance.setText("");
+                dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Empty fields");
+            }
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        dispose();
+
+    }//GEN-LAST:event_updateActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         
-        int selectedIndex = jComboBox1.getSelectedIndex();
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String selectedItem = (String) jComboBox1.getSelectedItem();
+            
+            String query = "select * from admin where Name = '"+ selectedItem+ "'";
+            
+            Statement pst=conn.prepareStatement(query);
+            ResultSet rs = pst.executeQuery(query);
+            
+            while(rs.next()){
+                String adminno = rs.getString("AdminNo");
+                String names = rs.getString("Name");
+                String locate = rs.getString("Location");
+                String roles = rs.getString("Role");
+                String passwords = rs.getString("Password");
+                String deo = rs.getString("DEO");
+                
+                input_No.setText(adminno);
+                input_name.setText(names);
+                input_location.setText(locate);
+                password.setText(roles);
+                input_role.setText(passwords);
+                input_date_of_entrance.setText(deo);
+            }            
+        }catch(SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(edit_role.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        input_name.setText(admin.get(selectedIndex).getName());
-        input_location.setText(admin.get(selectedIndex).getLocation());
-        password.setText(admin.get(selectedIndex).getPassword());
-        input_No.setText(admin.get(selectedIndex).getAdminNo());
-        input_date_of_entrance.setText(admin.get(selectedIndex).getDEO());
-        input_role.setText(admin.get(selectedIndex).getRole());
-        
-//        int index = 0;
-//        
-//        for(int i = 0; i < role.size(); i++)
-//        {
-//            if(role.get(i).equals(roles))
-//            {
-//                index = i;
-//                break;
-//            }
-//        }
-        
-//        jComboBox2.setSelectedIndex(index);
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -518,8 +485,8 @@ public class edit_admin extends javax.swing.JFrame {
     private javax.swing.JLabel name;
     private javax.swing.JLabel name1;
     private javax.swing.JTextField password;
-    private javax.swing.JButton save;
     private javax.swing.JLabel select_admin;
     private javax.swing.JLabel title;
+    private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 }

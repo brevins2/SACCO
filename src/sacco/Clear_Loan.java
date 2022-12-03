@@ -5,15 +5,13 @@
  */
 package sacco;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,17 +33,37 @@ public class Clear_Loan extends javax.swing.JFrame {
         
         loan = new ArrayList<Loan>();
         
-//        populateArrayList();
+        LoanSelect();
+    }
+    
+    public final void LoanSelect(){    
         
-        String[] RoleArray = new String [loan.size()];
-        
-        for (int i = 0; i < loan.size(); i++)
-        {
-            RoleArray[i] = loan.get(i).getName();
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+
+            String sql="SELECT * FROM loans";
+            Statement pst=conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery(sql);
+            jComboBox1.removeAllItems();
+            while(rs.next()){
+                String loanno = rs.getString("LoanNo");
+                String names = rs.getString("Name");
+                
+                String result = names;
+                
+                jComboBox1.addItem(result);
+            }
+        }catch(SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(edit_role.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(RoleArray));
-        jComboBox1.setSelectedIndex(0);
     }
     
     /**
@@ -60,12 +78,12 @@ public class Clear_Loan extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
         input_mortage = new javax.swing.JTextField();
-        custno = new javax.swing.JTextField();
+        loanno = new javax.swing.JTextField();
         input_duration = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         input_date = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        save = new javax.swing.JButton();
+        update = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         delete = new javax.swing.JButton();
@@ -93,18 +111,18 @@ public class Clear_Loan extends javax.swing.JFrame {
         });
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("CUSTNo:");
+        jLabel7.setText("LoanNo:");
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Customer name:");
+        jLabel1.setText("Loan:");
 
-        save.setBackground(new java.awt.Color(0, 51, 255));
-        save.setForeground(new java.awt.Color(255, 255, 255));
-        save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/edit.png"))); // NOI18N
-        save.setText("Save");
-        save.addActionListener(new java.awt.event.ActionListener() {
+        update.setBackground(new java.awt.Color(0, 51, 255));
+        update.setForeground(new java.awt.Color(255, 255, 255));
+        update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/edit.png"))); // NOI18N
+        update.setText("Update");
+        update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveActionPerformed(evt);
+                updateActionPerformed(evt);
             }
         });
 
@@ -131,7 +149,7 @@ public class Clear_Loan extends javax.swing.JFrame {
         jLabel3.setText("Mortage:");
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Select Customer:");
+        jLabel6.setText("Select Loan:");
 
         jPanel3.setBackground(new java.awt.Color(255, 153, 0));
 
@@ -201,11 +219,11 @@ public class Clear_Loan extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
-                        .addComponent(save)
+                        .addComponent(update)
                         .addGap(26, 26, 26)
                         .addComponent(delete))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(custno, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(loanno, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(input_date, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(input_duration, javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,7 +231,7 @@ public class Clear_Loan extends javax.swing.JFrame {
                             .addComponent(input_amount, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(input_name, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 361, Short.MAX_VALUE))))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -246,11 +264,11 @@ public class Clear_Loan extends javax.swing.JFrame {
                     .addComponent(jLabel5))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(custno, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(loanno, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32))
         );
@@ -259,7 +277,7 @@ public class Clear_Loan extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,14 +289,45 @@ public class Clear_Loan extends javax.swing.JFrame {
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
 
-//        int selectedIndex = jComboBox1.getSelectedIndex();
-//        
-//        loan.remove(selectedIndex);
-//        
-//        deleteAdminFile();
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            
+            if(!loanno.getText().isEmpty()||!input_name.getText().isEmpty()||!input_duration.getText().isEmpty()||
+                    !input_amount.getText().isEmpty()||!input_mortage.getText().isEmpty()||!input_date.getText().isEmpty())
+            {
+                String value = (String) jComboBox1.getSelectedItem();
+                String query1 = "DELETE FROM loans WHERE LoanNo = '"+value+"'";
+                PreparedStatement pst = conn.prepareStatement(query1);
+                pst.execute();
+
+                JOptionPane.showMessageDialog(null, "data updated successfully");
+
+                    loanno.setText("");
+                    input_name.setText("");
+                    input_duration.setText("");
+                    input_amount.setText("");
+                    input_mortage.setText("");
+                    input_date.setText("");
+                dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Empty fields");
+            }
+        }
+        catch(HeadlessException | SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(client_table_internal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_deleteActionPerformed
 
-    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
 
             try{
             String user = "root";
@@ -293,7 +342,7 @@ public class Clear_Loan extends javax.swing.JFrame {
                     + "VALUES (?,?,?,?,?,?,?)";
             PreparedStatement pst = conn.prepareStatement(query1);
             
-            pst.setString(1, custno.getText());
+            pst.setString(1, loanno.getText());
             pst.setString(2, input_name.getText());
             pst.setString(3, input_amount.getText());
             pst.setString(4, input_mortage.getText());
@@ -307,7 +356,7 @@ public class Clear_Loan extends javax.swing.JFrame {
             }
             else{
                 JOptionPane.showMessageDialog(null, "Username and Password entered are incorrect");
-                custno.setText("");
+                loanno.setText("");
                 input_name.setText("");
                 input_duration.setText("");
                 input_amount.setText("");
@@ -320,30 +369,45 @@ public class Clear_Loan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
-    }//GEN-LAST:event_saveActionPerformed
+    }//GEN-LAST:event_updateActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         
-        int selectedIndex = jComboBox1.getSelectedIndex();
-        
-        input_name.setText(loan.get(selectedIndex).getName());
-        input_amount.setText(loan.get(selectedIndex).getAmount());
-        input_mortage.setText(loan.get(selectedIndex).getMortage());
-        input_duration.setText(loan.get(selectedIndex).getDuration());
-        input_date.setText(loan.get(selectedIndex).getDEO());
-        
-        int index = 0;
-        
-        for(int i = 0; i < loan.size(); i++)
-        {
-            if(loan.get(i).equals(loan))
-            {
-                index = i;
-                break;
-            }
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String selectedItem = (String) jComboBox1.getSelectedItem();
+            
+            String query = "select * from loans where Name = '"+ selectedItem+ "'";
+            
+            Statement pst=conn.prepareStatement(query);
+            ResultSet rs = pst.executeQuery(query);
+            
+            while(rs.next()){
+                String loannos = rs.getString("LoanNo");
+                String names = rs.getString("Name");
+                String amount = rs.getString("Amount");
+                String mortage = rs.getString("Mortage");
+                String duration = rs.getString("Duration");
+                String deo = rs.getString("DEO");
+                
+                loanno.setText(loannos);
+                input_name.setText(names);
+                input_amount.setText(amount);
+                input_mortage.setText(mortage);
+                input_duration.setText(duration);
+                input_date.setText(deo);
+            }            
+        }catch(SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(edit_role.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        jComboBox1.setSelectedIndex(index);
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
@@ -392,7 +456,6 @@ public class Clear_Loan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField custno;
     private javax.swing.JButton delete;
     private javax.swing.JTextField input_amount;
     private javax.swing.JTextField input_date;
@@ -411,7 +474,8 @@ public class Clear_Loan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JButton save;
+    private javax.swing.JTextField loanno;
     private javax.swing.JLabel title;
+    private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 }

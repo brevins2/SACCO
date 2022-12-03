@@ -488,7 +488,7 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
                 amount.setText("");
                 duration.setText("");
                 deo.setText("");
-            
+            dispose();
         }
         catch(HeadlessException | SQLException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -496,7 +496,6 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
             Logger.getLogger(client_table_internal.class.getName()).log(Level.SEVERE, null, ex);
         }
 //        dispose();
-        
     }//GEN-LAST:event_deleteActionPerformed
 
 
