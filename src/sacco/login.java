@@ -238,43 +238,42 @@ public class login extends javax.swing.JFrame {
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
-            String query1 = "select * from admin where Name= '"+username.getText()+
-                    "' and Password= '"+password.getText()+"'";
-            PreparedStatement pst = conn.prepareStatement(query1);
-            
-            ResultSet rset = pst.executeQuery(query1);
-            
-            if(username.getText().equals("select * from admin where Name= '"+username.getText()+"'") &&
-                    password.getText().equals("select * from admin where Password= '"+password.getText()+"'")){
-                rset.next();
-                JOptionPane.showMessageDialog(null, "Username and Password matched");
+            String usern = username.getText();
+            String passwords = password.getText();
+            if(!(username.getText().isEmpty() || password.getText().isEmpty())){
+                String query1 = "select * from admin where Name= '"+usern+"' and Password= '"+passwords+"'";
+                PreparedStatement pst = conn.prepareStatement(query1);
+
+                ResultSet rset = pst.executeQuery(query1);
+
+                if(query1.contains(usern) && query1.contains(passwords)){
+                    
+                    JOptionPane.showMessageDialog(null, "Username and Password matched");
+                    username.setText("");
+                    password.setText("");
+                    
+                    dispose();
+
+                    new add_Customer().setVisible(true);
+                }
+                else{
+//                    for(int i = 1; i<3; i++){
+//                        rset.next();
+//                        int reminder = 3-i;
+//                        JOptionPane.showMessageDialog(null, "Username and Password did not matched, this is your "+i+" attempt"
+//                                + "You are remaining with "+ reminder);   
+//                    }
+                    JOptionPane.showMessageDialog(null, "please check with the administration for the right logins");
+                    dispose();                    
+                }
             }
             else{
-                JOptionPane.showMessageDialog(null, "Username and Password entered are incorrect");
-                username.setText("");
-                password.setText("");
+                JOptionPane.showMessageDialog(null, "Empty Fields");
             }
-            
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-        
-//        try {
-//                pst = MyConnection.getConnection().prepareStatement(query);
-//                pst.setString(1, username);
-//
-//                rset = pst.executeQuery();
-//
-//                if(rset.next())
-//                {
-//                    checkUser = true;
-//                }
-//            } catch (SQLException ex) {
-//                Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            return checkUser;
-        
+        }       
     }//GEN-LAST:event_login_buttonActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed

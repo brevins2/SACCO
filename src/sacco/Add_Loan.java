@@ -5,13 +5,8 @@
  */
 package sacco;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.awt.*;
+import java.sql.*;
 import java.util.*;
 import javax.swing.*;
 
@@ -34,63 +29,7 @@ public class Add_Loan extends javax.swing.JFrame {
         setLocation(size.width/2 - getWidth()/2, size.height/2-getHeight()/2);
         
         loan = new ArrayList<Loan>();
-        
-//        populateArrayList();
     }  
-//        public void populateArrayList()
-//        {
-//            try
-//            {
-//                FileInputStream file = new FileInputStream("Loans.dat");
-//
-//                ObjectInputStream inputFile = new ObjectInputStream(file);
-//
-//                boolean endOfFile = false;
-//
-//                while(!endOfFile)
-//                {
-//                    try
-//                    {
-//                        loan.add((Loan) inputFile.readObject());
-//                    }
-//                    catch(EOFException f)
-//                    {
-//                        endOfFile = true;
-//                    }
-//                    catch(Exception e)
-//                    {
-//                        JOptionPane.showMessageDialog(null, e.getMessage());
-//                    }
-//                }
-//
-//                inputFile.close();
-//            }
-//            catch(IOException e){
-//                JOptionPane.showMessageDialog(null, e.getMessage());
-//            }
-//        }
-//        
-//        public void saveCustomerToFiles()
-//        {
-//            try
-//            {
-//                FileOutputStream file = new FileOutputStream("Loans.dat");
-//                ObjectOutputStream outputFile = new ObjectOutputStream(file);
-//
-//                for(int i=0; i<loan.size(); i++)
-//                {
-//                    outputFile.writeObject(loan.get(i));
-//                }
-//
-//                outputFile.close();
-//                JOptionPane.showMessageDialog(null, "successfully saved");
-//                this.dispose();
-//            }
-//            catch(IOException e)
-//            {
-//                JOptionPane.showMessageDialog(null, e.getMessage());
-//            }
-//        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -101,10 +40,6 @@ public class Add_Loan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel3 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        title1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         input_name = new javax.swing.JTextField();
         input_amount = new javax.swing.JTextField();
@@ -115,7 +50,7 @@ public class Add_Loan extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         reset = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        input_custno = new javax.swing.JTextField();
+        input_loanno = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -124,55 +59,6 @@ public class Add_Loan extends javax.swing.JFrame {
         exit = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-
-        jPanel3.setBackground(new java.awt.Color(255, 153, 0));
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("-");
-        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel8MouseClicked(evt);
-            }
-        });
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("x");
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel9MouseClicked(evt);
-            }
-        });
-
-        title1.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        title1.setForeground(new java.awt.Color(255, 255, 255));
-        title1.setText("Add new Administrator");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(title1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(title1))
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add Loan");
@@ -210,7 +96,7 @@ public class Add_Loan extends javax.swing.JFrame {
         jLabel3.setText("Mortage:");
 
         jLabel6.setForeground(java.awt.Color.white);
-        jLabel6.setText("CUSTNo:");
+        jLabel6.setText("LoanNo:");
 
         jLabel4.setForeground(java.awt.Color.white);
         jLabel4.setText("Duration:");
@@ -294,7 +180,7 @@ public class Add_Loan extends javax.swing.JFrame {
                     .addComponent(input_mortage)
                     .addComponent(input_amount)
                     .addComponent(input_name)
-                    .addComponent(input_custno, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(input_loanno, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -303,7 +189,7 @@ public class Add_Loan extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(input_custno, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(input_loanno, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -347,30 +233,8 @@ public class Add_Loan extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        
-//        if (input_name.getText().isEmpty()
-//                || input_date.getText().isEmpty()
-//                || input_amount.getText().isEmpty()
-//                || input_duration.getText().isEmpty()
-//                || input_mortage.getText().isEmpty()){
-//            JOptionPane.showMessageDialog(null, "please enter all fields");
-//        }
-//        else
-//        {
-//            String duration = input_duration.getText();
-//            String name = input_name.getText();
-//            String amount = input_amount.getText();
-//            String mortage = input_mortage.getText();
-//            String date = input_date.getText();
-//            String no = input_no.getText();
-//
-//            Loan loans = new Loan(no, name, amount, mortage, duration, date);
-//            
-//            loan.add(loans);
-//            saveCustomerToFiles();  
-//        }
 
-           try{
+        try{
             String user = "root";
             String pass = "";
             String url = "jdbc:mysql://localhost:3306/sacco";
@@ -379,28 +243,35 @@ public class Add_Loan extends javax.swing.JFrame {
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
-            String query1 = "INSERT INTO loans(LoanNo, Name, Amount, Mortage, Duration, DEO)"
-                    + "VALUES (?,?,?,?,?,?)";
-            PreparedStatement pst = conn.prepareStatement(query1);
-            
-            pst.setString(1, input_custno.getText());
-            pst.setString(2, input_name.getText());
-            pst.setString(3, input_amount.getText());
-            pst.setString(4, input_mortage.getText());
-            pst.setString(5, input_duration.getText());
-            pst.setString(6, input_date.getText());
-            
-            pst.executeQuery();
-            
-            JOptionPane.showMessageDialog(null, "data inserted successfully");
-            
-            input_custno.setText("");
-            input_name.setText("");
-            input_amount.setText("");
-            input_mortage.setText("");
-            input_duration.setText("");
-            input_date.setText("");
-            
+            if (!(input_name.getText().isEmpty()|| input_date.getText().isEmpty()|| input_amount.getText().isEmpty()
+                || input_duration.getText().isEmpty()|| input_mortage.getText().isEmpty())){
+                String query1 = "INSERT INTO loans(LoanNo, Name, Amount, Mortage, Duration, DEO)"
+                        + "VALUES (?,?,?,?,?,?)";
+                PreparedStatement pst = conn.prepareStatement(query1);
+
+                pst.setString(1, input_loanno.getText());
+                pst.setString(2, input_name.getText());
+                pst.setString(3, input_amount.getText());
+                pst.setString(4, input_mortage.getText());
+                pst.setString(5, input_duration.getText());
+                pst.setString(6, input_date.getText());
+
+                pst.execute();
+
+                JOptionPane.showMessageDialog(null, "data inserted successfully");
+
+                input_loanno.setText("");
+                input_name.setText("");
+                input_amount.setText("");
+                input_mortage.setText("");
+                input_duration.setText("");
+                input_date.setText("");
+                
+                dispose();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Empty fields available");
+            }
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -410,7 +281,7 @@ public class Add_Loan extends javax.swing.JFrame {
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
 
-        input_custno.setText("");
+        input_loanno.setText("");
         input_name.setText("");
         input_amount.setText("");
         input_mortage.setText("");
@@ -418,16 +289,6 @@ public class Add_Loan extends javax.swing.JFrame {
         input_date.setText("");               
         
     }//GEN-LAST:event_resetActionPerformed
-
-    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-
-        this.setState(JFrame.ICONIFIED);
-    }//GEN-LAST:event_jLabel8MouseClicked
-
-    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
-
-        dispose();
-    }//GEN-LAST:event_jLabel9MouseClicked
 
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
 
@@ -477,9 +338,9 @@ public class Add_Loan extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel exit;
     private javax.swing.JTextField input_amount;
-    private javax.swing.JTextField input_custno;
     private javax.swing.JTextField input_date;
     private javax.swing.JTextField input_duration;
+    private javax.swing.JTextField input_loanno;
     private javax.swing.JTextField input_mortage;
     private javax.swing.JTextField input_name;
     private javax.swing.JLabel jLabel1;
@@ -488,15 +349,11 @@ public class Add_Loan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel minimize;
     private javax.swing.JButton reset;
     private javax.swing.JButton save;
     private javax.swing.JLabel title;
-    private javax.swing.JLabel title1;
     // End of variables declaration//GEN-END:variables
 }

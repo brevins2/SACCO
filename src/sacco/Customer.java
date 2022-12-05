@@ -20,13 +20,13 @@ public class Customer implements Serializable {
     private String Duration;
     private String Date_of_entrance;
 
-    public Customer(String CustNo, String name, String location, String amount_due, String duration, String date_of_entrance) {
-        this.CUSTNo = CustNo;
-        this.Name = name;
-        this.Location = location;
-        this.Amount = amount_due;
-        this.Duration = duration;
-        this.Date_of_entrance = date_of_entrance;
+    public Customer(String CUSTNo, String Name, String Location, String Amount, String Duration, String Date_of_entrance) {
+        this.CUSTNo = CUSTNo;
+        this.Name = Name;
+        this.Location = Location;
+        this.Amount = Amount;
+        this.Duration = Duration;
+        this.Date_of_entrance = Date_of_entrance;
     }
 
     public String getCustNo() {

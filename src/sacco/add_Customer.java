@@ -5,15 +5,11 @@
  */
 package sacco;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 
 /**
  *
@@ -21,6 +17,8 @@ import java.sql.ResultSet;
  */
 public class add_Customer extends javax.swing.JFrame {
     
+    String filename = null;
+    byte[] person_image = null;
     ArrayList<Customer> customer;
 
     /**
@@ -34,64 +32,8 @@ public class add_Customer extends javax.swing.JFrame {
         setLocation(size.width/2 - getWidth()/2, size.height/2-getHeight()/2);
         
         customer = new ArrayList<Customer>();
-//        populateArrayList();
     }
     
-//    public void populateArrayList(){
-//        try
-//        {
-//            FileInputStream file = new FileInputStream("customers.dat");
-//            
-//            ObjectInputStream inputFile = new ObjectInputStream(file);
-//            
-//            boolean endOfFile = false;
-//            
-//            while(!endOfFile)
-//            {
-//                try
-//                {
-//                    customer.add((Customer) inputFile.readObject());
-//                }
-//                catch(EOFException f)
-//                {
-//                    endOfFile = true;
-//                }
-//                catch(Exception e)
-//                {
-//                    JOptionPane.showMessageDialog(null, e.getMessage());
-//                }
-//            }
-//            
-//            inputFile.close();
-//        }
-//        catch(IOException e){
-//            JOptionPane.showMessageDialog(null, e.getMessage());
-//        }
-//    }
-//    
-//    public void saveCustomerToFiles()
-//    {
-//        try
-//        {
-//            FileOutputStream file = new FileOutputStream("customers.dat");
-//            ObjectOutputStream outputFile = new ObjectOutputStream(file);
-//            
-//            for(int i=0; i<customer.size(); i++)
-//            {
-//                outputFile.writeObject(customer.get(i));
-//            }
-//            
-//            outputFile.close();
-//            JOptionPane.showMessageDialog(null, "successfully saved");
-//            this.dispose();
-//        }
-//        catch(IOException e)
-//        {
-//            JOptionPane.showMessageDialog(null, e.getMessage());
-//        }
-//    }
-
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -120,6 +62,8 @@ public class add_Customer extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
+        image = new javax.swing.JLabel();
+        choose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add new customer");
@@ -131,6 +75,7 @@ public class add_Customer extends javax.swing.JFrame {
         duration.setForeground(new java.awt.Color(255, 255, 255));
         duration.setText("Duration:");
 
+        save.setBackground(new java.awt.Color(0, 51, 204));
         save.setForeground(new java.awt.Color(255, 255, 255));
         save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/save.png"))); // NOI18N
         save.setText("Save");
@@ -215,6 +160,15 @@ public class add_Customer extends javax.swing.JFrame {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
+        image.setBackground(new java.awt.Color(255, 255, 255));
+
+        choose.setText("Choose");
+        choose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chooseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -250,14 +204,22 @@ public class add_Customer extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(input_date_of_entrance)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(62, 62, 62))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(choose, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(204, 204, 204)
+                        .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,11 +249,18 @@ public class add_Customer extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(date_of_entry)
                     .addComponent(input_date_of_entrance, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(choose, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(71, 71, 71))
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -309,29 +278,7 @@ public class add_Customer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        
-//        if (input_name.getText().isEmpty()
-//                || input_location.getText().isEmpty()
-//                || input_amount_due.getText().isEmpty()
-//                || input_duration.getText().isEmpty()
-//                || input_date_of_entrance.getText().isEmpty()){
-//            JOptionPane.showMessageDialog(null, "please enter all fields");
-//        }
-//        else
-//        {
-//            String durations = input_duration.getText();
-//            String named = input_name.getText();
-//            String locate = input_location.getText();
-//            String no = input_no.getText();
-//            String amount_due = input_amount_due.getText();
-//            String DOE = input_date_of_entrance.getText();
-//
-//            Customer customers = new Customer(no, named, locate, amount_due, durations, DOE);
-//            
-//            customer.add(customers);
-//            saveCustomerToFiles();  
-//        }
-        
+                
         try{
             String user = "root";
             String pass = "";
@@ -351,6 +298,7 @@ public class add_Customer extends javax.swing.JFrame {
             pst.setString(5, input_duration.getText());
             pst.setString(4, input_amount.getText());
             pst.setString(6, input_date_of_entrance.getText());
+            pst.setBytes(7, person_image);
             
             pst.executeUpdate();
             
@@ -396,6 +344,31 @@ public class add_Customer extends javax.swing.JFrame {
 
         dispose();
     }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void chooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseActionPerformed
+        
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        filename= f.getAbsolutePath();
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(filename).getImage().
+                getScaledInstance(image.getWidth(), image.getHeight(), Image.SCALE_SMOOTH));
+        image.setIcon(imageIcon);
+        
+        try{
+            File images = new File(filename);
+            FileInputStream fis = new FileInputStream(images);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            for(int readNum; (readNum = fis.read(buf))!=-1;){
+                bos.write(buf, 0, readNum);
+            }
+            person_image = bos.toByteArray();
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_chooseActionPerformed
                                    
 
     /**
@@ -435,8 +408,10 @@ public class add_Customer extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel amount_due;
+    private javax.swing.JButton choose;
     private javax.swing.JLabel date_of_entry;
     private javax.swing.JLabel duration;
+    private javax.swing.JLabel image;
     private javax.swing.JTextField input_amount;
     private javax.swing.JTextField input_date_of_entrance;
     private javax.swing.JTextField input_duration;
