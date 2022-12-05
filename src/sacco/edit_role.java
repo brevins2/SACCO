@@ -308,12 +308,17 @@ public class edit_role extends javax.swing.JFrame {
                         "'WHERE ROLENo='"+ value+"'";
                 PreparedStatement pst = conn.prepareStatement(query1);
                 pst.execute();
+                
+//                JOptionPane.showMessageDialog(null, "ROLENo: "+ input_roleno.getText()+"\n"
+//                                                  + "Role  : "+ input_role.getText()+"\n"
+//                                                  + "Salary: "+ input_salary.getText());
 
                 JOptionPane.showMessageDialog(null, "data updated successfully");
 
                 input_roleno.setText("");
                 input_role.setText("");
                 input_salary.setText("");
+                
                 dispose();
             }
             else{
@@ -324,7 +329,7 @@ public class edit_role extends javax.swing.JFrame {
         catch(HeadlessException | SQLException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(client_table_internal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(edit_role.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_updateActionPerformed
 

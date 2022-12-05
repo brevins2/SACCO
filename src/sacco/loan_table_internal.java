@@ -405,14 +405,16 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
             model.setRowCount(0);
             show_loan();
             
-                JOptionPane.showMessageDialog(null, "data updated successfully");
+            JOptionPane.showMessageDialog(null, "data updated successfully");
 
-                loanno.setText("");
-                name.setText("");
-                mortage.setText("");
-                amount.setText("");
-                duration.setText("");
-                deo.setText("");
+            loanno.setText("");
+            name.setText("");
+            mortage.setText("");
+            amount.setText("");
+            duration.setText("");
+            deo.setText("");
+            
+            dispose();
             
         }
         catch(HeadlessException | SQLException e){

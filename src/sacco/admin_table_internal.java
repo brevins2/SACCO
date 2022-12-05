@@ -6,12 +6,7 @@
 package sacco;
 
 import java.awt.HeadlessException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -447,9 +442,9 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
         adminno.setText(model.getValueAt(row, 0).toString());
         name.setText(model.getValueAt(row, 1).toString());
         location.setText(model.getValueAt(row, 2).toString());
-        role.setText(model.getValueAt(row, 2).toString());
-        password.setText(model.getValueAt(row, 2).toString());
-        deo.setText(model.getValueAt(row, 2).toString());
+        role.setText(model.getValueAt(row, 3).toString());
+        password.setText(model.getValueAt(row, 4).toString());
+        deo.setText(model.getValueAt(row, 5).toString());
         
     }//GEN-LAST:event_jTable_adminMouseClicked
 

@@ -42,7 +42,7 @@ public class edit_admin extends javax.swing.JFrame {
         AdminSelect();
     }
     
-    public final void AdminSelect(){    
+    public void AdminSelect(){    
         
         try{
             String user = "root";
@@ -57,9 +57,12 @@ public class edit_admin extends javax.swing.JFrame {
             Statement pst=conn.prepareStatement(sql);
             ResultSet rs = pst.executeQuery(sql);
             jComboBox1.removeAllItems();
+            input_role.removeAllItems();
+            
             while(rs.next()){
                 String adminno = rs.getString("AdminNo");
                 String admins = rs.getString("Name");
+                String roled = (String) input_role.getSelectedItem();
                 
                 String result = admins;
                 
@@ -90,7 +93,6 @@ public class edit_admin extends javax.swing.JFrame {
         location = new javax.swing.JLabel();
         amount_due = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        input_role = new javax.swing.JTextField();
         password = new javax.swing.JTextField();
         date_of_entrance = new javax.swing.JLabel();
         name1 = new javax.swing.JLabel();
@@ -102,6 +104,7 @@ public class edit_admin extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
+        input_role = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Edit administration");
@@ -211,6 +214,13 @@ public class edit_admin extends javax.swing.JFrame {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
+        input_role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        input_role.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_roleActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -225,11 +235,15 @@ public class edit_admin extends javax.swing.JFrame {
                                 .addComponent(name1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(date_of_entrance, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(input_No)
-                            .addComponent(input_date_of_entrance)
-                            .addComponent(input_role)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(input_No)
+                                    .addComponent(input_date_of_entrance)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(input_role, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(select_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -260,7 +274,7 @@ public class edit_admin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(select_admin))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(input_name, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(name))
@@ -276,7 +290,7 @@ public class edit_admin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(input_role, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
+                .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(input_date_of_entrance, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(date_of_entrance))
@@ -284,7 +298,7 @@ public class edit_admin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(name1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(input_No, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -316,6 +330,7 @@ public class edit_admin extends javax.swing.JFrame {
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             String value = (String) jComboBox1.getSelectedItem();
+//            String value2 = (String) input_role.getSelectedItem();
             String query1 = "DELETE FROM admin WHERE AdminNo = '"+value+"'";
             PreparedStatement pst = conn.prepareStatement(query1);
             pst.execute();
@@ -326,7 +341,7 @@ public class edit_admin extends javax.swing.JFrame {
             input_name.setText("");
             input_location.setText("");
             password.setText("");
-            input_role.setText("");
+//            input_role.setText("");
             input_date_of_entrance.setText("");
             dispose();
             
@@ -351,25 +366,27 @@ public class edit_admin extends javax.swing.JFrame {
             Connection conn = DriverManager.getConnection(url, user, pass);
             
             if(!input_No.getText().isEmpty()||!input_name.getText().isEmpty()||!input_location.getText().isEmpty()||
-                    !password.getText().isEmpty()||!input_role.getText().isEmpty()||!input_date_of_entrance.getText().isEmpty())
+                    !password.getText().isEmpty()||!input_date_of_entrance.getText().isEmpty())
             {
-                String query1 = "UPDATE admin SET AdminNo='"+input_No.getText()+"', Name= '"+input_name.getText()+
-                        "', Location= '"+input_location.getText()+"', Role= '"+input_role.getText()+
-                        "', Password= '"+password.getText()+"', Date_of_entrance='"+input_date_of_entrance.getText()+
+                String query1 = "UPDATE admin SET AdminNo= '"+input_No.getText()+"', Name= '"+input_name.getText()+
+                        "', Location= '"+input_location.getText()+"', Role= '"+input_role.getSelectedItem()+
+                        "', Password= '"+password.getText()+"', DEO= '"+input_date_of_entrance.getText()+
                         "'WHERE AdminNo='"+ input_No.getText()+"'";
                 PreparedStatement pst = conn.prepareStatement(query1);
 
                 pst.execute();
 
-                    JOptionPane.showMessageDialog(null, "data inserted successfully");
+                JOptionPane.showMessageDialog(null, "data inserted successfully");
 
-                    input_No.setText("");
-                    input_name.setText("");
-                    input_location.setText("");
-                    password.setText("");
-                    input_role.setText("");
-                    input_date_of_entrance.setText("");
+                input_No.setText("");
+                input_name.setText("");
+                input_location.setText("");
+                password.setText("");
+                input_role.getSelectedItem();
+                input_date_of_entrance.setText("");
+                
                 dispose();
+                
             }else{
                 JOptionPane.showMessageDialog(null, "Empty fields");
             }
@@ -392,6 +409,7 @@ public class edit_admin extends javax.swing.JFrame {
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             String selectedItem = (String) jComboBox1.getSelectedItem();
+//            String value = (String) input_role.getSelectedItem();
             
             String query = "select * from admin where Name = '"+ selectedItem+ "'";
             
@@ -402,23 +420,22 @@ public class edit_admin extends javax.swing.JFrame {
                 String adminno = rs.getString("AdminNo");
                 String names = rs.getString("Name");
                 String locate = rs.getString("Location");
-                String roles = rs.getString("Role");
+//                String roles = rs.get();
                 String passwords = rs.getString("Password");
                 String deo = rs.getString("DEO");
                 
                 input_No.setText(adminno);
                 input_name.setText(names);
                 input_location.setText(locate);
-                password.setText(roles);
-                input_role.setText(passwords);
+//                input_role.setText(roles);
+                password.setText(passwords);
                 input_date_of_entrance.setText(deo);
             }            
         }catch(SQLException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(edit_role.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        }        
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -430,6 +447,38 @@ public class edit_admin extends javax.swing.JFrame {
 
         dispose();
     }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void input_roleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_roleActionPerformed
+        
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String selectedItem = (String) jComboBox1.getSelectedItem();
+            
+            String sql = "select * from role";
+            
+            Statement pst=conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery(sql);
+            
+            while(rs.next()){                
+                String roled = rs.getString("Role");
+                
+                String result = roled;
+                
+                input_role.addItem(result);
+            }
+        }catch(SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(edit_admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_input_roleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -474,7 +523,7 @@ public class edit_admin extends javax.swing.JFrame {
     private javax.swing.JTextField input_date_of_entrance;
     private javax.swing.JTextField input_location;
     private javax.swing.JTextField input_name;
-    private javax.swing.JTextField input_role;
+    private javax.swing.JComboBox<String> input_role;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;

@@ -414,8 +414,7 @@ public class role_table_internal extends javax.swing.JInternalFrame {
             if(!roleno.getText().isEmpty()||!role.getText().isEmpty()||!salary.getText().isEmpty()){
                 int row = jTable_Role.getSelectedRow();
                 String value = (jTable_Role.getModel().getValueAt(row, 0).toString());
-                String query1 = "UPDATE role SET ROLENo='"+roleno.getText()+
-                        "', Role='"+role.getText()+"', Salary='"+salary.getText()+
+                String query1 = "UPDATE role SET ROLENo='"+roleno.getText()+"', Role='"+role.getText()+"', Salary='"+salary.getText()+
                         "'WHERE ROLENo='"+ value+"'";
                 PreparedStatement pst = conn.prepareStatement(query1);
                 pst.execute();
@@ -424,11 +423,13 @@ public class role_table_internal extends javax.swing.JInternalFrame {
                 model.setRowCount(0);
                 show_roles();
 
-                    JOptionPane.showMessageDialog(null, "data updated successfully");
+                JOptionPane.showMessageDialog(null, "data updated successfully");
 
-                    roleno.setText("");
-                    role.setText("");
-                    salary.setText("");
+                roleno.setText("");
+                role.setText("");
+                salary.setText("");
+                
+                dispose();
             }
             else{
                 JOptionPane.showMessageDialog(null, "fields empty");
@@ -438,7 +439,7 @@ public class role_table_internal extends javax.swing.JInternalFrame {
         catch(HeadlessException | SQLException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(client_table_internal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(role_table_internal.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_updateActionPerformed

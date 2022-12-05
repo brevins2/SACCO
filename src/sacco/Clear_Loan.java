@@ -114,7 +114,7 @@ public class Clear_Loan extends javax.swing.JFrame {
         jLabel7.setText("LoanNo:");
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Loan:");
+        jLabel1.setText("Name:");
 
         update.setBackground(new java.awt.Color(0, 51, 255));
         update.setForeground(new java.awt.Color(255, 255, 255));
@@ -156,6 +156,7 @@ public class Clear_Loan extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("-");
+        jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel8MouseClicked(evt);
@@ -165,6 +166,12 @@ public class Clear_Loan extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("x");
+        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel9.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jLabel9FocusGained(evt);
+            }
+        });
         jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel9MouseClicked(evt);
@@ -308,12 +315,13 @@ public class Clear_Loan extends javax.swing.JFrame {
 
                 JOptionPane.showMessageDialog(null, "data updated successfully");
 
-                    loanno.setText("");
-                    input_name.setText("");
-                    input_duration.setText("");
-                    input_amount.setText("");
-                    input_mortage.setText("");
-                    input_date.setText("");
+                loanno.setText("");
+                input_name.setText("");
+                input_duration.setText("");
+                input_amount.setText("");
+                input_mortage.setText("");
+                input_date.setText("");
+                    
                 dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Empty fields");
@@ -329,7 +337,7 @@ public class Clear_Loan extends javax.swing.JFrame {
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
 
-            try{
+        try{
             String user = "root";
             String pass = "";
             String url = "jdbc:mysql://localhost:3306/sacco";
@@ -338,35 +346,29 @@ public class Clear_Loan extends javax.swing.JFrame {
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
-            String query1 = "INSERT INTO admin(AdminNo, Name, Location, Role, Password, DEO)"
-                    + "VALUES (?,?,?,?,?,?,?)";
+            String value  = loanno.getText();
+            String query1 = "UPDATE loans SET LoanNo='"+loanno.getText()+
+                    "', Name='"+input_name.getText()+"', Amount='"+input_amount.getText()+
+                    "', Mortage='"+input_mortage.getText()+"', Duration='"+input_duration.getText()+
+                    "', DEO='"+input_date.getText()+"'WHERE LoanNo='"+ value+"'";
             PreparedStatement pst = conn.prepareStatement(query1);
+            pst.execute();
             
-            pst.setString(1, loanno.getText());
-            pst.setString(2, input_name.getText());
-            pst.setString(3, input_amount.getText());
-            pst.setString(4, input_mortage.getText());
-            pst.setString(5, input_duration.getText());
-            pst.setString(6, input_date.getText());
-            
-            ResultSet rset = pst.executeQuery(query1);
-            
-            if(rset.next()){
-                JOptionPane.showMessageDialog(null, "data inserted successfully");
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Username and Password entered are incorrect");
-                loanno.setText("");
-                input_name.setText("");
-                input_duration.setText("");
-                input_amount.setText("");
-                input_mortage.setText("");
-                input_date.setText("");
-            }
-            
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, "data updated successfully");
+
+            loanno.setText("");
+            input_name.setText("");
+            input_amount.setText("");
+            input_mortage.setText("");
+            input_duration.setText("");
+            input_date.setText("");
+                
+            dispose();
+                
+       } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Clear_Loan.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Clear_Loan.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_updateActionPerformed
@@ -419,6 +421,12 @@ public class Clear_Loan extends javax.swing.JFrame {
 
         dispose();
     }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jLabel9FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jLabel9FocusGained
+        
+        jLabel9.isForegroundSet();
+        
+    }//GEN-LAST:event_jLabel9FocusGained
 
     /**
      * @param args the command line arguments
