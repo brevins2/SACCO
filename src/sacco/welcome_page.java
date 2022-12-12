@@ -5,8 +5,6 @@
  */
 package sacco;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
@@ -23,9 +21,6 @@ public class welcome_page extends javax.swing.JFrame {
         
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         
-//        Toolkit toolkit = getToolkit();
-//        Dimension size = toolkit.getScreenSize();
-//        setLocation(size.width/2 - getWidth()/2, size.height/2-getHeight()/2);
     }
 
     /**
@@ -67,10 +62,9 @@ public class welcome_page extends javax.swing.JFrame {
         setTitle("welcome to Cash Money SACCO");
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setExtendedState(0);
         setSize(new java.awt.Dimension(1, 1));
 
-        Desktop.setBackground(new java.awt.Color(204, 204, 255));
+        Desktop.setBackground(new java.awt.Color(240, 240, 240));
 
         javax.swing.GroupLayout DesktopLayout = new javax.swing.GroupLayout(Desktop);
         Desktop.setLayout(DesktopLayout);
@@ -82,6 +76,8 @@ public class welcome_page extends javax.swing.JFrame {
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 490, Short.MAX_VALUE)
         );
+
+        jPanel1.setBackground(new java.awt.Color(250, 250, 250));
 
         admin_table.setText("Admin");
         admin_table.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -132,9 +128,9 @@ public class welcome_page extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(admin_table, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(loan_table, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(client_table, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(loan_table, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(role_table, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -243,6 +239,7 @@ public class welcome_page extends javax.swing.JFrame {
         table_of_contents.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/job.png"))); // NOI18N
         table_of_contents.setText("Table of Contents");
 
+        show_table.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/job.png"))); // NOI18N
         show_table.setText("Role Table");
         show_table.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,6 +248,7 @@ public class welcome_page extends javax.swing.JFrame {
         });
         table_of_contents.add(show_table);
 
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/job.png"))); // NOI18N
         jMenuItem4.setText("Loan Table");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -259,6 +257,7 @@ public class welcome_page extends javax.swing.JFrame {
         });
         table_of_contents.add(jMenuItem4);
 
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/job.png"))); // NOI18N
         jMenuItem5.setText("Client Table");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -267,6 +266,7 @@ public class welcome_page extends javax.swing.JFrame {
         });
         table_of_contents.add(jMenuItem5);
 
+        refresh_table.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/job.png"))); // NOI18N
         refresh_table.setText("Admin Table");
         refresh_table.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

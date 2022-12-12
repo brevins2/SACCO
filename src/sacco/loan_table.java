@@ -6,10 +6,7 @@
 
 package sacco;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -89,6 +86,8 @@ public class loan_table extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Table for Loans");
+        setIconImages(null);
+        setName(""); // NOI18N
 
         jTable_loan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -98,6 +97,11 @@ public class loan_table extends javax.swing.JFrame {
                 "LoanNo", "Name", "Amount", "Mortage", "Duration", "DEO"
             }
         ));
+        jTable_loan.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTable_loanFocusLost(evt);
+            }
+        });
         jScrollPane4.setViewportView(jTable_loan);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -112,13 +116,17 @@ public class loan_table extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 524, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addGap(0, 51, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTable_loanFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable_loanFocusLost
+        
+        dispose();
+        
+    }//GEN-LAST:event_jTable_loanFocusLost
 
     /**
      * @param args the command line arguments

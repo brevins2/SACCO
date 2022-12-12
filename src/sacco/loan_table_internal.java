@@ -133,7 +133,7 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
                 row[4] = list.get(i).getDuration();
                 row[5] = list.get(i).getDEO();    
             
-                model.addRow(row);
+//                model.addRow(row);
                 
             }
             else {

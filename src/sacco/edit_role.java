@@ -115,8 +115,9 @@ public class edit_role extends javax.swing.JFrame {
 
         update.setBackground(new java.awt.Color(0, 51, 255));
         update.setForeground(new java.awt.Color(255, 255, 255));
-        update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/save.png"))); // NOI18N
+        update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/edit.png"))); // NOI18N
         update.setText("Update");
+        update.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateActionPerformed(evt);
@@ -125,8 +126,8 @@ public class edit_role extends javax.swing.JFrame {
 
         delete.setBackground(new java.awt.Color(255, 0, 0));
         delete.setForeground(new java.awt.Color(255, 255, 255));
-        delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/exit.png"))); // NOI18N
         delete.setText("Delete");
+        delete.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteActionPerformed(evt);
@@ -210,10 +211,10 @@ public class edit_role extends javax.swing.JFrame {
                             .addComponent(input_salary)
                             .addComponent(input_roleno, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(update)
-                        .addGap(36, 36, 36)
-                        .addComponent(delete)))
+                        .addGap(100, 100, 100)
+                        .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(

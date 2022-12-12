@@ -16,7 +16,7 @@ public class SACCO {
      */
     public static void main(String[] args) {
         
-        System.out.print("connection established\n");
+//        System.out.print("connection established\n");
         
         System.out.print("welcome to cash money sacco");
         

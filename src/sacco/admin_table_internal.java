@@ -94,12 +94,10 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
             
             Admin admins;
             
-            if(input_search.getText().equals(query1)){
-                while(rset.next()){
-                    admins = new Admin(rset.getString("AdminNo"), rset.getString("Name"), rset.getString("Location"), 
-                            rset.getString("Role"), rset.getString("Password"), rset.getString("DEO"));
-                    adminSearchtList.add(admins);
-                }
+            while(rset.next()){
+                admins = new Admin(rset.getString("AdminNo"), rset.getString("Name"), rset.getString("Location"), 
+                    rset.getString("Role"), rset.getString("Password"), rset.getString("DEO"));
+                adminSearchtList.add(admins);
             }
             
         }
@@ -119,12 +117,12 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
         Object[] row = new Object[6];
         for(int i=0; i<list.size(); i++){
             if(searches.equals(list.get(i).getName())){
-                adminno.setText("");
-                name.setText("");
-                location.setText("");
-                role.setText("");
-                password.setText("");
-                deo.setText("");
+                adminno.setText(list.get(i).getAdminNo());
+                name.setText(list.get(i).getName());
+                location.setText(list.get(i).getLocation());
+                role.setText(list.get(i).getRole());
+                password.setText(list.get(i).getPassword());
+                deo.setText(list.get(i).getDEO());
 
                 row[0] = list.get(i).getAdminNo();
                 row[1] = list.get(i).getName();
@@ -133,7 +131,7 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
                 row[4] = list.get(i).getPassword();
                 row[5] = list.get(i).getDEO();
 
-                model.addRow(row);
+//                model.addRow(row);
             }
             else{
                 JOptionPane.showMessageDialog(null, "Admin does not exist");

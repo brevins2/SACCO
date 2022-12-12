@@ -6,10 +6,10 @@
 package sacco;
 
 import java.awt.Dimension;
+import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.util.*;
 import javax.swing.*;
-import java.io.*;
 import java.sql.*;
 /**
  *
@@ -30,42 +30,7 @@ public class login extends javax.swing.JFrame {
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width/2 - getWidth()/2, size.height/2-getHeight()/2);
-        
-//        populateArrayList();
-    }
-    
-    public void populateArrayList()
-    {
-        try
-        {
-           FileInputStream file = new FileInputStream("admins.dat");
-            
-            ObjectInputStream inputFile = new ObjectInputStream(file);
-            
-            boolean endOfTheFile2 = false;
-            
-            while(!endOfTheFile2)
-            {
-                try
-                {
-                    login.add((login_class) inputFile.readObject());
-                }
-                catch(EOFException f)
-                {
-                    endOfTheFile2 = true;
-                }
-                catch(Exception e)
-                {
-                    JOptionPane.showMessageDialog(null, e.getMessage());
-                }
-            }        
-            inputFile.close();
-        }
-        catch(IOException e)
-        {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
+   }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -86,7 +51,7 @@ public class login extends javax.swing.JFrame {
         title = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        password = new javax.swing.JTextField();
+        password = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Login");
@@ -130,6 +95,7 @@ public class login extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("-");
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -137,9 +103,12 @@ public class login extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setBackground(new java.awt.Color(255, 0, 0));
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("x");
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel4MouseClicked(evt);
@@ -182,16 +151,17 @@ public class login extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(username))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(login_button, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(17, 17, 17))
+                            .addComponent(password))))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -203,10 +173,10 @@ public class login extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                .addGap(60, 60, 60)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(login_button, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -228,7 +198,8 @@ public class login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void login_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_buttonActionPerformed
-        
+        ArrayList<Admin> adminList = new ArrayList<>();
+
         try{
             String user = "root";
             String pass = "";
@@ -241,37 +212,25 @@ public class login extends javax.swing.JFrame {
             String usern = username.getText();
             String passwords = password.getText();
             if(!(username.getText().isEmpty() || password.getText().isEmpty())){
-                String query1 = "select * from admin where Name= '"+usern+"' and Password= '"+passwords+"'";
+                String query1 = "select Name, password from admin where Name= '"+usern+"' and Password= '"+passwords+"'";
                 PreparedStatement pst = conn.prepareStatement(query1);
 
-                ResultSet rset = pst.executeQuery(query1);
-
-                if(query1.contains(usern) && query1.contains(passwords)){
-                    
-                    JOptionPane.showMessageDialog(null, "Username and Password matched");
-                    username.setText("");
-                    password.setText("");
-                    
-                    dispose();
-
+                ResultSet rset = pst.executeQuery();
+                
+                if(rset.next()){
+                    JOptionPane.showMessageDialog(null, "Username and Password match");
                     new add_Customer().setVisible(true);
+                    dispose();
                 }
-                else{
-//                    for(int i = 1; i<3; i++){
-//                        rset.next();
-//                        int reminder = 3-i;
-//                        JOptionPane.showMessageDialog(null, "Username and Password did not matched, this is your "+i+" attempt"
-//                                + "You are remaining with "+ reminder);   
-//                    }
-                    JOptionPane.showMessageDialog(null, "please check with the administration for the right logins");
-                    dispose();                    
+                else {
+                    JOptionPane.showMessageDialog(null, "Username and password donot match");
                 }
             }
             else{
                 JOptionPane.showMessageDialog(null, "Empty Fields");
             }
         }
-        catch(Exception e){
+        catch(HeadlessException | ClassNotFoundException | SQLException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }       
     }//GEN-LAST:event_login_buttonActionPerformed
@@ -338,7 +297,7 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton login_button;
-    private javax.swing.JTextField password;
+    private javax.swing.JPasswordField password;
     private javax.swing.JButton reset;
     private javax.swing.JLabel title;
     private javax.swing.JTextField username;

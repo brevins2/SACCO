@@ -6,12 +6,7 @@
 package sacco;
 
 import java.awt.HeadlessException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -107,7 +102,7 @@ public class role_table_internal extends javax.swing.JInternalFrame {
     }   
     
     public void save_roles(){
-        ArrayList<Roles> list = roleList();
+        ArrayList<Roles> list = saveRoleList();
         
         DefaultTableModel model = (DefaultTableModel) jTable_Role.getModel();
         
@@ -133,17 +128,15 @@ public class role_table_internal extends javax.swing.JInternalFrame {
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
-            String query1 = "select * from admin where Name = '"+ input_search.getText()+"'";
+            String query1 = "select * from role where Role = '"+ input_search.getText()+"'";
             Statement st = conn.createStatement();
             ResultSet rset = st.executeQuery(query1);
             
             Roles roles;
             
-            if(input_search.getText().equals(query1)){
-                while(rset.next()){
-                    roles = new Roles(rset.getString("ROLENo"), rset.getString("Role"), rset.getString("Salary"));
-                    roleSearchtList.add(roles);
-                }
+            while(rset.next()){
+                roles = new Roles(rset.getString("ROLENo"), rset.getString("Role"), rset.getString("Salary"));
+                roleSearchtList.add(roles);
             }
             
         }
@@ -172,7 +165,7 @@ public class role_table_internal extends javax.swing.JInternalFrame {
                 row[1] = list.get(i).getRole();
                 row[2] = list.get(i).getSalary();
 
-                model.addRow(row);
+//                model.addRow(row);
             }
             else{
                 JOptionPane.showMessageDialog(null, "role does not exist");
@@ -429,7 +422,7 @@ public class role_table_internal extends javax.swing.JInternalFrame {
                 role.setText("");
                 salary.setText("");
                 
-                dispose();
+//                dispose();
             }
             else{
                 JOptionPane.showMessageDialog(null, "fields empty");

@@ -120,6 +120,7 @@ public class Clear_Loan extends javax.swing.JFrame {
         update.setForeground(new java.awt.Color(255, 255, 255));
         update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/edit.png"))); // NOI18N
         update.setText("Update");
+        update.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateActionPerformed(evt);
@@ -134,8 +135,8 @@ public class Clear_Loan extends javax.swing.JFrame {
 
         delete.setBackground(new java.awt.Color(255, 0, 0));
         delete.setForeground(new java.awt.Color(255, 255, 255));
-        delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/exit.png"))); // NOI18N
         delete.setText("Delete");
+        delete.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteActionPerformed(evt);
@@ -228,7 +229,7 @@ public class Clear_Loan extends javax.swing.JFrame {
                         .addGap(59, 59, 59)
                         .addComponent(update)
                         .addGap(26, 26, 26)
-                        .addComponent(delete))
+                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(loanno, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)

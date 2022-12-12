@@ -5,10 +5,7 @@
  */
 package sacco;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -40,14 +37,14 @@ public class role_table extends javax.swing.JFrame {
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
-            String query1 = "select * from roles";
+            String query1 = "select * from role";
             Statement st = conn.createStatement();
             ResultSet rset = st.executeQuery(query1);
             
-            Roles role;
+            Roles roles;
             while(rset.next()){
-                role = new Roles(rset.getString("ROLENo"), rset.getString("Role"), rset.getString("Salary"));
-                roleList.add(role);
+                roles = new Roles(rset.getString("ROLENo"), rset.getString("Role"), rset.getString("Salary"));
+                roleList.add(roles);
             }
             
         }
@@ -60,7 +57,7 @@ public class role_table extends javax.swing.JFrame {
     public void show_roles(){
         ArrayList<Roles> list = roleList();
         
-        DefaultTableModel model = (DefaultTableModel) jTable_Role.getModel();
+        DefaultTableModel model = (DefaultTableModel) jTable_Roles.getModel();
         
         Object[] row = new Object[3];
         for(int i=0; i<list.size(); i++){
@@ -70,7 +67,7 @@ public class role_table extends javax.swing.JFrame {
             
             model.addRow(row);
         }
-    }
+    }   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -81,18 +78,13 @@ public class role_table extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        title = new javax.swing.JLabel();
-        jTabbed = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable_Role = new javax.swing.JTable();
+        jTable_Roles = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Table of results");
 
-        title.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        title.setText("Table of results");
-
-        jTable_Role.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_Roles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -100,31 +92,32 @@ public class role_table extends javax.swing.JFrame {
                 "ROLENo", "Role", "Salary"
             }
         ));
-        jScrollPane1.setViewportView(jTable_Role);
-
-        jTabbed.addTab("Role", jScrollPane1);
+        jTable_Roles.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTable_RolesFocusLost(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable_Roles);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(188, 188, 188)
-                .addComponent(title)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jTabbed, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(title)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbed, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTable_RolesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable_RolesFocusLost
+        
+        dispose();
+        
+    }//GEN-LAST:event_jTable_RolesFocusLost
 
     /**
      * @param args the command line arguments
@@ -164,8 +157,6 @@ public class role_table extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbed;
-    private javax.swing.JTable jTable_Role;
-    private javax.swing.JLabel title;
+    private javax.swing.JTable jTable_Roles;
     // End of variables declaration//GEN-END:variables
 }

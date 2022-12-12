@@ -9,9 +9,10 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.*;
 import java.util.*;
-import java.io.*;
 import java.sql.*;
 import java.text.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -37,6 +38,38 @@ public class Add_admin extends javax.swing.JFrame {
         
         admin = new ArrayList<Admin>();
         role = new ArrayList<Roles>();
+        
+        RoleSelect();
+    }
+    
+    public void RoleSelect(){    
+        
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+
+            String sql="SELECT * FROM role";
+            Statement pst=conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery(sql);
+            jComboBox1.removeAllItems();
+            
+            while(rs.next()){
+                String roles = rs.getString("Role");
+                
+                String result = roles;
+                
+                jComboBox1.addItem(result);
+            }
+        }catch(SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(edit_role.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -57,7 +90,6 @@ public class Add_admin extends javax.swing.JFrame {
         location = new javax.swing.JLabel();
         password = new javax.swing.JTextField();
         input_location = new javax.swing.JTextField();
-        input_role = new javax.swing.JTextField();
         amount_due = new javax.swing.JLabel();
         duration = new javax.swing.JLabel();
         save = new javax.swing.JButton();
@@ -67,6 +99,7 @@ public class Add_admin extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add new Administrator");
@@ -74,10 +107,11 @@ public class Add_admin extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 102));
 
-        reset.setBackground(new java.awt.Color(255, 51, 0));
-        reset.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        reset.setBackground(new java.awt.Color(255, 0, 0));
+        reset.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         reset.setForeground(new java.awt.Color(255, 255, 255));
         reset.setText("Reset");
+        reset.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         reset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resetActionPerformed(evt);
@@ -100,10 +134,11 @@ public class Add_admin extends javax.swing.JFrame {
         duration.setText("Role:");
 
         save.setBackground(new java.awt.Color(0, 51, 204));
-        save.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        save.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         save.setForeground(new java.awt.Color(255, 255, 255));
         save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/save.png"))); // NOI18N
         save.setText("Save");
+        save.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveActionPerformed(evt);
@@ -162,6 +197,8 @@ public class Add_admin extends javax.swing.JFrame {
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -181,8 +218,8 @@ public class Add_admin extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(input_location, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(input_date_of_entrance, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(input_role, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(password, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(password, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -194,10 +231,10 @@ public class Add_admin extends javax.swing.JFrame {
                 .addContainerGap(34, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(save)
+                .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87))
+                .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(97, 97, 97))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,25 +242,28 @@ public class Add_admin extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(input_no, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(input_no, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(input_name, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(input_name, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(location, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                    .addComponent(input_location, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(input_location, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(amount_due))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(input_role, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(duration))
-                .addGap(7, 7, 7)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(duration)
+                        .addGap(16, 16, 16))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(date_of_entrance)
                     .addComponent(input_date_of_entrance, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -266,7 +306,7 @@ public class Add_admin extends javax.swing.JFrame {
             pst.setString(1, input_no.getText());
             pst.setString(2, input_name.getText());
             pst.setString(3, input_location.getText());
-            pst.setString(4, input_role.getText());
+            pst.setString(4, jComboBox1.getSelectedItem().toString());
             pst.setString(5, password.getText());
             pst.setString(6, input_date_of_entrance.getText());
             
@@ -277,7 +317,6 @@ public class Add_admin extends javax.swing.JFrame {
                 input_name.setText("");
                 password.setText("");
                 input_location.setText("");
-                input_role.setText("");
                 input_date_of_entrance.setText("");
             
         }
@@ -293,7 +332,6 @@ public class Add_admin extends javax.swing.JFrame {
         input_name.setText("");
         password.setText("");
         input_location.setText("");
-        input_role.setText("");
         input_date_of_entrance.setText("");
         
     }//GEN-LAST:event_resetActionPerformed
@@ -351,7 +389,7 @@ public class Add_admin extends javax.swing.JFrame {
     private javax.swing.JTextField input_location;
     private javax.swing.JTextField input_name;
     private javax.swing.JTextField input_no;
-    private javax.swing.JTextField input_role;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

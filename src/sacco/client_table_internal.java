@@ -94,12 +94,10 @@ public class client_table_internal extends javax.swing.JInternalFrame {
             
             Customer clients;
             
-            if(input_search.getText().equals(query1)){
-                while(rset.next()){
-                    clients = new Customer(rset.getString("CUSTNo"), rset.getString("Name"), rset.getString("Location"), 
-                            rset.getString("Amount"), rset.getString("Duration"), rset.getString("Date_of_entrance"));
-                    clienSearchtList.add(clients);
-                }
+            while(rset.next()){
+                clients = new Customer(rset.getString("CUSTNo"), rset.getString("Name"), rset.getString("Location"), 
+                    rset.getString("Amount"), rset.getString("Duration"), rset.getString("Date_of_entrance"));
+                clienSearchtList.add(clients);
             }
             
         }
@@ -116,8 +114,7 @@ public class client_table_internal extends javax.swing.JInternalFrame {
         
         DefaultTableModel model = (DefaultTableModel) jTable_customer.getModel();
         
-        Object[] row = new Object[6];
-        
+        Object[] row = new Object[6];        
         for(int i=0; i<list.size(); i++){
             if(searches.equals(list.get(i).getName())){
                 input_no.setText(list.get(i).getCustNo());
@@ -134,7 +131,7 @@ public class client_table_internal extends javax.swing.JInternalFrame {
                 row[4] = list.get(i).getDuration();
                 row[5] = list.get(i).getDate_of_entrance();
 
-                model.addRow(row);
+//                model.addRow(row);
             }
             else{
                 JOptionPane.showMessageDialog(null, "Client does not exist");

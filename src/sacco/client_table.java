@@ -5,10 +5,7 @@
  */
 package sacco;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -24,6 +21,8 @@ public class client_table extends javax.swing.JFrame {
      */
     public client_table() {
         initComponents();
+        
+        show_client();
     }
     
     public ArrayList<Customer> clientList(){
@@ -97,6 +96,11 @@ public class client_table extends javax.swing.JFrame {
                 "CUSTNo", "Name", "Location", "Amount", "Duration", "Date_of_entrance"
             }
         ));
+        jTable_customer.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTable_customerFocusLost(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTable_customer);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -116,6 +120,12 @@ public class client_table extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTable_customerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable_customerFocusLost
+        
+        dispose();
+        
+    }//GEN-LAST:event_jTable_customerFocusLost
 
     /**
      * @param args the command line arguments

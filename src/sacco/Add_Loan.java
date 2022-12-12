@@ -8,6 +8,8 @@ package sacco;
 import java.awt.*;
 import java.sql.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -29,7 +31,38 @@ public class Add_Loan extends javax.swing.JFrame {
         setLocation(size.width/2 - getWidth()/2, size.height/2-getHeight()/2);
         
         loan = new ArrayList<Loan>();
-    }  
+        LoanSelect();
+    }
+    
+    public final void LoanSelect(){    
+        
+        try{
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/sacco";
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+
+            String sql="SELECT * FROM loans";
+            Statement pst=conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery(sql);
+            customername.removeAllItems();
+            while(rs.next()){
+                String loanno = rs.getString("LoanNo");
+                String names = rs.getString("Name");
+                
+                String result = names;
+                
+                customername.addItem(result);
+            }
+        }catch(SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(edit_role.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,7 +74,6 @@ public class Add_Loan extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        input_name = new javax.swing.JTextField();
         input_amount = new javax.swing.JTextField();
         input_mortage = new javax.swing.JTextField();
         input_duration = new javax.swing.JTextField();
@@ -59,6 +91,7 @@ public class Add_Loan extends javax.swing.JFrame {
         exit = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        customername = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add Loan");
@@ -70,6 +103,7 @@ public class Add_Loan extends javax.swing.JFrame {
         save.setForeground(java.awt.Color.white);
         save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/save.png"))); // NOI18N
         save.setText("Save");
+        save.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveActionPerformed(evt);
@@ -81,8 +115,8 @@ public class Add_Loan extends javax.swing.JFrame {
 
         reset.setBackground(new java.awt.Color(255, 0, 0));
         reset.setForeground(java.awt.Color.white);
-        reset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/exit.png"))); // NOI18N
         reset.setText("Reset");
+        reset.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         reset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resetActionPerformed(evt);
@@ -154,6 +188,8 @@ public class Add_Loan extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Date of issue:");
 
+        customername.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -169,31 +205,32 @@ public class Add_Loan extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
                 .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(input_date)
-                    .addComponent(input_duration)
-                    .addComponent(input_mortage)
-                    .addComponent(input_amount)
-                    .addComponent(input_name)
-                    .addComponent(input_loanno, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(28, 28, 28)
+                            .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(input_date)
+                        .addComponent(input_duration)
+                        .addComponent(input_mortage)
+                        .addComponent(input_amount)
+                        .addComponent(input_loanno, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(customername, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(input_loanno, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(input_name, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(customername, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -215,7 +252,7 @@ public class Add_Loan extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -243,14 +280,14 @@ public class Add_Loan extends javax.swing.JFrame {
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
-            if (!(input_name.getText().isEmpty()|| input_date.getText().isEmpty()|| input_amount.getText().isEmpty()
+            if (!(input_date.getText().isEmpty()|| input_amount.getText().isEmpty()
                 || input_duration.getText().isEmpty()|| input_mortage.getText().isEmpty())){
                 String query1 = "INSERT INTO loans(LoanNo, Name, Amount, Mortage, Duration, DEO)"
                         + "VALUES (?,?,?,?,?,?)";
                 PreparedStatement pst = conn.prepareStatement(query1);
 
                 pst.setString(1, input_loanno.getText());
-                pst.setString(2, input_name.getText());
+                pst.setString(2, customername.getSelectedItem().toString());
                 pst.setString(3, input_amount.getText());
                 pst.setString(4, input_mortage.getText());
                 pst.setString(5, input_duration.getText());
@@ -261,7 +298,7 @@ public class Add_Loan extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "data inserted successfully");
 
                 input_loanno.setText("");
-                input_name.setText("");
+                customername.getSelectedItem().toString();
                 input_amount.setText("");
                 input_mortage.setText("");
                 input_duration.setText("");
@@ -282,7 +319,7 @@ public class Add_Loan extends javax.swing.JFrame {
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
 
         input_loanno.setText("");
-        input_name.setText("");
+//        customername.getSelectedItem().toString();
         input_amount.setText("");
         input_mortage.setText("");
         input_duration.setText("");
@@ -336,13 +373,13 @@ public class Add_Loan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> customername;
     private javax.swing.JLabel exit;
     private javax.swing.JTextField input_amount;
     private javax.swing.JTextField input_date;
     private javax.swing.JTextField input_duration;
     private javax.swing.JTextField input_loanno;
     private javax.swing.JTextField input_mortage;
-    private javax.swing.JTextField input_name;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

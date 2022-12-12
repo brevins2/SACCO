@@ -141,21 +141,22 @@ public class edit_admin extends javax.swing.JFrame {
         name1.setText("AdminNo:");
 
         update.setBackground(new java.awt.Color(0, 51, 255));
-        update.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        update.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         update.setForeground(new java.awt.Color(255, 255, 255));
         update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/edit.png"))); // NOI18N
         update.setText("Update");
+        update.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateActionPerformed(evt);
             }
         });
 
-        delete.setBackground(new java.awt.Color(255, 51, 0));
-        delete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        delete.setBackground(new java.awt.Color(255, 0, 0));
+        delete.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         delete.setForeground(new java.awt.Color(255, 255, 255));
-        delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/exit.png"))); // NOI18N
         delete.setText("Delete");
+        delete.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteActionPerformed(evt);
