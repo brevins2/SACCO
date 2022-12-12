@@ -5,10 +5,7 @@
  */
 package sacco;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -45,13 +42,13 @@ public class admin_table extends javax.swing.JFrame {
             ResultSet rset = st.executeQuery(query1);
             
             Admin admin;
-//            while(rset.next()){
-//                admin = new Admin(rset.getString("AdminNo"), rset.getString("Name"), rset.getString("Location"),
-//                        rset.getString("Role"), rset.getString("Password"), rset.getString("DEO"));
-//                adminList.add(admin);
-//            }
+            while(rset.next()){
+                admin = new Admin(rset.getString("AdminNo"), rset.getString("Name"), rset.getString("Location"),
+                        rset.getString("Role"), rset.getString("Password"), rset.getString("DEO"));
+                adminList.add(admin);
+            }
         }
-        catch(Exception e){
+        catch(ClassNotFoundException | SQLException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return adminList;
@@ -89,6 +86,11 @@ public class admin_table extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Table for Admin");
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                formFocusLost(evt);
+            }
+        });
 
         jTable_admin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -98,6 +100,11 @@ public class admin_table extends javax.swing.JFrame {
                 "AdminNo", "Name", "Location", "Role", "Password", "DEO"
             }
         ));
+        jTable_admin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTable_adminFocusLost(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable_admin);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -112,13 +119,23 @@ public class admin_table extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 517, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addGap(0, 47, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
+        
+        dispose();
+        
+    }//GEN-LAST:event_formFocusLost
+
+    private void jTable_adminFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable_adminFocusLost
+        
+        dispose();
+        
+    }//GEN-LAST:event_jTable_adminFocusLost
 
     /**
      * @param args the command line arguments
