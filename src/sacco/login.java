@@ -57,6 +57,11 @@ public class login extends javax.swing.JFrame {
         setTitle("Login");
         setBackground(new java.awt.Color(0, 51, 102));
         setUndecorated(true);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                formFocusLost(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 51));
 
@@ -253,6 +258,12 @@ public class login extends javax.swing.JFrame {
         dispose();
         
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
+        
+        dispose();
+        
+    }//GEN-LAST:event_formFocusLost
 
     /**
      * @param args the command line arguments

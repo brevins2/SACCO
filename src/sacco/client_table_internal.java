@@ -122,7 +122,7 @@ public class client_table_internal extends javax.swing.JInternalFrame {
                 input_location.setText(list.get(i).getLocation());
                 input_amount.setText(list.get(i).getAmount_due());
                 input_duration.setText(list.get(i).getDuration());
-                input_date_of_entrance.setText(list.get(i).getDate_of_entrance());
+                input_date_of_entrance.setDateFormatString(list.get(i).getDate_of_entrance());
                 
                 row[0] = list.get(i).getCustNo();
                 row[1] = list.get(i).getName();
@@ -164,7 +164,8 @@ public class client_table_internal extends javax.swing.JInternalFrame {
         input_no = new javax.swing.JTextField();
         input_amount = new javax.swing.JTextField();
         input_duration = new javax.swing.JTextField();
-        input_date_of_entrance = new javax.swing.JTextField();
+        print = new javax.swing.JButton();
+        input_date_of_entrance = new com.toedter.calendar.JDateChooser();
         clear = new javax.swing.JButton();
         view = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
@@ -225,6 +226,9 @@ public class client_table_internal extends javax.swing.JInternalFrame {
             }
         });
 
+        print.setText("Print");
+        print.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -238,14 +242,8 @@ public class client_table_internal extends javax.swing.JInternalFrame {
                             .addComponent(jLabel5))
                         .addGap(17, 17, 17)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(input_duration, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(input_date_of_entrance, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(input_duration)
+                            .addComponent(input_date_of_entrance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -257,13 +255,20 @@ public class client_table_internal extends javax.swing.JInternalFrame {
                             .addComponent(input_name)
                             .addComponent(input_amount, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(input_location, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(input_no, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(input_no, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(print, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 29, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(49, 49, 49)
@@ -285,15 +290,20 @@ public class client_table_internal extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(input_duration, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(input_date_of_entrance, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(input_date_of_entrance, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)
+                        .addGap(9, 9, 9)))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
+                    .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(print, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16))
         );
 
         clear.setText("clear");
@@ -326,7 +336,7 @@ public class client_table_internal extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(562, Short.MAX_VALUE)
+                .addContainerGap(542, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
@@ -360,10 +370,10 @@ public class client_table_internal extends javax.swing.JInternalFrame {
                     .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE))
         );
 
         pack();
@@ -377,7 +387,7 @@ public class client_table_internal extends javax.swing.JInternalFrame {
             "Location:   "+ input_location.getText()+ "\n\n"+
             "Amount:     "+ input_amount.getText() + "\n\n"+
             "Duration:   "+ input_duration.getText() + "\n\n" +
-            "DEO:        "+ input_date_of_entrance.getText());
+            "DEO:        "+ input_date_of_entrance.getDate());
     }//GEN-LAST:event_viewActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
@@ -396,7 +406,7 @@ public class client_table_internal extends javax.swing.JInternalFrame {
             String query1 = "UPDATE customer SET CUSTNo='"+input_no.getText()+
                     "', Name='"+input_name.getText()+"', Location='"+input_location.getText()+
                     "', Amount='"+input_amount.getText()+"', Duration='"+input_duration.getText()+
-                    "', Date_of_entrance='"+input_date_of_entrance.getText()+"' where CUSTNo = '"+
+                    "', Date_of_entrance='"+input_date_of_entrance.getDate()+"' where CUSTNo = '"+
                     value+"'";
             PreparedStatement pst = conn.prepareStatement(query1);
             pst.execute();
@@ -412,7 +422,7 @@ public class client_table_internal extends javax.swing.JInternalFrame {
                 input_location.setText("");
                 input_amount.setText("");
                 input_duration.setText("");
-                input_date_of_entrance.setText("");
+                input_date_of_entrance.setDateFormatString("");
             
         }
         catch(HeadlessException | SQLException e){
@@ -434,7 +444,7 @@ public class client_table_internal extends javax.swing.JInternalFrame {
         input_location.setText(model.getValueAt(row, 2).toString());
         input_amount.setText(model.getValueAt(row, 3).toString());
         input_duration.setText(model.getValueAt(row, 4).toString());
-        input_date_of_entrance.setText(model.getValueAt(row, 5).toString());
+        input_date_of_entrance.setDateFormatString(model.getValueAt(row, 5).toString());
         
     }//GEN-LAST:event_jTable_customerMouseClicked
 
@@ -445,7 +455,7 @@ public class client_table_internal extends javax.swing.JInternalFrame {
         input_location.setText("");
         input_amount.setText("");
         input_duration.setText("");
-        input_date_of_entrance.setText("");
+        input_date_of_entrance.setDateFormatString("");
         
     }//GEN-LAST:event_clearActionPerformed
 
@@ -482,7 +492,7 @@ public class client_table_internal extends javax.swing.JInternalFrame {
                 input_location.setText("");
                 input_amount.setText("");
                 input_duration.setText("");
-                input_date_of_entrance.setText("");
+                input_date_of_entrance.setDateFormatString("");
             
         }
         catch(HeadlessException | SQLException e){
@@ -498,7 +508,7 @@ public class client_table_internal extends javax.swing.JInternalFrame {
     private javax.swing.JButton clear;
     private javax.swing.JButton delete;
     private javax.swing.JTextField input_amount;
-    private javax.swing.JTextField input_date_of_entrance;
+    private com.toedter.calendar.JDateChooser input_date_of_entrance;
     private javax.swing.JTextField input_duration;
     private javax.swing.JTextField input_location;
     private javax.swing.JTextField input_name;
@@ -514,6 +524,7 @@ public class client_table_internal extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable_customer;
+    private javax.swing.JButton print;
     private javax.swing.JButton search;
     private javax.swing.JButton update;
     private javax.swing.JButton view;

@@ -117,6 +117,11 @@ public class Role extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add new Customer");
         setUndecorated(true);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                formFocusLost(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 102));
 
@@ -329,6 +334,12 @@ public class Role extends javax.swing.JFrame {
         dispose();
 
     }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
+        
+        dispose();
+        
+    }//GEN-LAST:event_formFocusLost
 
     /**
      * @param args the command line arguments

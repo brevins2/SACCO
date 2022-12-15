@@ -8,7 +8,6 @@ package sacco;
 import java.awt.*;
 import javax.swing.*;
 import java.util.*;
-import java.io.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -81,7 +80,6 @@ public class Clear_Loan extends javax.swing.JFrame {
         loanno = new javax.swing.JTextField();
         input_duration = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        input_date = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         update = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -96,10 +94,16 @@ public class Clear_Loan extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
+        input_date = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Edit Loan");
         setUndecorated(true);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                formFocusLost(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 102));
 
@@ -231,14 +235,14 @@ public class Clear_Loan extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(loanno, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(loanno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(input_date, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(input_duration, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(input_mortage, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(input_amount, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(input_name, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 361, Short.MAX_VALUE))))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 361, Short.MAX_VALUE)))
+                    .addComponent(input_date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(72, Short.MAX_VALUE))
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -266,15 +270,19 @@ public class Clear_Loan extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(input_duration, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(7, 7, 7)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(input_date, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(input_date, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loanno, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -307,7 +315,7 @@ public class Clear_Loan extends javax.swing.JFrame {
             Connection conn = DriverManager.getConnection(url, user, pass);
             
             if(!loanno.getText().isEmpty()||!input_name.getText().isEmpty()||!input_duration.getText().isEmpty()||
-                    !input_amount.getText().isEmpty()||!input_mortage.getText().isEmpty()||!input_date.getText().isEmpty())
+                    !input_amount.getText().isEmpty()||!input_mortage.getText().isEmpty()||!input_date.getDate().toString().isEmpty())
             {
                 String value = (String) jComboBox1.getSelectedItem();
                 String query1 = "DELETE FROM loans WHERE LoanNo = '"+value+"'";
@@ -321,7 +329,7 @@ public class Clear_Loan extends javax.swing.JFrame {
                 input_duration.setText("");
                 input_amount.setText("");
                 input_mortage.setText("");
-                input_date.setText("");
+                input_date.setDateFormatString("");
                     
                 dispose();
             }else{
@@ -351,7 +359,7 @@ public class Clear_Loan extends javax.swing.JFrame {
             String query1 = "UPDATE loans SET LoanNo='"+loanno.getText()+
                     "', Name='"+input_name.getText()+"', Amount='"+input_amount.getText()+
                     "', Mortage='"+input_mortage.getText()+"', Duration='"+input_duration.getText()+
-                    "', DEO='"+input_date.getText()+"'WHERE LoanNo='"+ value+"'";
+                    "', DEO='"+input_date.getDate()+"'WHERE LoanNo='"+ value+"'";
             PreparedStatement pst = conn.prepareStatement(query1);
             pst.execute();
             
@@ -362,7 +370,7 @@ public class Clear_Loan extends javax.swing.JFrame {
             input_amount.setText("");
             input_mortage.setText("");
             input_duration.setText("");
-            input_date.setText("");
+            input_date.setDateFormatString("");
                 
             dispose();
                 
@@ -404,7 +412,7 @@ public class Clear_Loan extends javax.swing.JFrame {
                 input_amount.setText(amount);
                 input_mortage.setText(mortage);
                 input_duration.setText(duration);
-                input_date.setText(deo);
+                input_date.setDateFormatString(deo);
             }            
         }catch(SQLException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -428,6 +436,12 @@ public class Clear_Loan extends javax.swing.JFrame {
         jLabel9.isForegroundSet();
         
     }//GEN-LAST:event_jLabel9FocusGained
+
+    private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
+        
+        dispose();
+        
+    }//GEN-LAST:event_formFocusLost
 
     /**
      * @param args the command line arguments
@@ -467,7 +481,7 @@ public class Clear_Loan extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton delete;
     private javax.swing.JTextField input_amount;
-    private javax.swing.JTextField input_date;
+    private com.toedter.calendar.JDateChooser input_date;
     private javax.swing.JTextField input_duration;
     private javax.swing.JTextField input_mortage;
     private javax.swing.JTextField input_name;

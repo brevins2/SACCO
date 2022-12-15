@@ -6,6 +6,8 @@
 package sacco;
 
 import java.io.*;
+//import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -19,9 +21,9 @@ public class Admin implements Serializable {
     private String Location;
     private String Role;
     private String password;
-    private String DEO;
+    private Date DEO; // date data type
 
-    public Admin(String AdminNo, String name, String Location, String Role, String password, String DEO) {
+    public Admin(String AdminNo, String name, String Location, String Role, String password, Date DEO) {
         this.AdminNo = AdminNo;
         this.name = name;
         this.Location = Location;
@@ -74,11 +76,11 @@ public class Admin implements Serializable {
         this.password = password;
     }
 
-    public String getDEO() {
+    public Date getDEO() {
         return DEO;
     }
 
-    public void setDate_of_entrance(String DEO) {
+    public void setDate_of_entrance(Date DEO) {
         this.DEO = DEO;
     }    
 }

@@ -10,6 +10,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="formFocusLost"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -60,14 +63,15 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="input_No" max="32767" attributes="0"/>
-                                      <Component id="input_date_of_entrance" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="input_No" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                   <Component id="input_role" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="input_date_of_entrance" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -81,7 +85,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="password" max="32767" attributes="0"/>
                               <Component id="input_name" max="32767" attributes="0"/>
-                              <Component id="jComboBox1" alignment="0" pref="319" max="32767" attributes="0"/>
+                              <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
@@ -93,8 +97,8 @@
                   <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="update" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="273" max="32767" attributes="0"/>
+                  <Component id="update" min="-2" pref="102" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="delete" min="-2" pref="117" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
@@ -107,40 +111,45 @@
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jComboBox1" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="jComboBox1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="select_admin" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="12" max="32767" attributes="0"/>
+                  <EmptySpace pref="18" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="input_name" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="input_name" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="name" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="password" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="password" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="amount_due" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="input_location" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="input_location" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="location" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="input_role" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="input_role" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="input_date_of_entrance" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                      <Component id="date_of_entrance" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                          <Component id="date_of_entrance" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="input_date_of_entrance" min="-2" pref="35" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="name1" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                      <Component id="input_No" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="input_No" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="29" max="32767" attributes="0"/>
+                  <EmptySpace pref="34" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="update" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
                       <Component id="delete" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
@@ -280,8 +289,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="input_No">
         </Component>
-        <Component class="javax.swing.JTextField" name="input_date_of_entrance">
-        </Component>
         <Container class="javax.swing.JPanel" name="jPanel2">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -387,6 +394,8 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="input_date_of_entrance">
         </Component>
       </SubComponents>
     </Container>

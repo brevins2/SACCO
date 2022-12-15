@@ -48,7 +48,7 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
             while(rset.next()){
                 admin = new Admin(rset.getString("AdminNo"), rset.getString("Name"), 
                         rset.getString("Location"), rset.getString("Role"), 
-                        rset.getString("Password"), rset.getString("DEO"));
+                        rset.getString("Password"), rset.getDate("DEO"));
                 adminList.add(admin);
             }
         }
@@ -96,7 +96,7 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
             
             while(rset.next()){
                 admins = new Admin(rset.getString("AdminNo"), rset.getString("Name"), rset.getString("Location"), 
-                    rset.getString("Role"), rset.getString("Password"), rset.getString("DEO"));
+                    rset.getString("Role"), rset.getString("Password"), rset.getDate("DEO"));
                 adminSearchtList.add(admins);
             }
             
@@ -122,7 +122,7 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
                 location.setText(list.get(i).getLocation());
                 role.setText(list.get(i).getRole());
                 password.setText(list.get(i).getPassword());
-                deo.setText(list.get(i).getDEO());
+//                deo.set(list.get(i).getDEO());
 
                 row[0] = list.get(i).getAdminNo();
                 row[1] = list.get(i).getName();
@@ -161,11 +161,12 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
         update = new javax.swing.JButton();
         delete = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        deo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         password = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         role = new javax.swing.JTextField();
+        print = new javax.swing.JButton();
+        deo = new com.toedter.calendar.JDateChooser();
         jButton2 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         input_search = new javax.swing.JTextField();
@@ -232,6 +233,9 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Role:");
 
+        print.setText("Print");
+        print.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -239,33 +243,36 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(password)
+                                    .addComponent(deo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel6))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(adminno, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(name, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(location, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(role, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(password)
-                            .addComponent(deo)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel6))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(adminno, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(name, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(location, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(role, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 116, Short.MAX_VALUE)
-                .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
+                        .addComponent(print, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,13 +298,16 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5)
                     .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(deo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(deo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(11, 11, 11)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(update, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                    .addComponent(delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(print, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -323,7 +333,7 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(524, Short.MAX_VALUE)
+                .addContainerGap(542, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -361,9 +371,9 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE))
         );
 
         pack();
@@ -377,7 +387,7 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
             "Location:    "+ location.getText()+ "\n\n"+
             "Role:        "+ role.getText() + "\n\n"+
             "Password:    "+ password.getText()+ "\n\n"+
-            "DEO:         "+ deo.getText() );
+            "DEO:         "+ deo.getDate() );
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -409,7 +419,7 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
                 location.setText("");
                 role.setText("");
                 password.setText("");
-                deo.setText("");
+                deo.setDateFormatString("");
             
         }
         catch(HeadlessException | SQLException e){
@@ -428,7 +438,7 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
         location.setText("");
         role.setText("");
         password.setText("");
-        deo.setText("");
+        deo.setDateFormatString("");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTable_adminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_adminMouseClicked
@@ -442,7 +452,7 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
         location.setText(model.getValueAt(row, 2).toString());
         role.setText(model.getValueAt(row, 3).toString());
         password.setText(model.getValueAt(row, 4).toString());
-        deo.setText(model.getValueAt(row, 5).toString());
+        deo.setDateFormatString(model.getValueAt(row, 5).toString());
         
     }//GEN-LAST:event_jTable_adminMouseClicked
 
@@ -462,7 +472,7 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
             String query1 = "UPDATE admin SET AdminNo='"+adminno.getText()+
                     "', Name='"+name.getText()+"', Location='"+location.getText()+
                     "', Role='"+role.getText()+"', Password='"+password.getText()+
-                    "', DEO='"+deo.getText()+"' where AdminNo = '"+value+"'";
+                    "', DEO='"+deo.getDate()+"' where AdminNo = '"+value+"'";
             PreparedStatement pst = conn.prepareStatement(query1);
             pst.execute();
             
@@ -477,7 +487,7 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
                 location.setText("");
                 role.setText("");
                 password.setText("");
-                deo.setText("");
+                deo.setDateFormatString("");
             
         }
         catch(HeadlessException | SQLException e){
@@ -498,7 +508,7 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField adminno;
     private javax.swing.JButton delete;
-    private javax.swing.JTextField deo;
+    private com.toedter.calendar.JDateChooser deo;
     private javax.swing.JTextField input_search;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -515,6 +525,7 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
     private javax.swing.JTextField location;
     private javax.swing.JTextField name;
     private javax.swing.JTextField password;
+    private javax.swing.JButton print;
     private javax.swing.JTextField role;
     private javax.swing.JButton search;
     private javax.swing.JButton update;

@@ -10,6 +10,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="formFocusLost"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -57,41 +60,41 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="location" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="duration" alignment="0" min="-2" pref="67" max="-2" attributes="0"/>
-                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="amount_due" alignment="0" pref="67" max="32767" attributes="0"/>
-                                              <Component id="name" alignment="0" max="32767" attributes="0"/>
-                                          </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="location" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="duration" alignment="0" min="-2" pref="67" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="amount_due" alignment="0" pref="67" max="32767" attributes="0"/>
+                                          <Component id="name" alignment="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="date_of_entry" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  </Group>
+                                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="date_of_entry1" min="-2" pref="76" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="date_of_entry1" min="-2" pref="76" max="-2" attributes="0"/>
+                                      <Component id="date_of_entry" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="input_amount" alignment="0" max="32767" attributes="0"/>
-                              <Component id="input_location" alignment="0" max="32767" attributes="0"/>
-                              <Component id="input_name" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jComboBox1" alignment="0" pref="337" max="32767" attributes="0"/>
-                              <Component id="input_date_of_entrance" alignment="0" max="32767" attributes="0"/>
                               <Component id="input_duration" alignment="0" max="32767" attributes="0"/>
-                              <Component id="input_no" alignment="0" min="-2" pref="335" max="-2" attributes="0"/>
+                              <Component id="input_no" alignment="0" max="32767" attributes="0"/>
+                              <Component id="input_name" alignment="0" max="32767" attributes="0"/>
+                              <Component id="input_location" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="jComboBox1" min="-2" pref="321" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="input_date_of_entrance" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="37" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -101,40 +104,43 @@
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jComboBox1" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="jComboBox1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="input_name" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="input_name" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="name" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="input_location" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="input_location" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="location" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="input_amount" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="input_amount" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="amount_due" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="25" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="input_duration" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="input_duration" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="duration" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="input_date_of_entrance" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="date_of_entry" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="input_date_of_entrance" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                          <Component id="date_of_entry" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="input_no" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="input_no" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="date_of_entry1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="update" pref="47" max="32767" attributes="0"/>
                       <Component id="Delete" max="32767" attributes="0"/>
@@ -226,8 +232,6 @@
         <Component class="javax.swing.JTextField" name="input_amount">
         </Component>
         <Component class="javax.swing.JTextField" name="input_duration">
-        </Component>
-        <Component class="javax.swing.JTextField" name="input_date_of_entrance">
         </Component>
         <Component class="javax.swing.JTextField" name="input_no">
         </Component>
@@ -356,6 +360,8 @@
               </Border>
             </Property>
           </Properties>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="input_date_of_entrance">
         </Component>
       </SubComponents>
     </Container>

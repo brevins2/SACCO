@@ -44,7 +44,7 @@ public class admin_table extends javax.swing.JFrame {
             Admin admin;
             while(rset.next()){
                 admin = new Admin(rset.getString("AdminNo"), rset.getString("Name"), rset.getString("Location"),
-                        rset.getString("Role"), rset.getString("Password"), rset.getString("DEO"));
+                        rset.getString("Role"), rset.getString("Password"), rset.getDate("DEO"));
                 adminList.add(admin);
             }
         }
