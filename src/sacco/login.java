@@ -223,7 +223,7 @@ public class login extends javax.swing.JFrame {
                 ResultSet rset = pst.executeQuery();
                 
                 if(rset.next()){
-                    JOptionPane.showMessageDialog(null, "Username and Password match");
+                    JOptionPane.showMessageDialog(null, "Welcome back "+ usern);
                     new add_Customer().setVisible(true);
                     dispose();
                 }

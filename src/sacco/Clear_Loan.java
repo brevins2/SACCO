@@ -230,8 +230,8 @@ public class Clear_Loan extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(update)
+                        .addGap(42, 42, 42)
+                        .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -374,10 +374,8 @@ public class Clear_Loan extends javax.swing.JFrame {
                 
             dispose();
                 
-       } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Clear_Loan.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(Clear_Loan.class.getName()).log(Level.SEVERE, null, ex);
+       } catch (Exception e) {
+            Logger.getLogger(Clear_Loan.class.getName()).log(Level.SEVERE, null, e);
         }
 
     }//GEN-LAST:event_updateActionPerformed

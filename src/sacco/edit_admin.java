@@ -375,13 +375,15 @@ public class edit_admin extends javax.swing.JFrame {
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String date = sdf.format(input_date_of_entrance.getDate());
+            
             if(!input_No.getText().isEmpty()||!input_name.getText().isEmpty()||!input_location.getText().isEmpty()||
-                    !password.getText().isEmpty()||!input_date_of_entrance.getDate().toString().isEmpty())
+                    !password.getText().isEmpty()||!date.isEmpty())
             {
                 String query1 = "UPDATE admin SET AdminNo= '"+input_No.getText()+"', Name= '"+input_name.getText()+
                         "', Location= '"+input_location.getText()+"', Role= '"+input_role.getSelectedItem()+
-                        "', Password= '"+password.getText()+"', DEO= '"+input_date_of_entrance.getDate()+
-                        "'WHERE AdminNo='"+ input_No.getText()+"'";
+                        "', Password= '"+password.getText()+"', DEO= '"+date+"'WHERE AdminNo='"+ input_No.getText()+"'";
                 PreparedStatement pst = conn.prepareStatement(query1);
 
                 pst.execute();
@@ -393,7 +395,7 @@ public class edit_admin extends javax.swing.JFrame {
                 input_location.setText("");
                 password.setText("");
                 input_role.getSelectedItem();
-                input_date_of_entrance.setDateFormatString("");
+                date.isEmpty();
                 
                 dispose();
                 

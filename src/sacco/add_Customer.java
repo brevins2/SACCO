@@ -195,7 +195,7 @@ public class add_Customer extends javax.swing.JFrame {
                                 .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(choose, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(input_date_of_entrance, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)))
+                            .addComponent(input_date_of_entrance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -299,7 +299,7 @@ public class add_Customer extends javax.swing.JFrame {
             pst.setString(5, input_duration.getText());
             pst.setString(4, input_amount.getText());
             pst.setString(6, input_date_of_entrance.getDate().toString());
-            pst.setBytes(7, person_image);
+//            pst.setBytes(7, person_image);
             
             pst.executeUpdate();
             

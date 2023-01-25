@@ -103,6 +103,7 @@ public class Add_admin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add new Administrator");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setUndecorated(true);
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -357,7 +358,7 @@ public class Add_admin extends javax.swing.JFrame {
 
     private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
         
-        dispose();
+        System.exit(0);
         
     }//GEN-LAST:event_formFocusLost
 
