@@ -467,7 +467,7 @@ public class role_table_internal extends javax.swing.JInternalFrame {
     private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
         
         MessageFormat yourHeader = new MessageFormat("Report print");
-        MessageFormat yourFooter = new MessageFormat("Page{0,number,integer}");
+        MessageFormat yourFooter = new MessageFormat("Page{1,number,integer}");
         try
         {
             jTable_Role.print(JTable.PrintMode.NORMAL, yourHeader, yourFooter);

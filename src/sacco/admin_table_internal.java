@@ -7,11 +7,13 @@ package sacco;
 
 import java.awt.HeadlessException;
 import java.sql.*;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -219,6 +221,11 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
 
         print.setText("Print");
         print.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        print.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printActionPerformed(evt);
+            }
+        });
 
         update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/edit.png"))); // NOI18N
         update.setText("Update");
@@ -488,6 +495,19 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
         show_searched_client();
 
     }//GEN-LAST:event_searchActionPerformed
+
+    private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
+
+        MessageFormat yourHeader = new MessageFormat("Report print");
+        MessageFormat yourFooter = new MessageFormat("Page{1,number,integer}");
+        try
+        {
+            jTable_admin.print(JTable.PrintMode.NORMAL, yourHeader, yourFooter);
+        }
+        catch(java.awt.print.PrinterException e){
+            System.err.format("Cannot print", e.getMessage());
+        }
+    }//GEN-LAST:event_printActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

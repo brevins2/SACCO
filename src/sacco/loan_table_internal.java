@@ -7,10 +7,12 @@ package sacco;
 
 import java.awt.HeadlessException;
 import java.sql.*;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -221,6 +223,11 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
 
         print.setText("Print");
         print.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        print.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printActionPerformed(evt);
+            }
+        });
 
         update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/edit.png"))); // NOI18N
         update.setText("Update");
@@ -335,7 +342,6 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
                             .addComponent(jLabel6)
                             .addComponent(deo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(loanno, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -481,6 +487,20 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
         }
 //        dispose();
     }//GEN-LAST:event_deleteActionPerformed
+
+    private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
+        
+        MessageFormat yourHeader = new MessageFormat("Report print");
+        MessageFormat yourFooter = new MessageFormat("Page{1,number,integer}");
+        try
+        {
+            jTable_loan.print(JTable.PrintMode.NORMAL, yourHeader, yourFooter);
+        }
+        catch(java.awt.print.PrinterException e){
+            System.err.format("Cannot print", e.getMessage());
+        }
+        
+    }//GEN-LAST:event_printActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

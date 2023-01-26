@@ -12,12 +12,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -244,6 +246,11 @@ public class client_table_internal extends javax.swing.JInternalFrame {
 
         print.setText("Print");
         print.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        print.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("DEO");
 
@@ -494,6 +501,19 @@ public class client_table_internal extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_deleteActionPerformed
+
+    private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
+        
+        MessageFormat yourHeader = new MessageFormat("Report print");
+        MessageFormat yourFooter = new MessageFormat("Page{1,number,integer}");
+        try
+        {
+            jTable_customer.print(JTable.PrintMode.NORMAL, yourHeader, yourFooter);
+        }
+        catch(java.awt.print.PrinterException e){
+            System.err.format("Cannot print", e.getMessage());
+        }
+    }//GEN-LAST:event_printActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
