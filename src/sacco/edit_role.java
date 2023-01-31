@@ -91,9 +91,9 @@ public class edit_role extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
-        addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                formFocusLost(evt);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowDeactivated(java.awt.event.WindowEvent evt) {
+                formWindowDeactivated(evt);
             }
         });
 
@@ -386,17 +386,17 @@ public class edit_role extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jLabel5MouseClicked
 
-    private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
-        
-        dispose();
-        
-    }//GEN-LAST:event_formFocusLost
-
     private void jPanel1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel1FocusLost
 
         dispose();
         
     }//GEN-LAST:event_jPanel1FocusLost
+
+    private void formWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeactivated
+        
+        dispose();
+        
+    }//GEN-LAST:event_formWindowDeactivated
 
     /**
      * @param args the command line arguments

@@ -57,6 +57,7 @@ public class login extends javax.swing.JFrame {
         setTitle("Login");
         setBackground(new java.awt.Color(0, 51, 102));
         setUndecorated(true);
+        setResizable(false);
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 formFocusLost(evt);
@@ -203,7 +204,6 @@ public class login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void login_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_buttonActionPerformed
-        ArrayList<Admin> adminList = new ArrayList<>();
 
         try{
             String user = "root";
@@ -262,7 +262,6 @@ public class login extends javax.swing.JFrame {
     private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
         
         dispose();
-        
     }//GEN-LAST:event_formFocusLost
 
     /**
