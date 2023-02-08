@@ -104,12 +104,8 @@ public class first_page extends javax.swing.JFrame {
 
     private void ContinueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContinueActionPerformed
         
-        welcome_page welcome = new welcome_page();
-//        new welcome_page().setVisible(true);
-        welcome.show();
+        new login().setVisible(true);
         dispose();
-//        setState(JFrame.ICONIFIED);
-//        System.exit(0);
         
     }//GEN-LAST:event_ContinueActionPerformed
 

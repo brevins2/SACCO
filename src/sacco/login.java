@@ -224,7 +224,8 @@ public class login extends javax.swing.JFrame {
                 
                 if(rset.next()){
                     JOptionPane.showMessageDialog(null, "Welcome back "+ usern);
-                    new add_Customer().setVisible(true);
+                    welcome_page welcome = new welcome_page();
+                    welcome.show();
                     dispose();
                 }
                 else {

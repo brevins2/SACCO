@@ -52,10 +52,8 @@ public class welcome_page extends javax.swing.JFrame {
         add_role = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         table_of_contents = new javax.swing.JMenu();
-        show_table = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        refresh_table = new javax.swing.JMenuItem();
+        deposite = new javax.swing.JMenuItem();
+        withdraw = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("welcome to Cash Money SACCO");
@@ -209,44 +207,24 @@ public class welcome_page extends javax.swing.JFrame {
 
         main_menu.add(Add);
 
-        table_of_contents.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/job.png"))); // NOI18N
-        table_of_contents.setText("Table of Contents");
+        table_of_contents.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/edit.png"))); // NOI18N
+        table_of_contents.setText("Transactions");
 
-        show_table.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/job.png"))); // NOI18N
-        show_table.setText("Role Table");
-        show_table.addActionListener(new java.awt.event.ActionListener() {
+        deposite.setText("Deposite");
+        deposite.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                show_tableActionPerformed(evt);
+                depositeActionPerformed(evt);
             }
         });
-        table_of_contents.add(show_table);
+        table_of_contents.add(deposite);
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/job.png"))); // NOI18N
-        jMenuItem4.setText("Loan Table");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        withdraw.setText("Withdraw");
+        withdraw.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                withdrawActionPerformed(evt);
             }
         });
-        table_of_contents.add(jMenuItem4);
-
-        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/job.png"))); // NOI18N
-        jMenuItem5.setText("Client Table");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        table_of_contents.add(jMenuItem5);
-
-        refresh_table.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/job.png"))); // NOI18N
-        refresh_table.setText("Admin Table");
-        refresh_table.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refresh_tableActionPerformed(evt);
-            }
-        });
-        table_of_contents.add(refresh_table);
+        table_of_contents.add(withdraw);
 
         main_menu.add(table_of_contents);
 
@@ -286,30 +264,6 @@ public class welcome_page extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void refresh_tableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refresh_tableActionPerformed
-
-        new admin_table().setVisible(true);
-
-    }//GEN-LAST:event_refresh_tableActionPerformed
-
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-
-        new client_table().setVisible(true);
-
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-
-        new loan_table().setVisible(true);
-
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
-    private void show_tableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_show_tableActionPerformed
-
-        new role_table().setVisible(true);
-
-    }//GEN-LAST:event_show_tableActionPerformed
-
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
 
         new Add_Loan().setVisible(true);
@@ -330,8 +284,8 @@ public class welcome_page extends javax.swing.JFrame {
 
     private void add_customerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_customerActionPerformed
 
-        new login().setVisible(true);
-//      new add_Customer().setVisible(true);
+        new add_Customer().setVisible(true);
+
     }//GEN-LAST:event_add_customerActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -396,6 +350,21 @@ public class welcome_page extends javax.swing.JFrame {
         
     }//GEN-LAST:event_role_tableActionPerformed
 
+    private void depositeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositeActionPerformed
+
+        Desktop.removeAll();
+        deposite dp = new deposite();
+        Desktop.add(dp).setVisible(true);
+    }//GEN-LAST:event_depositeActionPerformed
+
+    private void withdrawActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawActionPerformed
+
+        Desktop.removeAll();
+        withdraw wd = new withdraw();
+        Desktop.add(wd).setVisible(true);
+        
+    }//GEN-LAST:event_withdrawActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -441,20 +410,18 @@ public class welcome_page extends javax.swing.JFrame {
     private javax.swing.JMenuItem add_role;
     private javax.swing.JButton admin_table;
     private javax.swing.JButton client_table;
+    private javax.swing.JMenuItem deposite;
     private javax.swing.JMenuItem edit_admin;
     private javax.swing.JMenuItem edit_customers;
     private javax.swing.JMenuItem edit_role;
     private javax.swing.JMenuItem exit;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JButton loan_table;
     private javax.swing.JMenuBar main_menu;
-    private javax.swing.JMenuItem refresh_table;
     private javax.swing.JButton role_table;
     private javax.swing.JMenuItem settings;
-    private javax.swing.JMenuItem show_table;
     private javax.swing.JMenu table_of_contents;
+    private javax.swing.JMenuItem withdraw;
     // End of variables declaration//GEN-END:variables
 }

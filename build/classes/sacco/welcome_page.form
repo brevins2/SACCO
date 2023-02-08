@@ -144,53 +144,25 @@
         <Menu class="javax.swing.JMenu" name="table_of_contents">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/sacco/images/Pics/job.png"/>
+              <Image iconType="3" name="/sacco/images/Pics/edit.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Table of Contents"/>
+            <Property name="text" type="java.lang.String" value="Transactions"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="show_table">
+            <MenuItem class="javax.swing.JMenuItem" name="deposite">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/sacco/images/Pics/job.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Role Table"/>
+                <Property name="text" type="java.lang.String" value="Deposite"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="show_tableActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="depositeActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+            <MenuItem class="javax.swing.JMenuItem" name="withdraw">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/sacco/images/Pics/job.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Loan Table"/>
+                <Property name="text" type="java.lang.String" value="Withdraw"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem4ActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/sacco/images/Pics/job.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Client Table"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem5ActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="refresh_table">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/sacco/images/Pics/job.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Admin Table"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refresh_tableActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="withdrawActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

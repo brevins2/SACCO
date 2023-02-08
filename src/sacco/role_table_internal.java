@@ -205,6 +205,7 @@ public class role_table_internal extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Roles Table");
+        setFrameIcon(null);
 
         jTable_Role.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
