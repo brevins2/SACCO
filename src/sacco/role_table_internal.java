@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.text.*;
+import javax.swing.JInternalFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,6 +28,8 @@ public class role_table_internal extends javax.swing.JInternalFrame {
     public role_table_internal() {
         initComponents();
         
+        JInternalFrame internal = new JInternalFrame();
+        internal.setSize(600, 800);
         show_roles();
     }
     
@@ -206,6 +209,7 @@ public class role_table_internal extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setTitle("Roles Table");
         setFrameIcon(null);
+        setPreferredSize(new java.awt.Dimension(900, 667));
 
         jTable_Role.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -274,6 +278,8 @@ public class role_table_internal extends javax.swing.JInternalFrame {
         });
 
         jLabel1.setText("ROLENo:");
+
+        roleno.setMinimumSize(new java.awt.Dimension(118, 34));
 
         jLabel2.setText("Role:");
 

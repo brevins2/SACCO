@@ -180,6 +180,7 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Loan's Table");
+        setPreferredSize(new java.awt.Dimension(900, 667));
 
         jTable_loan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

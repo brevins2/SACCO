@@ -19,8 +19,7 @@ public class welcome_page extends javax.swing.JFrame {
     public welcome_page() {
         initComponents();
         
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
+        setExtendedState(JFrame.MAXIMIZED_BOTH);        
     }
 
     /**
@@ -59,10 +58,12 @@ public class welcome_page extends javax.swing.JFrame {
         setTitle("welcome to Cash Money SACCO");
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMinimumSize(new java.awt.Dimension(121, 34));
         setSize(new java.awt.Dimension(1, 1));
 
         Desktop.setBackground(new java.awt.Color(240, 240, 240));
         Desktop.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        Desktop.setMaximumSize(null);
 
         javax.swing.GroupLayout DesktopLayout = new javax.swing.GroupLayout(Desktop);
         Desktop.setLayout(DesktopLayout);
@@ -210,6 +211,7 @@ public class welcome_page extends javax.swing.JFrame {
         table_of_contents.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/edit.png"))); // NOI18N
         table_of_contents.setText("Transactions");
 
+        deposite.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/add.png"))); // NOI18N
         deposite.setText("Deposite");
         deposite.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,6 +220,7 @@ public class welcome_page extends javax.swing.JFrame {
         });
         table_of_contents.add(deposite);
 
+        withdraw.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sacco/images/Pics/add.png"))); // NOI18N
         withdraw.setText("Withdraw");
         withdraw.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -242,11 +245,11 @@ public class welcome_page extends javax.swing.JFrame {
                     .addComponent(admin_table, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(role_table, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(Desktop))
+                .addComponent(Desktop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Desktop)
+            .addComponent(Desktop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(admin_table, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)

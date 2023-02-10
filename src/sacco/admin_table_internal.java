@@ -178,6 +178,7 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Administration Table");
+        setPreferredSize(new java.awt.Dimension(900, 667));
 
         jTable_admin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
