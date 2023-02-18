@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.util.*;
 import java.io.*;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -284,17 +285,23 @@ public class add_Customer extends javax.swing.JFrame {
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
-            String query1 = "INSERT INTO `sacco`.`customer`(CUSTNo, Name, Location, Amount, Duration, Date_of_entrance) "
-                    + "VALUES (?,?,?,?,?,?)";
+            String query1 = "INSERT INTO `sacco`.`customer`(CUSTNo, Name, Location, Amount, Duration, Date_of_entrance, File) "
+                    + "VALUES (?,?,?,?,?,?,?)";
             PreparedStatement pst = conn.prepareStatement(query1);
+            
+            java.util.Date dt = new java.util.Date();
+            SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String currentTime = sdf.format(dt);
+            
+            currentTime = input_date_of_entrance.getDate().toString();
             
             pst.setString(1, input_no.getText());
             pst.setString(2, input_name.getText());
             pst.setString(3, input_location.getText());
             pst.setString(5, input_duration.getText());
             pst.setString(4, input_amount.getText());
-            pst.setString(6, input_date_of_entrance.getDate().toString());
-//            pst.setBytes(7, person_image);
+            pst.setString(6, currentTime);
+            pst.setBytes(7, person_image);
             
             pst.executeUpdate();
             
@@ -308,7 +315,7 @@ public class add_Customer extends javax.swing.JFrame {
                 input_date_of_entrance.setDateFormatString("");
             
         }
-        catch(Exception e){
+        catch(HeadlessException | ClassNotFoundException | SQLException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         dispose();
