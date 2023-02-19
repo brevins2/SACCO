@@ -11,6 +11,8 @@ import java.util.*;
 import java.io.*;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,7 +20,7 @@ import java.text.SimpleDateFormat;
  */
 public class add_Customer extends javax.swing.JFrame {
     
-    String filename = null;
+    String filename;
     byte[] person_image = null;
     ArrayList<Customer> customer;
 
@@ -168,6 +170,7 @@ public class add_Customer extends javax.swing.JFrame {
         );
 
         image.setBackground(new java.awt.Color(255, 255, 255));
+        image.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         choose.setText("Choose");
         choose.addActionListener(new java.awt.event.ActionListener() {
@@ -285,13 +288,16 @@ public class add_Customer extends javax.swing.JFrame {
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
-            String query1 = "INSERT INTO `sacco`.`customer`(CUSTNo, Name, Location, Amount, Duration, Date_of_entrance, File) "
-                    + "VALUES (?,?,?,?,?,?,?)";
-            PreparedStatement pst = conn.prepareStatement(query1);
-            
             java.util.Date dt = new java.util.Date();
-            SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd MM, yyyy");
             String currentTime = sdf.format(dt);
+            
+            try {
+                InputStream is = new FileInputStream(new File(filename));
+            String query1 = "INSERT INTO `sacco`.`customer`(CUSTNo, Name, Location, Amount, Duration, Date_of_entrance, File) "
+                    + "VALUES (?,?,?,?,?,?,'"+is+"')";
+            JOptionPane.showMessageDialog(null, is);
+            PreparedStatement pst = conn.prepareStatement(query1);
             
             currentTime = input_date_of_entrance.getDate().toString();
             
@@ -301,7 +307,6 @@ public class add_Customer extends javax.swing.JFrame {
             pst.setString(5, input_duration.getText());
             pst.setString(4, input_amount.getText());
             pst.setString(6, currentTime);
-            pst.setBytes(7, person_image);
             
             pst.executeUpdate();
             
@@ -313,7 +318,9 @@ public class add_Customer extends javax.swing.JFrame {
                 input_amount.setText("");
                 input_duration.setText("");
                 input_date_of_entrance.setDateFormatString("");
-            
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(add_Customer.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         catch(HeadlessException | ClassNotFoundException | SQLException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
