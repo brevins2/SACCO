@@ -34,62 +34,7 @@ public class Role extends javax.swing.JFrame {
         
         formatter = new DecimalFormat("#,###.00");
         role = new ArrayList<Roles>();
-        
-//        populateArrayList();
     }
-    
-//    public void populateArrayList(){
-//        try
-//        {
-//            FileInputStream file = new FileInputStream("roles.dat");
-//            
-//            ObjectInputStream inputFile = new ObjectInputStream(file);
-//            
-//            boolean endOfFile = false;
-//            
-//            while(!endOfFile)
-//            {
-//                try
-//                {
-//                    role.add((Roles) inputFile.readObject());
-//                }
-//                catch(EOFException f)
-//                {
-//                    endOfFile = true;
-//                }
-//                catch(Exception e)
-//                {
-//                    JOptionPane.showMessageDialog(null, e.getMessage());
-//                }
-//            }
-//            
-//            inputFile.close();
-//        }
-//        catch(IOException e){
-//            JOptionPane.showMessageDialog(null, e.getMessage());
-//        }
-//    }
-//    
-//    public void saveRoleToFiles()
-//    {
-//        try
-//        {
-//            FileOutputStream file = new FileOutputStream("roles.dat");
-//            ObjectOutputStream outputFile = new ObjectOutputStream(file);
-//            
-//            for(int i=0; i<role.size(); i++)
-//            {
-//                outputFile.writeObject(role.get(i));
-//            }
-//            outputFile.close();
-//            JOptionPane.showMessageDialog(null, "successfully saved");
-//            this.dispose();
-//        }
-//        catch(IOException e)
-//        {
-//            JOptionPane.showMessageDialog(null, e.getMessage());
-//        }
-//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -274,9 +219,9 @@ public class Role extends javax.swing.JFrame {
         try{
             String user = "root";
             String pass = "";
-            String url = "jdbc:mysql://localhost:3306/sacco";
+            String url = "jdbc:mysql://localhost:3306/sacco?zeroDateTimeBehavior=CONVERT_TO_NULL";
             
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             

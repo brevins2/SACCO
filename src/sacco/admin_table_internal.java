@@ -8,7 +8,6 @@ package sacco;
 import java.awt.HeadlessException;
 import java.sql.*;
 import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +27,16 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
     public admin_table_internal() {
         initComponents();
         
+        dd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+            "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29",
+            "30", "31" }));
+        
+        mm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+            "Aug", "Sept", "Oct", "Nov", "Dec" }));
+        
+        yy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2024", "2025", "2026", "2027", "2028",
+            "2029", "2030", "2031", "2032", "2033" }));
+        
         show_admins();
     }
     
@@ -37,9 +46,9 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
         try{
             String user = "root";
             String pass = "";
-            String url = "jdbc:mysql://localhost:3306/sacco";
+            String url = "jdbc:mysql://localhost:3306/sacco?zeroDateTimeBehavior=CONVERT_TO_NULL";
             
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
@@ -85,9 +94,9 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
         try{
             String user = "root";
             String pass = "";
-            String url = "jdbc:mysql://localhost:3306/sacco";
+            String url = "jdbc:mysql://localhost:3306/sacco?zeroDateTimeBehavior=CONVERT_TO_NULL";
             
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
@@ -113,6 +122,8 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
     public void show_searched_client(){
         ArrayList<Admin> list = adminSearchtList();
         
+        String date = "'"+dd.getSelectedItem()+"' '"+mm.getSelectedItem()+"', '"+yy.getSelectedItem()+"'";
+        
         String searches = input_search.getText();
         
         DefaultTableModel model = (DefaultTableModel) jTable_admin.getModel();
@@ -125,7 +136,7 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
                 location.setText(list.get(i).getLocation());
                 role.setText(list.get(i).getRole());
                 password.setText(list.get(i).getPassword());
-//                deo.setDate(list.get(i).getDEO());
+                deo.setText(date);
 
                 row[0] = list.get(i).getAdminNo();
                 row[1] = list.get(i).getName();
@@ -161,7 +172,6 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
         print = new javax.swing.JButton();
         update = new javax.swing.JButton();
         delete = new javax.swing.JButton();
-        deo = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -173,6 +183,10 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
         location = new javax.swing.JTextField();
         role = new javax.swing.JTextField();
         password = new javax.swing.JTextField();
+        dd = new javax.swing.JComboBox<>();
+        mm = new javax.swing.JComboBox<>();
+        yy = new javax.swing.JComboBox<>();
+        deo = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -260,6 +274,12 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
 
         adminno.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        dd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        mm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        yy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -269,35 +289,39 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(198, 198, 198))
+                            .addComponent(input_search, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(search))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(deo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(adminno, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(name, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(name, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(dd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(mm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(yy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(deo)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addGap(198, 198, 198))
-                                    .addComponent(input_search, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(search))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(print, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 25, Short.MAX_VALUE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(print, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -314,7 +338,7 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
                             .addComponent(role))))
                 .addGap(33, 33, 33))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 891, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 908, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -353,13 +377,15 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(11, 11, 11))
-                            .addComponent(deo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(dd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(yy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(8, 8, 8)))
+                .addComponent(deo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(69, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -371,13 +397,15 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
+        String date = "'"+dd.getSelectedItem()+"' '"+mm.getSelectedItem()+"', '"+yy.getSelectedItem()+"'";
+        
         JOptionPane.showMessageDialog(null, "Details of "+ adminno.getText()+ "\n\n\n"+
             "AdminNo:     "+ adminno.getText() + "\n\n"+
             "Name:        "+ name.getText()+ "\n\n"+
             "Location:    "+ location.getText()+ "\n\n"+
             "Role:        "+ role.getText() + "\n\n"+
             "Password:    "+ password.getText()+ "\n\n"+
-            "DEO:         "+ deo.getDate() );
+            "DEO:         "+ date );
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -386,9 +414,9 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
         try{
             String user = "root";
             String pass = "";
-            String url = "jdbc:mysql://localhost:3306/sacco";
+            String url = "jdbc:mysql://localhost:3306/sacco?zeroDateTimeBehavior=CONVERT_TO_NULL";
             
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
@@ -409,7 +437,9 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
                 location.setText("");
                 role.setText("");
                 password.setText("");
-                deo.setDateFormatString("");
+                dd.setSelectedItem(" ");
+                mm.setSelectedItem(" ");
+                yy.setSelectedItem(" ");
             
         }
         catch(HeadlessException | SQLException e){
@@ -428,12 +458,15 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
         location.setText("");
         role.setText("");
         password.setText("");
-        deo.setDateFormatString("");
+        dd.setSelectedItem(" ");
+        mm.setSelectedItem(" ");
+        yy.setSelectedItem(" ");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTable_adminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_adminMouseClicked
         
         int row = jTable_admin.getSelectedRow(); // get selected row
+        String date = "'"+dd.getSelectedItem()+"' '"+mm.getSelectedItem()+"', '"+yy.getSelectedItem()+"'";
         DefaultTableModel model = (DefaultTableModel) jTable_admin.getModel();
         // getValueAt(row index, column index)
         
@@ -442,7 +475,7 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
         location.setText(model.getValueAt(row, 2).toString());
         role.setText(model.getValueAt(row, 3).toString());
         password.setText(model.getValueAt(row, 4).toString());
-        deo.setDateFormatString(model.getValueAt(row, 5).toString());
+        deo.setText(model.getValueAt(row, 5).toString());
         
     }//GEN-LAST:event_jTable_adminMouseClicked
 
@@ -451,14 +484,13 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
         try{
             String user = "root";
             String pass = "";
-            String url = "jdbc:mysql://localhost:3306/sacco";
+            String url = "jdbc:mysql://localhost:3306/sacco?zeroDateTimeBehavior=CONVERT_TO_NULL";
             
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String date = sdf.format(deo.getDate());
+            String date = "'"+dd.getSelectedItem()+"' '"+mm.getSelectedItem()+"', '"+yy.getSelectedItem()+"'";
             
             int row = jTable_admin.getSelectedRow();
             String value = (jTable_admin.getModel().getValueAt(row, 0).toString());
@@ -480,7 +512,9 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
                 location.setText("");
                 role.setText("");
                 password.setText("");
-                deo.setDateFormatString("");
+                dd.setSelectedItem(" ");
+                mm.setSelectedItem(" ");
+                yy.setSelectedItem(" ");
             
         }
         catch(HeadlessException | SQLException e){
@@ -513,8 +547,9 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField adminno;
+    private javax.swing.JComboBox<String> dd;
     private javax.swing.JButton delete;
-    private com.toedter.calendar.JDateChooser deo;
+    private javax.swing.JTextField deo;
     private javax.swing.JTextField input_search;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -528,11 +563,13 @@ public class admin_table_internal extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable_admin;
     private javax.swing.JTextField location;
+    private javax.swing.JComboBox<String> mm;
     private javax.swing.JTextField name;
     private javax.swing.JTextField password;
     private javax.swing.JButton print;
     private javax.swing.JTextField role;
     private javax.swing.JButton search;
     private javax.swing.JButton update;
+    private javax.swing.JComboBox<String> yy;
     // End of variables declaration//GEN-END:variables
 }

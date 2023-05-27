@@ -31,6 +31,17 @@ public class Add_Loan extends javax.swing.JFrame {
         setLocation(size.width/2 - getWidth()/2, size.height/2-getHeight()/2);
         
         loan = new ArrayList<Loan>();
+        
+        dd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+            "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29",
+            "30", "31" }));
+        
+        mm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+            "Aug", "Sept", "Oct", "Nov", "Dec" }));
+        
+        yy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2024", "2025", "2026", "2027", "2028",
+            "2029", "2030", "2031", "2032", "2033" }));
+        
         LoanSelect();
     }
     
@@ -39,9 +50,9 @@ public class Add_Loan extends javax.swing.JFrame {
         try{
             String user = "root";
             String pass = "";
-            String url = "jdbc:mysql://localhost:3306/sacco";
+            String url = "jdbc:mysql://localhost:3306/sacco?zeroDateTimeBehavior=CONVERT_TO_NULL";
             
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             
             Connection conn = DriverManager.getConnection(url, user, pass);
 
@@ -91,7 +102,9 @@ public class Add_Loan extends javax.swing.JFrame {
         title = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         customername = new javax.swing.JComboBox<>();
-        input_date = new com.toedter.calendar.JDateChooser();
+        dd = new javax.swing.JComboBox<>();
+        mm = new javax.swing.JComboBox<>();
+        yy = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add Loan");
@@ -201,6 +214,12 @@ public class Add_Loan extends javax.swing.JFrame {
 
         customername.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        dd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        mm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        yy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -215,23 +234,27 @@ public class Add_Loan extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
-                .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(input_duration)
-                            .addComponent(input_mortage)
+                                .addComponent(dd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(mm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(yy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(input_loanno)
+                            .addComponent(customername, 0, 354, Short.MAX_VALUE)
                             .addComponent(input_amount)
-                            .addComponent(input_loanno, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(customername, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(input_date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(48, 48, 48))
+                            .addComponent(input_mortage)
+                            .addComponent(input_duration))))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,18 +280,18 @@ public class Add_Loan extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(input_duration, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel7))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(input_date, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(45, 45, 45)
+                .addGap(14, 14, 14)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(dd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(mm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(yy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -290,14 +313,16 @@ public class Add_Loan extends javax.swing.JFrame {
         try{
             String user = "root";
             String pass = "";
-            String url = "jdbc:mysql://localhost:3306/sacco";
+            String url = "jdbc:mysql://localhost:3306/sacco?zeroDateTimeBehavior=CONVERT_TO_NULL";
             
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
-            if (!(input_date.getDate().toString().isEmpty()|| input_amount.getText().isEmpty()
-                || input_duration.getText().isEmpty()|| input_mortage.getText().isEmpty())){
+            String date = "'"+dd.getSelectedItem()+"' '"+mm.getSelectedItem()+"', '"+yy.getSelectedItem()+"'";
+            
+            if (!(input_amount.getText().isEmpty() || input_duration.getText().isEmpty()|| 
+                input_mortage.getText().isEmpty())){
                 String query1 = "INSERT INTO loans(LoanNo, Name, Amount, Mortage, Duration, DEO)"
                         + "VALUES (?,?,?,?,?,?)";
                 PreparedStatement pst = conn.prepareStatement(query1);
@@ -307,7 +332,7 @@ public class Add_Loan extends javax.swing.JFrame {
                 pst.setString(3, input_amount.getText());
                 pst.setString(4, input_mortage.getText());
                 pst.setString(5, input_duration.getText());
-                pst.setString(6, input_date.getDate().toString());
+                pst.setString(6, date);
 
                 pst.execute();
 
@@ -318,7 +343,9 @@ public class Add_Loan extends javax.swing.JFrame {
                 input_amount.setText("");
                 input_mortage.setText("");
                 input_duration.setText("");
-                input_date.setDateFormatString("");
+                dd.setSelectedItem(" ");
+                mm.setSelectedItem(" ");
+                yy.setSelectedItem(" ");
                 
                 dispose();
             }
@@ -339,7 +366,9 @@ public class Add_Loan extends javax.swing.JFrame {
         input_amount.setText("");
         input_mortage.setText("");
         input_duration.setText("");
-        input_date.setDateFormatString("");               
+        dd.setSelectedItem(" ");
+        mm.setSelectedItem(" ");
+        yy.setSelectedItem(" ");
         
     }//GEN-LAST:event_resetActionPerformed
 
@@ -402,9 +431,9 @@ public class Add_Loan extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> customername;
+    private javax.swing.JComboBox<String> dd;
     private javax.swing.JLabel exit;
     private javax.swing.JTextField input_amount;
-    private com.toedter.calendar.JDateChooser input_date;
     private javax.swing.JTextField input_duration;
     private javax.swing.JTextField input_loanno;
     private javax.swing.JTextField input_mortage;
@@ -417,8 +446,10 @@ public class Add_Loan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel minimize;
+    private javax.swing.JComboBox<String> mm;
     private javax.swing.JButton reset;
     private javax.swing.JButton save;
     private javax.swing.JLabel title;
+    private javax.swing.JComboBox<String> yy;
     // End of variables declaration//GEN-END:variables
 }

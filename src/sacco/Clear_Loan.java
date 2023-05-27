@@ -32,6 +32,16 @@ public class Clear_Loan extends javax.swing.JFrame {
         
         loan = new ArrayList<Loan>();
         
+        dd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+            "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29",
+            "30", "31" }));
+        
+        mm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+            "Aug", "Sept", "Oct", "Nov", "Dec" }));
+        
+        yy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2024", "2025", "2026", "2027", "2028",
+            "2029", "2030", "2031", "2032", "2033" }));
+        
         LoanSelect();
     }
     
@@ -40,9 +50,9 @@ public class Clear_Loan extends javax.swing.JFrame {
         try{
             String user = "root";
             String pass = "";
-            String url = "jdbc:mysql://localhost:3306/sacco";
+            String url = "jdbc:mysql://localhost:3306/sacco?zeroDateTimeBehavior=CONVERT_TO_NULL";
             
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             
             Connection conn = DriverManager.getConnection(url, user, pass);
 
@@ -94,7 +104,9 @@ public class Clear_Loan extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
-        input_date = new com.toedter.calendar.JDateChooser();
+        dd = new javax.swing.JComboBox<>();
+        mm = new javax.swing.JComboBox<>();
+        yy = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Edit Loan");
@@ -213,6 +225,12 @@ public class Clear_Loan extends javax.swing.JFrame {
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
+        dd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        mm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        yy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -227,23 +245,28 @@ public class Clear_Loan extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
-                .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
+                        .addGap(69, 69, 69)
                         .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(loanno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(input_duration, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(input_mortage, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(input_amount, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(input_name, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 361, Short.MAX_VALUE)))
-                    .addComponent(input_date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(72, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(dd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(mm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(yy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBox1, 0, 394, Short.MAX_VALUE)
+                            .addComponent(input_name)
+                            .addComponent(input_amount)
+                            .addComponent(input_mortage)
+                            .addComponent(input_duration)
+                            .addComponent(loanno))))
+                .addContainerGap(104, Short.MAX_VALUE))
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -270,19 +293,17 @@ public class Clear_Loan extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(input_duration, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(input_date, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)))
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(dd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loanno, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -308,14 +329,14 @@ public class Clear_Loan extends javax.swing.JFrame {
         try{
             String user = "root";
             String pass = "";
-            String url = "jdbc:mysql://localhost:3306/sacco";
+            String url = "jdbc:mysql://localhost:3306/sacco?zeroDateTimeBehavior=CONVERT_TO_NULL";
             
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
             if(!loanno.getText().isEmpty()||!input_name.getText().isEmpty()||!input_duration.getText().isEmpty()||
-                    !input_amount.getText().isEmpty()||!input_mortage.getText().isEmpty()||!input_date.getDate().toString().isEmpty())
+                    !input_amount.getText().isEmpty()||!input_mortage.getText().isEmpty())
             {
                 String value = (String) jComboBox1.getSelectedItem();
                 String query1 = "DELETE FROM loans WHERE LoanNo = '"+value+"'";
@@ -329,7 +350,9 @@ public class Clear_Loan extends javax.swing.JFrame {
                 input_duration.setText("");
                 input_amount.setText("");
                 input_mortage.setText("");
-                input_date.setDateFormatString("");
+                dd.setSelectedItem(" ");
+                mm.setSelectedItem(" ");
+                yy.setSelectedItem(" ");
                     
                 dispose();
             }else{
@@ -349,17 +372,19 @@ public class Clear_Loan extends javax.swing.JFrame {
         try{
             String user = "root";
             String pass = "";
-            String url = "jdbc:mysql://localhost:3306/sacco";
+            String url = "jdbc:mysql://localhost:3306/sacco?zeroDateTimeBehavior=CONVERT_TO_NULL";
             
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             
             Connection conn = DriverManager.getConnection(url, user, pass);
+            
+            String date = "'"+dd.getSelectedItem()+"' '"+mm.getSelectedItem()+"', '"+yy.getSelectedItem()+"'";
             
             String value  = loanno.getText();
             String query1 = "UPDATE loans SET LoanNo='"+loanno.getText()+
                     "', Name='"+input_name.getText()+"', Amount='"+input_amount.getText()+
                     "', Mortage='"+input_mortage.getText()+"', Duration='"+input_duration.getText()+
-                    "', DEO='"+input_date.getDate()+"'WHERE LoanNo='"+ value+"'";
+                    "', DEO='"+date+"'WHERE LoanNo='"+ value+"'";
             PreparedStatement pst = conn.prepareStatement(query1);
             pst.execute();
             
@@ -370,7 +395,9 @@ public class Clear_Loan extends javax.swing.JFrame {
             input_amount.setText("");
             input_mortage.setText("");
             input_duration.setText("");
-            input_date.setDateFormatString("");
+            dd.setSelectedItem(" ");
+            mm.setSelectedItem(" ");
+            yy.setSelectedItem(" ");
                 
             dispose();
                 
@@ -385,9 +412,9 @@ public class Clear_Loan extends javax.swing.JFrame {
         try{
             String user = "root";
             String pass = "";
-            String url = "jdbc:mysql://localhost:3306/sacco";
+            String url = "jdbc:mysql://localhost:3306/sacco?zeroDateTimeBehavior=CONVERT_TO_NULL";
             
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             String selectedItem = (String) jComboBox1.getSelectedItem();
@@ -410,7 +437,6 @@ public class Clear_Loan extends javax.swing.JFrame {
                 input_amount.setText(amount);
                 input_mortage.setText(mortage);
                 input_duration.setText(duration);
-                input_date.setDateFormatString(deo);
             }            
         }catch(SQLException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -477,9 +503,9 @@ public class Clear_Loan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> dd;
     private javax.swing.JButton delete;
     private javax.swing.JTextField input_amount;
-    private com.toedter.calendar.JDateChooser input_date;
     private javax.swing.JTextField input_duration;
     private javax.swing.JTextField input_mortage;
     private javax.swing.JTextField input_name;
@@ -496,7 +522,9 @@ public class Clear_Loan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField loanno;
+    private javax.swing.JComboBox<String> mm;
     private javax.swing.JLabel title;
     private javax.swing.JButton update;
+    private javax.swing.JComboBox<String> yy;
     // End of variables declaration//GEN-END:variables
 }

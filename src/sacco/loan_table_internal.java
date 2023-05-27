@@ -27,6 +27,16 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
     public loan_table_internal() {
         initComponents();
         
+        dd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+            "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29",
+            "30", "31" }));
+        
+        mm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+            "Aug", "Sept", "Oct", "Nov", "Dec" }));
+        
+        yy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2024", "2025", "2026", "2027", "2028",
+            "2029", "2030", "2031", "2032", "2033" }));
+        
         show_loan();
     }
     
@@ -36,9 +46,9 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
         try{
             String user = "root";
             String pass = "";
-            String url = "jdbc:mysql://localhost:3306/sacco";
+            String url = "jdbc:mysql://localhost:3306/sacco?zeroDateTimeBehavior=CONVERT_TO_NULL";
             
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
@@ -84,9 +94,9 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
         try{
             String user = "root";
             String pass = "";
-            String url = "jdbc:mysql://localhost:3306/sacco";
+            String url = "jdbc:mysql://localhost:3306/sacco?zeroDateTimeBehavior=CONVERT_TO_NULL";
             
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
@@ -125,7 +135,7 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
                 amount.setText(list.get(i).getAmount());
                 mortage.setText(list.get(i).getMortage());
                 duration.setText(list.get(i).getDuration());
-                deo.setDateFormatString(list.get(i).getDEO());
+                deo.setText(list.get(i).getDEO());
                 
                 
                 row[0] = list.get(i).getLoanNo();
@@ -163,7 +173,6 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
         print = new javax.swing.JButton();
         update = new javax.swing.JButton();
         delete = new javax.swing.JButton();
-        deo = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -175,6 +184,10 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
         amount = new javax.swing.JTextField();
         mortage = new javax.swing.JTextField();
         duration = new javax.swing.JTextField();
+        dd = new javax.swing.JComboBox<>();
+        mm = new javax.swing.JComboBox<>();
+        yy = new javax.swing.JComboBox<>();
+        deo = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -260,11 +273,17 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
 
         jLabel1.setText("LoanNo:");
 
+        dd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        mm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        yy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -280,7 +299,7 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
                             .addComponent(amount))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
@@ -300,15 +319,21 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(print, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(2, 2, 2)))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(deo, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
-                    .addComponent(duration)
-                    .addComponent(mortage))
+                    .addComponent(duration, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+                    .addComponent(mortage)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(dd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(mm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(yy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(deo))
                 .addGap(62, 62, 62))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 874, Short.MAX_VALUE))
@@ -316,7 +341,7 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(342, Short.MAX_VALUE)
+                .addContainerGap(340, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(input_search, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -339,9 +364,12 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
                             .addComponent(duration, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(deo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(dd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(yy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -354,7 +382,8 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(42, 42, 42))
+                .addComponent(deo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -372,7 +401,7 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
             "Amount:    "+ amount.getText() + "\n\n"+
             "Mortage:   "+ mortage.getText()+ "\n\n"+
             "Duration:  "+ duration.getText() + "\n\n" +
-            "DEO:       "+ deo.getDate());
+            "DEO:       "+ deo.getText());
     }//GEN-LAST:event_viewActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
@@ -380,18 +409,20 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
         try{
             String user = "root";
             String pass = "";
-            String url = "jdbc:mysql://localhost:3306/sacco";
+            String url = "jdbc:mysql://localhost:3306/sacco?zeroDateTimeBehavior=CONVERT_TO_NULL";
             
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             
             Connection conn = DriverManager.getConnection(url, user, pass);
+            
+            String date = "'"+dd.getSelectedItem()+"' '"+mm.getSelectedItem()+"', '"+yy.getSelectedItem()+"'";
             
             int row = jTable_loan.getSelectedRow();
             String value = (jTable_loan.getModel().getValueAt(row, 0).toString());
             String query1 = "UPDATE loans SET LoanNo='"+loanno.getText()+
                     "', Name='"+name.getText()+"', Amount='"+amount.getText()+
                     "', Mortage='"+mortage.getText()+"', Duration='"+duration.getText()+
-                    "', DEO='"+deo.getDate()+"'WHERE LoanNo='"+ value+"'";
+                    "', DEO='"+date+"'WHERE LoanNo='"+ value+"'";
             PreparedStatement pst = conn.prepareStatement(query1);
             pst.execute();
             
@@ -406,7 +437,10 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
             mortage.setText("");
             amount.setText("");
             duration.setText("");
-            deo.setDateFormatString("");
+            deo.setText("");
+            dd.setSelectedItem(" ");
+            mm.setSelectedItem(" ");
+            yy.setSelectedItem(" ");
             
             dispose();
             
@@ -427,7 +461,10 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
         amount.setText("");
         mortage.setText("");
         duration.setText("");
-        deo.setDateFormatString("");
+        deo.setText("");
+        dd.setSelectedItem(" ");
+        mm.setSelectedItem(" ");
+        yy.setSelectedItem(" ");
         
     }//GEN-LAST:event_clearActionPerformed
 
@@ -442,7 +479,7 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
         amount.setText(model.getValueAt(row, 2).toString());
         mortage.setText(model.getValueAt(row, 3).toString());
         duration.setText(model.getValueAt(row, 4).toString());
-        deo.setDateFormatString(model.getValueAt(row, 5).toString());
+        deo.setText(model.getValueAt(row, 5).toString());
         
     }//GEN-LAST:event_jTable_loanMouseClicked
 
@@ -455,9 +492,9 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
         try{
             String user = "root";
             String pass = "";
-            String url = "jdbc:mysql://localhost:3306/sacco";
+            String url = "jdbc:mysql://localhost:3306/sacco?zeroDateTimeBehavior=CONVERT_TO_NULL";
             
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
@@ -478,7 +515,10 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
                 mortage.setText("");
                 amount.setText("");
                 duration.setText("");
-                deo.setDateFormatString("");
+                deo.setText("");
+                dd.setSelectedItem(" ");
+                mm.setSelectedItem(" ");
+                yy.setSelectedItem(" ");
             dispose();
         }
         catch(HeadlessException | SQLException e){
@@ -507,8 +547,9 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField amount;
     private javax.swing.JButton clear;
+    private javax.swing.JComboBox<String> dd;
     private javax.swing.JButton delete;
-    private com.toedter.calendar.JDateChooser deo;
+    private javax.swing.JTextField deo;
     private javax.swing.JTextField duration;
     private javax.swing.JTextField input_search;
     private javax.swing.JLabel jLabel1;
@@ -521,11 +562,13 @@ public class loan_table_internal extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable_loan;
     private javax.swing.JTextField loanno;
+    private javax.swing.JComboBox<String> mm;
     private javax.swing.JTextField mortage;
     private javax.swing.JTextField name;
     private javax.swing.JButton print;
     private javax.swing.JButton search;
     private javax.swing.JButton update;
     private javax.swing.JButton view;
+    private javax.swing.JComboBox<String> yy;
     // End of variables declaration//GEN-END:variables
 }

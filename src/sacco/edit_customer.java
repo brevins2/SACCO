@@ -20,6 +20,16 @@ public class edit_customer extends javax.swing.JFrame {
         
         customer = new ArrayList<Customer>();
         
+        dd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+            "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29",
+            "30", "31" }));
+        
+        mm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+            "Aug", "Sept", "Oct", "Nov", "Dec" }));
+        
+        yy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2024", "2025", "2026", "2027", "2028",
+            "2029", "2030", "2031", "2032", "2033" }));
+        
         CustomerSelect();
     }
 
@@ -28,9 +38,9 @@ public class edit_customer extends javax.swing.JFrame {
         try{
             String user = "root";
             String pass = "";
-            String url = "jdbc:mysql://localhost:3306/sacco";
+            String url = "jdbc:mysql://localhost:3306/sacco?zeroDateTimeBehavior=CONVERT_TO_NULL";
             
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             
             Connection conn = DriverManager.getConnection(url, user, pass);
 
@@ -76,7 +86,9 @@ public class edit_customer extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
         Delete = new javax.swing.JButton();
-        input_date_of_entrance = new com.toedter.calendar.JDateChooser();
+        dd = new javax.swing.JComboBox<>();
+        mm = new javax.swing.JComboBox<>();
+        yy = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Edit Customer");
@@ -185,6 +197,12 @@ public class edit_customer extends javax.swing.JFrame {
         Delete.setText("Delete");
         Delete.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        dd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        mm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        yy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -206,7 +224,7 @@ public class edit_customer extends javax.swing.JFrame {
                                     .addComponent(location)
                                     .addComponent(duration, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(amount_due, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                                        .addComponent(amount_due, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, Short.MAX_VALUE)
                                         .addComponent(name, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGap(24, 24, 24))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -221,9 +239,15 @@ public class edit_customer extends javax.swing.JFrame {
                             .addComponent(input_name)
                             .addComponent(input_location)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(input_date_of_entrance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(dd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(mm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(28, 28, 28)
+                                        .addComponent(yy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(46, 46, 46))
         );
         jPanel1Layout.setVerticalGroup(
@@ -250,13 +274,13 @@ public class edit_customer extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(input_duration, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(duration))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(input_date_of_entrance, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(date_of_entry)))
-                .addGap(18, 18, 18)
+                .addGap(23, 23, 23)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(date_of_entry)
+                    .addComponent(dd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(input_no, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(date_of_entry1))
@@ -286,17 +310,18 @@ public class edit_customer extends javax.swing.JFrame {
         try{
             String user = "root";
             String pass = "";
-            String url = "jdbc:mysql://localhost:3306/sacco";
+            String url = "jdbc:mysql://localhost:3306/sacco?zeroDateTimeBehavior=CONVERT_TO_NULL";
             
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             
             Connection conn = DriverManager.getConnection(url, user, pass);
+            String date = "'"+dd.getSelectedItem()+"' '"+mm.getSelectedItem()+"', '"+yy.getSelectedItem()+"'";
             
             if(!input_no.getText().isEmpty()||!input_name.getText().isEmpty()||!input_location.getText().isEmpty()||
-                    !input_amount.getText().isEmpty()||!input_duration.getText().isEmpty()||!input_date_of_entrance.getDate().toString().isEmpty()){
+                    !input_amount.getText().isEmpty()||!input_duration.getText().isEmpty()){
                 String query1 = "UPDATE customer SET CUSTNo= '"+input_no.getText()+"', Name= '"+input_name.getText()+
                         "', Location= '"+input_location.getText()+"', Amount='"+input_amount.getText()+
-                        "', Duration= '"+input_duration.getText()+"', Date_of_entrance='"+input_date_of_entrance.getDate()+
+                        "', Duration= '"+input_duration.getText()+"', Date_of_entrance='"+date+
                         "'WHERE CUSTNo= '"+ input_no.getText()+"'";
                 PreparedStatement pst = conn.prepareStatement(query1);
 
@@ -309,7 +334,9 @@ public class edit_customer extends javax.swing.JFrame {
                 input_location.setText("");
                 input_amount.setText("");
                 input_duration.setText("");
-                input_date_of_entrance.setDateFormatString("");
+                dd.setSelectedItem(" ");
+                mm.setSelectedItem(" ");
+                yy.setSelectedItem(" ");
                     
                 dispose();
                 
@@ -328,14 +355,14 @@ public class edit_customer extends javax.swing.JFrame {
         try{
             String user = "root";
             String pass = "";
-            String url = "jdbc:mysql://localhost:3306/sacco";
+            String url = "jdbc:mysql://localhost:3306/sacco?zeroDateTimeBehavior=CONVERT_TO_NULL";
             
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             
             if(!input_no.getText().isEmpty()||!input_name.getText().isEmpty()||!input_location.getText().isEmpty()||
-                    !input_amount.getText().isEmpty()||!input_duration.getText().isEmpty()||!input_date_of_entrance.getDate().toString().isEmpty())
+                    !input_amount.getText().isEmpty()||!input_duration.getText().isEmpty())
             {
                 String value = (String) jComboBox1.getSelectedItem();
                 String query1 = "DELETE FROM customer WHERE CUSTNo = '"+value+"'";
@@ -349,7 +376,9 @@ public class edit_customer extends javax.swing.JFrame {
                     input_location.setText("");
                     input_amount.setText("");
                     input_duration.setText("");
-                    input_date_of_entrance.setDateFormatString("");
+                    dd.setSelectedItem(" ");
+                    mm.setSelectedItem("");
+                    yy.setSelectedItem(" ");
                     dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Empty field");
@@ -368,9 +397,9 @@ public class edit_customer extends javax.swing.JFrame {
         try{
             String user = "root";
             String pass = "";
-            String url = "jdbc:mysql://localhost:3306/sacco";
+            String url = "jdbc:mysql://localhost:3306/sacco?zeroDateTimeBehavior=CONVERT_TO_NULL";
             
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             
             Connection conn = DriverManager.getConnection(url, user, pass);
             String selectedItem = (String) jComboBox1.getSelectedItem();
@@ -393,7 +422,6 @@ public class edit_customer extends javax.swing.JFrame {
                 input_location.setText(locate);
                 input_amount.setText(amount);
                 input_duration.setText(time);
-                input_date_of_entrance.setDateFormatString(deo);
             }            
         }catch(SQLException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -461,9 +489,9 @@ public class edit_customer extends javax.swing.JFrame {
     private javax.swing.JLabel amount_due;
     private javax.swing.JLabel date_of_entry;
     private javax.swing.JLabel date_of_entry1;
+    private javax.swing.JComboBox<String> dd;
     private javax.swing.JLabel duration;
     private javax.swing.JTextField input_amount;
-    private com.toedter.calendar.JDateChooser input_date_of_entrance;
     private javax.swing.JTextField input_duration;
     private javax.swing.JTextField input_location;
     private javax.swing.JTextField input_name;
@@ -475,8 +503,10 @@ public class edit_customer extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel location;
+    private javax.swing.JComboBox<String> mm;
     private javax.swing.JLabel name;
     private javax.swing.JLabel title;
     private javax.swing.JButton update;
+    private javax.swing.JComboBox<String> yy;
     // End of variables declaration//GEN-END:variables
 }
